@@ -31,7 +31,7 @@
                 <p>price: $9.99</p>
             </div>
 
-            
+
 
             <div class="home-page-more-details">
                 <div>
@@ -48,10 +48,68 @@
 
         <section class="catalog">
             <!-- Filtros sencillos para los juegos. -->
+            <div class="filtros">
+                <h1>Filtros</h1>
+                <div class="grupo_de_filtros">
+                    <h3>Plataforma</h3>
+                    <label><input type="checkbox" checked>PC / Windows</label>
+                </div>
+                <hr>
+                <div class="grupo_de_filtros">
+                    <h3>Género</h3>
+                    <label><input type="checkbox">Aventura</label>
+                    <br>
+                    <label><input type="checkbox">Carreras</label>
+                    <br>
+                    <label><input type="checkbox">Estrategia</label>
+                    <br>
+                    <label><input type="checkbox">Acción</label>
+                    <br>
+                    <label><input type="checkbox">Puzles</label>
+                </div>
+                <hr>
+                
+                <div class="progress-bar">
+                    <h3>Precio</h3>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="priceRange">
+                    <p>0 - 50 $</p>
+                    <br>
+                    <label><input type="checkbox">Con DLC</label>
+                </div>
+                <br>
+                <div class="grupo_de_filtros">
+                   <h5><label><input type="checkbox">Limpiar filtros</label></h5>
+                </div>
+                    
+
+            </div>
         </section>
 
         <section class="products">
             <!-- Tarjetas de productos con imagen, precio y DLC. -->
+             <div>
+                <div class="product-card">
+                    <img src="Features/Catalog/images/game1.jpg" alt="Juego 1">
+                    <h3>Nombre del juego 1</h3>
+                    <p>Precio: $9.99</p>
+                    <p>DLC disponible</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="Features/Catalog/images/game2.jpg" alt="Juego 2">
+                    <h3>Nombre del juego 2</h3>
+                    <p>Precio: $19.99</p>
+                    <p>DLC disponible</p>
+                </div>
+
+                <div class="product-card">
+                    <img src="Features/Catalog/images/game3.jpg" alt="Juego 3">
+                    <h3>Nombre del juego 3</h3>
+                    <p>Precio: $29.99</p>
+                    <p>DLC disponible</p>
+                </div>
+
+                <!-- Agrega más tarjetas de productos según sea necesario -->
         </section>
     </main>
 
