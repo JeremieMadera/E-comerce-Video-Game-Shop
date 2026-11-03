@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
     --home-ink: #12102a;
@@ -8,215 +8,281 @@
     --home-muted: #b7abdf;
 }
 
+/* Home Page Base: la foto cubre toda el área incluyendo por detrás de los beneficios */
 .home-page {
     position: relative;
-    min-height: 720px;
+    width: 100%;
+    color: var(--home-light);
+    font-family: "Press Start 2P", monospace;
     overflow: hidden;
     isolation: isolate;
-    color: var(--home-light);
     background:
-        linear-gradient(90deg, rgba(18, 16, 42, 0.92) 0%, rgba(18, 16, 42, 0.72) 42%, rgba(18, 16, 42, 0.18) 78%),
-        url("./images/hollow knight.jpg")
-        center / 100% 100% no-repeat,
-        linear-gradient(115deg, #12102a 0%, #201b3c 48%, #12102a 100%);
+        linear-gradient(90deg, rgba(18, 16, 42, 0.92) 0%, rgba(18, 16, 42, 0.72) 42%, rgba(18, 16, 42, 0.25) 78%),
+        url("./images/hollow knight.jpg") center / cover no-repeat,
+        linear-gradient(115deg, var(--home-ink) 0%, var(--home-surface) 48%, var(--home-ink) 100%);
 }
 
-.home-page::before {
-    display: none;
-}
-
+/* Arco decorativo retro de horizonte */
 .home-page::after {
     position: absolute;
-    z-index: -1;
-    right: -12%;
-    bottom: 86px;
-    width: 70%;
-    height: 310px;
+    z-index: 1;
+    right: -10%;
+    bottom: 90px;
+    width: 65%;
+    height: 300px;
     content: "";
-    opacity: 0.85;
-    border: 2px solid rgba(183, 171, 223, 0.32);
+    opacity: 0.5;
+    border: 2px solid rgba(183, 171, 223, 0.3);
     border-radius: 50% 50% 0 0;
-    transform: rotate(-7deg);
-    box-shadow: 0 -18px 0 rgba(183, 171, 223, 0.08), 0 -36px 0 rgba(183, 171, 223, 0.06);
+    transform: rotate(-6deg);
+    box-shadow: 0 -18px 0 rgba(183, 171, 223, 0.06), 0 -36px 0 rgba(183, 171, 223, 0.04);
+    pointer-events: none;
 }
 
+/* Contenedor Hero Desktop */
+.home-page-hero-main {
+    position: relative;
+    z-index: 2;
+    min-height: 540px;
+    padding: 64px 64px 70px;
+    box-sizing: border-box;
+}
+
+/* Badge PLAYER ONE (Esquina superior derecha) */
+.home-page-player-one {
+    position: absolute;
+    top: 48px;
+    right: 64px;
+    z-index: 5;
+}
+
+.home-page-player-one-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    color: var(--home-lime);
+    background: rgba(18, 16, 42, 0.75);
+    border: 2px solid var(--home-lime);
+    box-shadow: 0 0 14px rgba(213, 255, 82, 0.25);
+    font: 9px/1.5 "Press Start 2P", monospace;
+    letter-spacing: 0.06em;
+}
+
+/* Contenido Principal */
 .home-page-content {
     max-width: 760px;
-    padding: 92px 7vw 112px;
 }
 
+/* Etiqueta / Eyebrow: Selección independiente / 2026 */
 .home-page-eyebrow {
+    display: inline-block;
     width: max-content;
-    margin: 0 0 34px;
-    padding: 8px 12px;
-    color: var(--home-light);
-    border: 1px solid var(--home-muted);
+    margin: 0 0 24px;
+    padding: 8px 14px;
+    color: var(--home-muted);
+    background: rgba(32, 27, 60, 0.65);
+    border: 2px solid var(--home-muted);
     font: 8px/1.5 "Press Start 2P", monospace;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
+/* Título */
 .home-page-title {
-    max-width: 700px;
-    margin: 0 0 34px;
+    max-width: 720px;
+    margin: 0 0 24px;
     color: var(--home-light);
-    font: clamp(24px, 4vw, 48px)/1.45 "Press Start 2P", monospace;
-    letter-spacing: 0.03em;
-    text-transform: lowercase;
+    font: clamp(20px, 3vw, 36px)/1.5 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
+/* Descripción */
 .home-page-description {
     max-width: 640px;
-    margin: 0 0 30px;
+    margin: 0 0 32px;
     color: var(--home-muted);
-    font: 11px/2 "Press Start 2P", monospace;
+    font: 9px/2 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
+/* Acciones / Botones tipo consola */
 .home-page-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0 12px;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
 .home-page-button {
     min-width: 220px;
-    margin: 0 0 30px;
-    padding: 14px 18px;
+    padding: 14px 20px;
     color: var(--home-light);
     border: 2px solid var(--home-muted);
     background: var(--home-surface);
     box-shadow: 0 4px 0 rgba(183, 171, 223, 0.45);
     cursor: pointer;
     font: 10px/1.5 "Press Start 2P", monospace;
-    transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+    border-radius: 0;
 }
 
 .home-page-button-primary {
     color: var(--home-ink);
     border-color: var(--home-lime);
     background: var(--home-lime);
+    box-shadow: 0 4px 0 rgba(160, 200, 40, 0.7);
 }
 
 .home-page-button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(183, 171, 223, 0.6);
 }
 
-.home-page-button:focus-visible {
-    outline: 3px solid var(--home-light);
-    outline-offset: 3px;
+
+.home-page-button-primary:hover {
+    box-shadow: 0 6px 0 rgba(160, 200, 40, 0.9);
 }
 
+.home-page-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(183, 171, 223, 0.45);
+}
+
+.home-page-button-primary:active {
+    box-shadow: 0 2px 0 rgba(160, 200, 40, 0.7);
+}
+
+/* Meta información */
 .home-page-meta {
     margin: 0;
     color: var(--home-muted);
     font: 8px/1.8 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
+/* Tarjeta Destacada ASTRA (Esquina inferior derecha) */
 .home-page-featured-game {
     position: absolute;
-    right: 7vw;
-    bottom: 120px;
-    z-index: 1;
-    margin: 0;
-}
-
-.home-page-featured-name,
-.home-page-featured-tagline,
-.home-page-featured-price {
-    margin: 0;
+    right: 64px;
+    bottom: 50px;
+    z-index: 5;
+    text-align: left;
 }
 
 .home-page-featured-name {
     color: var(--home-light);
-    font: 18px/1.4 "Press Start 2P", monospace;
+    font: 20px/1.4 "Press Start 2P", monospace;
     text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
 }
 
 .home-page-featured-tagline {
-    margin: 8px 0 2px;
-    color: var(--home-light);
-    font: 8px/1.5 "Press Start 2P", monospace;
+    margin: 8px 0 4px;
+    color: var(--home-muted);
+    font: 8px/1.6 "Press Start 2P", monospace;
 }
 
 .home-page-featured-price {
+    margin: 0;
     color: var(--home-lime);
-    font: 12px/1.5 "Press Start 2P", monospace;
+    font: 14px/1.5 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
+/* Barra inferior de beneficios (sólida, sin transparencia) */
 .home-page-more-details {
     position: relative;
-    z-index: 2;
-    border-top: 1px solid rgba(183, 171, 223, 0.5);
-    background: #201b3c;
+    z-index: 10;
+    border-top: 2px solid rgba(183, 171, 223, 0.35);
+    background: var(--home-surface);
 }
 
 .home-page-benefits {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    max-width: 1280px;
-    width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 30px 7vw;
+    padding: 32px 64px;
+    box-sizing: border-box;
 }
 
 .home-page-benefit {
-    padding: 0 24px 8px 44px;
-    border-left: 1px solid var(--home-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 4px 32px;
+    border-left: 2px solid rgba(183, 171, 223, 0.25);
 }
 
 .home-page-benefit:first-child {
     border-left: 0;
+    padding-left: 0;
+}
+
+.home-page-benefit:last-child {
+    padding-right: 0;
+}
+
+.home-page-benefit-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--home-lime);
+    margin-top: 2px;
+}
+
+.home-page-benefit-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .home-page-benefit-title {
     margin: 0 0 8px;
     color: var(--home-light);
     font: 10px/1.6 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
 .home-page-benefit-description {
     margin: 0;
     color: var(--home-muted);
     font: 8px/1.8 "Press Start 2P", monospace;
+    letter-spacing: 0.02em;
 }
 
-@media (max-width: 800px) {
-    .home-page {
-        min-height: 0;
+
+/* Responsividad según guía (Móvil 390px, márgenes de 20px) */
+@media (max-width: 900px) {
+    .home-page-hero-main {
+        padding: 48px 20px 56px;
     }
 
-    .home-page-content {
-        padding: 56px 20px 72px;
-    }
 
-    .home-page-eyebrow {
-        margin-bottom: 26px;
-        font-size: 8px;
-    }
-
-    .home-page-title {
-        font-size: clamp(24px, 8vw, 42px);
+    .home-page-player-one {
+        position: static;
+        margin-bottom: 24px;
     }
 
     .home-page-featured-game {
         position: static;
-        margin-top: 8px;
+        margin-top: 32px;
     }
 
     .home-page-benefits {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 24px;
         padding: 24px 20px;
     }
 
     .home-page-benefit {
-        padding-left: 18px;
-        border-left: 1px solid var(--home-muted);
+        border-left: 0;
+        padding: 0;
     }
-
-    .home-page-benefit:first-child {
-        border-left: 1px solid var(--home-muted);
-    }
-
 }
