@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+
+:root {
+    --home-ink: #12102a;
+    --home-surface: #201b3c;
+    --home-lime: #d5ff52;
+    --home-light: #f4f4ee;
+    --home-muted: #b7abdf;
+}
+
+.home-page {
+    position: relative;
+    min-height: 720px;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--home-light);
+    background:
+        linear-gradient(90deg, rgba(18, 16, 42, 0.92) 0%, rgba(18, 16, 42, 0.72) 42%, rgba(18, 16, 42, 0.18) 78%),
+        url("./images/hollow knight.jpg")
+        center / 100% 100% no-repeat,
+        linear-gradient(115deg, #12102a 0%, #201b3c 48%, #12102a 100%);
+}
+
+.home-page::before {
+    display: none;
+}
+
+.home-page::after {
+    position: absolute;
+    z-index: -1;
+    right: -12%;
+    bottom: 86px;
+    width: 70%;
+    height: 310px;
+    content: "";
+    opacity: 0.85;
+    border: 2px solid rgba(183, 171, 223, 0.32);
+    border-radius: 50% 50% 0 0;
+    transform: rotate(-7deg);
+    box-shadow: 0 -18px 0 rgba(183, 171, 223, 0.08), 0 -36px 0 rgba(183, 171, 223, 0.06);
+}
+
+.home-page-content {
+    max-width: 760px;
+    padding: 92px 7vw 112px;
+}
+
+.home-page-eyebrow {
+    width: max-content;
+    margin: 0 0 34px;
+    padding: 8px 12px;
+    color: var(--home-light);
+    border: 1px solid var(--home-muted);
+    font: 8px/1.5 "Press Start 2P", monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.home-page-title {
+    max-width: 700px;
+    margin: 0 0 34px;
+    color: var(--home-light);
+    font: clamp(24px, 4vw, 48px)/1.45 "Press Start 2P", monospace;
+    letter-spacing: 0.03em;
+    text-transform: lowercase;
+}
+
+.home-page-description {
+    max-width: 640px;
+    margin: 0 0 30px;
+    color: var(--home-muted);
+    font: 11px/2 "Press Start 2P", monospace;
+}
+
+.home-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+}
+
+.home-page-button {
+    min-width: 220px;
+    margin: 0 0 30px;
+    padding: 14px 18px;
+    color: var(--home-light);
+    border: 2px solid var(--home-muted);
+    background: var(--home-surface);
+    box-shadow: 0 4px 0 rgba(183, 171, 223, 0.45);
+    cursor: pointer;
+    font: 10px/1.5 "Press Start 2P", monospace;
+    transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.home-page-button-primary {
+    color: var(--home-ink);
+    border-color: var(--home-lime);
+    background: var(--home-lime);
+}
+
+.home-page-button:hover {
+    transform: translateY(-3px);
+}
+
+.home-page-button:focus-visible {
+    outline: 3px solid var(--home-light);
+    outline-offset: 3px;
+}
+
+.home-page-meta {
+    margin: 0;
+    color: var(--home-muted);
+    font: 8px/1.8 "Press Start 2P", monospace;
+}
+
+.home-page-featured-game {
+    position: absolute;
+    right: 7vw;
+    bottom: 120px;
+    z-index: 1;
+    margin: 0;
+}
+
+.home-page-featured-name,
+.home-page-featured-tagline,
+.home-page-featured-price {
+    margin: 0;
+}
+
+.home-page-featured-name {
+    color: var(--home-light);
+    font: 18px/1.4 "Press Start 2P", monospace;
+    text-transform: uppercase;
+}
+
+.home-page-featured-tagline {
+    margin: 8px 0 2px;
+    color: var(--home-light);
+    font: 8px/1.5 "Press Start 2P", monospace;
+}
+
+.home-page-featured-price {
+    color: var(--home-lime);
+    font: 12px/1.5 "Press Start 2P", monospace;
+}
+
+.home-page-more-details {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(183, 171, 223, 0.5);
+    background: #201b3c;
+}
+
+.home-page-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 7vw;
+}
+
+.home-page-benefit {
+    padding: 0 24px 8px 44px;
+    border-left: 1px solid var(--home-muted);
+}
+
+.home-page-benefit:first-child {
+    border-left: 0;
+}
+
+.home-page-benefit-title {
+    margin: 0 0 8px;
+    color: var(--home-light);
+    font: 10px/1.6 "Press Start 2P", monospace;
+}
+
+.home-page-benefit-description {
+    margin: 0;
+    color: var(--home-muted);
+    font: 8px/1.8 "Press Start 2P", monospace;
+}
+
+@media (max-width: 800px) {
+    .home-page {
+        min-height: 0;
+    }
+
+    .home-page-content {
+        padding: 56px 20px 72px;
+    }
+
+    .home-page-eyebrow {
+        margin-bottom: 26px;
+        font-size: 8px;
+    }
+
+    .home-page-title {
+        font-size: clamp(24px, 8vw, 42px);
+    }
+
+    .home-page-featured-game {
+        position: static;
+        margin-top: 8px;
+    }
+
+    .home-page-benefits {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 24px 20px;
+    }
+
+    .home-page-benefit {
+        padding-left: 18px;
+        border-left: 1px solid var(--home-muted);
+    }
+
+    .home-page-benefit:first-child {
+        border-left: 1px solid var(--home-muted);
+    }
+
+}
