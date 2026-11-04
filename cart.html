@@ -1,11 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carrito</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Contenido de la página del carrito. -->
-</body>
+    <!-- CONTENEDOR PRINCIPAL (Estructura de dos columnas) -->
+    <main class="cart-container">
+      <!-- COLUMNA IZQUIERDA: Listado Dinámico de Productos -->
+      <section class="cart-main">
+        <h1 class="cart-title">Tu próxima partida.</h1>
+
+        <!-- El subtítulo cambiará dinámicamente con JS (ej: "3 artículos • 2 juegos...") -->
+        <p id="cart-dynamic-subtitle" class="cart-subtitle">
+          Cargando productos...
+        </p>
+
+        <!-- CONTENEDOR TOTALMENTE VACÍO: Aquí JavaScript inyectará las tarjetas de los juegos -->
+        <div id="cart-items-container" class="cart-items-list"></div>
+
+        <!-- Avisos y navegación de la sección izquierda -->
+        <p class="cart-notice">
+          Si eliminas un juego base, también se retirará su DLC asociado.
+          Siempre podrás revisar el cambio antes de continuar.
+        </p>
+        <a href="#catalogo" class="btn-secondary">Seguir explorando →</a>
+      </section>
+
+      <!-- COLUMNA DERECHA: Resumen de Totales Dinámicos -->
+      <aside class="cart-summary">
+        <h2 class="summary-title">Tu resumen</h2>
+
+        <div class="summary-row">
+          <span class="row-label">Juegos</span>
+          <span id="summary-games-price" class="row-value">0,00 €</span>
+        </div>
+        <div class="summary-row">
+          <span class="row-label">DLC</span>
+          <span id="summary-dlc-price" class="row-value">0,00 €</span>
+        </div>
+
+        <hr class="summary-divider" />
+
+        <div class="summary-row">
+          <span class="row-label">Subtotal</span>
+          <span id="summary-subtotal" class="row-value">0,00 €</span>
+        </div>
+        <div class="summary-row">
+          <span class="row-label">Descuentos</span>
+          <span id="summary-discounts" class="row-value">0,00 €</span>
+        </div>
+        <div class="summary-row">
+          <span class="row-label">Envío digital</span>
+          <span class="row-value delivery-free">Gratis</span>
+        </div>
+
+        <hr class="summary-divider" />
+
+        <div class="summary-total">
+          <span class="total-label">Total</span>
+          <span id="summary-total-price" class="total-value">0,00 €</span>
+        </div>
+
+        <!-- Botón para procesar el pago -->
+        <button type="button" id="btn-checkout" class="btn-primary-checkout">
+          Continuar al pago →
+        </button>
+
+        <!-- Bloque informativo de seguridad y métodos -->
+        <div class="secure-badge">
+          <span class="lock-icon"></span> Pago cifrado y protegido
+        </div>
+        <p class="payment-methods">VISA - Mastercard - PayPal</p>
+
+        <p class="delivery-notice">
+          Recibirás tus claves en el correo de tu cuenta al confirmar el pago.
+        </p>
+      </aside>
+    </main>
+  </body>
 </html>
