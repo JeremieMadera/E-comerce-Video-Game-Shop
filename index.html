@@ -3,226 +3,208 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Shop</title>
+    <title>NEXO PLAY - Tienda de Videojuegos Indie</title>
 
     <link rel="stylesheet" href="main.css" />
     <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
     <link rel="stylesheet" href="Features/HomePage/home-page.css" />
     <link rel="stylesheet" href="Features/Catalog/catalog.css" />
-    <link rel="stylesheet" href="Features/Footer/footer.css" />
   </head>
 
-<body>
-    <header>
-        <nav class="nav-bar">
-            <!-- primera fila  -->
-            <div class="nav-top">
-
-                <div class="logo">
-                    <h2>NEXO PLAY</h2>
-                </div>
-
-            <div class="search bar">
-                 <input
-                    type="text"
-                    placeholder="busca tu proxima aventura"
-                 >
-             </div>
-
-             <div class="nav-account">
-                  <span></span>
-                  <a href="#">Mi cuenta </a>
-             </div>
-             <div class="shopping car">
-                  <span> </span>
-                  <span class="car-acount">3</span>
-
-              </div>
-            
-            </div>
-
-            <!-- segund fila -->
-            <div class="nav-bottom">
-
-                <div class="nav-links">
-                     <a href="#" >Inicio</a>
-                     <a href="#" >Catalogo</a>  
-                     <a href="#" >Novedades</a>   
-                     <a href="#" >ofertas</a>
-                </div>
-               <p>Juegos independientes. Mundos extraordinarios </p>
-
-            </div>
-
-            
-        </nav>
-    </header>
+  <body class="home-page-body">
+    <div id="header-container"></div>
 
     <main>
-        <section class="home-page">
-                    <div class="home-page-hero-main">
-                        <div class="home-page-player-one">
-                            <span class="home-page-player-one-badge">&#9654; PLAYER ONE</span>
-                        </div>
+      <!-- SECCIÓN HERO: Portada principal y beneficios -->
+      <section class="home-page">
+        <div class="home-page-hero-main">
+          <div class="home-page-player-one">
+            <span class="home-page-player-one-badge">&#9654; PLAYER ONE</span>
+          </div>
 
-                        <div class="home-page-content">
-                            <p class="home-page-eyebrow">Selección independiente / 2026</p>
-                            <h1 class="home-page-title">Tu próxima aventura empieza aquí.</h1>
-                            <p class="home-page-description">Historias que se quedan contigo. Descubre juegos
-                                independientes para PC, elegidos por quienes aman jugar.</p>
-                            <div class="home-page-actions">
-                                <button class="home-page-button home-page-button-primary">Explorar catálogo
-                                    &rarr;</button>
-                                <button class="home-page-button">Descubrir ASTRA &rarr;</button>
-                            </div>
-                            <p class="home-page-meta">6 mundos por descubrir · Desde 14,99 € · Descarga digital</p>
-                        </div>
-
-                        <div class="home-page-featured-game">
-                            <p class="home-page-featured-name">ASTRA</p>
-                            <p class="home-page-featured-tagline">Ecos del vacío</p>
-                            <p class="home-page-featured-price">39,99 €</p>
-                        </div>
-                    </div>
-
-                    <div class="home-page-more-details">
-                        <div class="home-page-benefits">
-                            <article class="home-page-benefit">
-                                <div class="home-page-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                    </svg>
-                                </div>
-                                <div class="home-page-benefit-text">
-                                    <h3 class="home-page-benefit-title">Juega al instante</h3>
-                                    <p class="home-page-benefit-description">Clave digital en tu correo, sin esperas.
-                                    </p>
-                                </div>
-                            </article>
-                            <article class="home-page-benefit">
-                                <div class="home-page-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                        <path d="m9 12 2 2 4-4" />
-                                    </svg>
-                                </div>
-                                <div class="home-page-benefit-text">
-                                    <h3 class="home-page-benefit-title">Compra con confianza</h3>
-                                    <p class="home-page-benefit-description">Pago seguro y precios con IVA incluido.</p>
-                                </div>
-                            </article>
-                            <article class="home-page-benefit">
-                                <div class="home-page-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path
-                                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                                    </svg>
-                                </div>
-                                <div class="home-page-benefit-text">
-                                    <h3 class="home-page-benefit-title">Apoya el talento indie</h3>
-                                    <p class="home-page-benefit-description">Cada compra impulsa nuevos mundos.</p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <!-- Foto principal e información importante de la tienda. -->
-        </section>
-
-        <section class="catalog">
-            <!-- Filtros sencillos para los juegos. -->
-            <div class="filtros">
-                <h1>Filtros</h1>
-                <div class="grupo_de_filtros">
-                    <h3>Plataforma</h3>
-                    <label><input type="checkbox" checked>PC / Windows</label>
-                </div>
-                <hr>
-                <div class="grupo_de_filtros">
-                    <h3>Género</h3>
-                    <label><input type="checkbox">Aventura</label>
-                    <br>
-                    <label><input type="checkbox">Carreras</label>
-                    <br>
-                    <label><input type="checkbox">Estrategia</label>
-                    <br>
-                    <label><input type="checkbox">Acción</label>
-                    <br>
-                    <label><input type="checkbox">Puzles</label>
-                </div>
-                <hr>
-
-                <div class="progress-bar">
-                    <h3>Precio</h3>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="priceRange">
-                    <p>0 - 50 $</p>
-                    <br>
-                    <label><input type="checkbox">Con DLC</label>
-                </div>
-                <br>
-                <div class="grupo_de_filtros">
-                    <h5><label><input type="checkbox">Limpiar filtros</label></h5>
-                </div>
-
-
+          <div class="home-page-content">
+            <p class="home-page-eyebrow">SELECCIÓN INDEPENDIENTE / 2026</p>
+            <h1 class="home-page-title">Tu próxima aventura empieza aquí.</h1>
+            <p class="home-page-description">
+              Historias que se quedan contigo. Descubre juegos independientes para PC, elegidos por quienes aman jugar.
+            </p>
+            <div class="home-page-actions">
+              <a href="#catalog" class="home-page-button home-page-button-primary">
+                Explorar catálogo &rarr;
+              </a>
+              <a href="product.html" class="home-page-button">
+                Descubrir ASTRA &rarr;
+              </a>
             </div>
-        </section>
+            <p class="home-page-meta">
+              6 mundos por descubrir · Desde 14,99 € · Descarga digital
+            </p>
+          </div>
 
-        <section class="products">
-            <!-- Tarjetas de productos con imagen, precio y DLC. -->
-            <div>
-                <div class="product-card">
-                    <img src="Features/HomePage/images/hollow knight.jpg" alt="Juego 1">
-                    <h3>Nombre del juego 1</h3>
-                    <p>Precio: $9.99</p>
-                    <p>DLC disponible</p>
-                </div>
+          <div class="home-page-featured-game">
+            <p class="home-page-featured-name">ASTRA</p>
+            <p class="home-page-featured-tagline">Ecos del vacío</p>
+            <p class="home-page-featured-price">39,99 €</p>
+          </div>
+        </div>
 
-                <div class="product-card">
-                    <img src="Features/HomePage/images/hollow knight.jpg" alt="Juego 2">
-                    <h3>Nombre del juego 2</h3>
-                    <p>Precio: $19.99</p>
-                    <p>DLC disponible</p>
-                </div>
+        <div class="home-page-more-details">
+          <div class="home-page-benefits">
+            <article class="home-page-benefit">
+              <div class="home-page-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <div class="home-page-benefit-text">
+                <h3 class="home-page-benefit-title">Juega al instante</h3>
+                <p class="home-page-benefit-description">Clave digital en tu correo, sin esperas.</p>
+              </div>
+            </article>
 
-                <div class="product-card">
-                    <img src="Features/HomePage/images/hollow knight.jpg" alt="Juego 3">
-                    <h3>Nombre del juego 3</h3>
-                    <p>Precio: $29.99</p>
-                    <p>DLC disponible</p>
-                </div>
+            <article class="home-page-benefit">
+              <div class="home-page-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <div class="home-page-benefit-text">
+                <h3 class="home-page-benefit-title">Compra con confianza</h3>
+                <p class="home-page-benefit-description">Pago seguro y precios con IVA incluido.</p>
+              </div>
+            </article>
 
-                <!-- Agrega más tarjetas de productos según sea necesario -->
-                </div>
-        </section>
+            <article class="home-page-benefit">
+              <div class="home-page-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+              </div>
+              <div class="home-page-benefit-text">
+                <h3 class="home-page-benefit-title">Apoya el talento indie</h3>
+                <p class="home-page-benefit-description">Cada compra impulsa nuevos mundos.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN CATÁLOGO: Filtros y listado de 6 juegos -->
+      <section id="catalog" class="catalog-section">
+        <div class="catalog-header">
+          <div class="catalog-header-top">
+            <h2 class="catalog-title">Hechos para explorar.</h2>
+            <span class="catalog-total-count">6 juegos</span>
+          </div>
+          <p class="catalog-subtitle">
+            De viajes tranquilos a desafíos sin pausa. Encuentra tu próxima obsesión.
+          </p>
+        </div>
+
+        <div class="catalog-layout">
+          <!-- Columna Lateral: Filtros -->
+          <aside class="catalog-filters" aria-label="Filtros de catálogo">
+            <form class="filters-form">
+              <div class="filters-heading">
+                <h3 class="filters-title">Filtros</h3>
+                <span class="filters-icon" aria-hidden="true">&#9776;</span>
+              </div>
+
+              <!-- Filtro de Plataforma -->
+              <div class="filter-group">
+                <h4 class="filter-group-title">Plataforma</h4>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="platform" value="pc" checked />
+                  <span>PC / Windows</span>
+                </label>
+              </div>
+
+              <hr class="filter-divider" />
+
+              <!-- Filtro de Género -->
+              <div class="filter-group">
+                <h4 class="filter-group-title">Género</h4>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="aventura" />
+                  <span>Aventura</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="accion" />
+                  <span>Acción</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="carreras" />
+                  <span>Carreras</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="estrategia" />
+                  <span>Estrategia</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="puzles" />
+                  <span>Puzles</span>
+                </label>
+              </div>
+
+              <hr class="filter-divider" />
+
+              <!-- Filtro de Precio -->
+              <div class="filter-group filter-price-group">
+                <h4 class="filter-group-title">Precio</h4>
+                <input
+                  type="range"
+                  min="0"
+                  max="50"
+                  value="50"
+                  class="filter-range-slider"
+                  id="priceRange"
+                  aria-label="Rango de precio máximo"
+                />
+                <div class="filter-price-display">0 € — 50 €</div>
+                <label class="filter-checkbox-label filter-dlc-option">
+                  <input type="checkbox" name="has_dlc" value="true" />
+                  <span>Con DLC</span>
+                </label>
+              </div>
+
+              <div class="filter-actions">
+                <button type="reset" class="btn-clear-filters">Limpiar filtros</button>
+              </div>
+            </form>
+          </aside>
+
+          <!-- Columna Principal: Barra de herramientas y Cuadrícula de juegos -->
+          <div class="catalog-main-content">
+            <div class="catalog-toolbar">
+              <span class="catalog-status-text">Mostrando 6 de 6 juegos</span>
+              <div class="catalog-sort-group">
+                <label for="catalogSort" class="catalog-sort-label">Ordenar:</label>
+                <select id="catalogSort" class="catalog-sort-select">
+                  <option value="featured" selected>Destacados</option>
+                  <option value="price-asc">Precio: menor a mayor</option>
+                  <option value="price-desc">Precio: mayor a menor</option>
+                  <option value="rating">Mejor valorados</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Cuadrícula de juegos inyectada dinámicamente desde memoria -->
+            <div id="catalog-grid" class="catalog-grid">
+              <!-- JavaScript inyecta automáticamente las tarjetas desde PRODUCTS -->
+            </div>
+
+            <p class="catalog-end-notice">
+              Has visto toda la selección. Nuevos mundos llegan cada mes.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer>
-      <!-- Logo, información de la tienda y redes sociales. -->
-      <hr />
-      <h1>NEXO PLAY</h1>
-      <p>Juegos independientes. Mundos extraordinario</p>
-      <a href="https://instagram.com">Instagram</a>
-      <a href="https://discord.com">Discord</a>
-      <a href="https://youtube.com">Youtube</a>
+    <div id="footer-container"></div>
 
-      <h2>Explora</h2>
-      <nav>
-        <a href="index.html">Catálogo</a> - <a href="index.html">Novedades</a> -
-        <a href="index.html"> Sobre NEXO</a> -
-        <a href="index.html">Preguntas frecuentes</a>
-      </nav>
-
-      <h2>Estamos al otro lado</h2>
-      <p>hola@nexoplay.es</p>
-      <p>Lun-vie 9:00-16:00 CET</p>
-      <p>Respuesta en menos de 24hrs</p>
-      <hr />
-      <p>&copy; NEXO PLAY - Catálogo Conceptual</p>
-    </footer>
-
+    <script src="products-data.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
