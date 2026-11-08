@@ -1,9 +1,49 @@
 /**
  * NEXO PLAY - Script global
- * Carga modular de footer.html en los contenedores correspondientes.
+ * Carga modular de header.html y footer.html en los contenedores correspondientes.
  */
 
 (function () {
+  const HEADER_FALLBACK_HTML = `
+<header>
+  <div>
+    <a href="index.html">
+      <h2>NEXO PLAY</h2>
+    </a>
+
+    <form role="search">
+      <label for="site-search">&#128269;</label>
+      <input type="search" id="site-search" name="q" placeholder="Busca tu próxima aventura">
+      <kbd>&#8984; K</kbd>
+    </form>
+
+    <nav aria-label="Acciones de usuario">
+      <a href="account.html">
+        <span>&#128100;</span> Mi cuenta
+      </a>
+      <a href="cart.html" aria-label="Ver carrito">
+        <span>&#128092;</span> <span>3</span>
+      </a>
+    </nav>
+  </div>
+
+  <hr>
+
+  <div>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalog">Catálogo</a>
+      <a href="index.html#novedades">Novedades</a>
+      <a href="index.html#ofertas">Ofertas</a>
+    </nav>
+
+    <p>Juegos independientes. Mundos extraordinarios.</p>
+  </div>
+
+  <hr>
+</header>
+`;
+
   const FOOTER_FALLBACK_HTML = `
 <section>
   <h2>Menos ruido. Más juego.</h2>
@@ -47,6 +87,28 @@
 </footer>
 `;
 
+  function initHeader() {
+    const container =
+      document.getElementById("header-container") ||
+      document.getElementById("header-placeholder") ||
+      document.querySelector("[data-include-header]");
+
+    if (!container) return;
+
+    fetch("header.html")
+      .then((res) => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.text();
+      })
+      .then((html) => {
+        container.innerHTML = html;
+      })
+      .catch((err) => {
+        console.warn("Cargando header local:", err.message);
+        container.innerHTML = HEADER_FALLBACK_HTML;
+      });
+  }
+
   function initFooter() {
     const container =
       document.getElementById("footer-container") ||
@@ -69,9 +131,14 @@
       });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initFooter);
-  } else {
+  function init() {
+    initHeader();
     initFooter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
