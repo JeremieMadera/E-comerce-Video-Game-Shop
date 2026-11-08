@@ -4,90 +4,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>NEXO PLAY - ASTRA: Ecos del vacío</title>
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="Features/Product/product.css">
 </head>
 
-<body>
-    <!-- Contenido de la página de producto. -->
+<body class="product-page-body">
     <div id="header-container"></div>
-    <main>
-        <img src="" alt="Imagen..." width="px">
-        <h2>ASTRA</h2>
-        <h3>Ecos del vacio</h3>
-        <p>Una senal imposible atraviesa el silencio...</p>
 
-        <p>PC / Windows</p>
-        <p>Aventura espacial</p>
-        <p>PEGI 12</p>
-        <p>1 jugador</p>
+    <main class="product-main-container">
+        <!-- Breadcrumbs / Navegación de migas de pan -->
+        <nav class="product-breadcrumbs" aria-label="Miga de pan">
+            <a href="index.html">Inicio</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="index.html#catalog">Catálogo</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">ASTRA</span>
+        </nav>
 
-        <h2>$39.99</h2>
+        <!-- SECCIÓN HERO: Imagen principal y datos del juego -->
+        <section class="product-hero-section">
+            <!-- Columna Izquierda: Imagen y portada -->
+            <div class="product-hero-media">
+                <div class="product-cover-card">
+                    <img src="Features/HomePage/images/hollow knight.jpg" alt="Portada de ASTRA: Ecos del vacío" class="product-cover-img">
+                    <div class="product-cover-caption">
+                        <span class="product-cover-title">ASTRA</span>
+                        <span class="product-cover-edition">Ecos del vacío</span>
+                    </div>
+                </div>
+            </div>
 
-        <button>Añadir al carrito</button>
-        <p>Clave digital al instante - Pago seguro </p>
+            <!-- Columna Derecha: Información, precio y compra -->
+            <div class="product-hero-details">
+                <div class="product-meta-header">
+                    <span class="product-badge-edition">EDICIÓN DIGITAL</span>
+                    <span class="product-rating">
+                        <span class="rating-star" aria-hidden="true">&#9733;</span> 4,9 / 5
+                    </span>
+                </div>
 
-        <section>
-            <h2>Expande tu aventura</h2>
-            <p>Contenido adicional para ASTRA: Ecos del vacio. El juego base se vende por separado.</p>
+                <h1 class="product-title">ASTRA</h1>
+                <p class="product-edition">Ecos del vacío</p>
 
-            
-         <h3>Orbita perdida</h3>
-         <p>Nueva campaña - 5 horas - Requiere ASTRA</p>
-         <p><strong> $12.99</strong></p>
-         <button>Agregar</button>
+                <p class="product-description">
+                    Una señal imposible atraviesa el silencio. Explora lunas olvidadas, descifra una civilización perdida y descubre qué merece volver a casa. Una aventura narrativa para perderte entre las estrellas.
+                </p>
 
-         <h3>Archivo sonoro</h3>
-         <p>Banda sonora digital - 24 pistas - Requiere ASTRA</p>
-         <p><strong> $25.99</strong></p>
-         <button>Agregar</button>
+                <!-- Píldoras de especificaciones del juego -->
+                <div class="product-spec-pills">
+                    <span class="spec-pill">PC / Windows</span>
+                    <span class="spec-pill">Aventura espacial</span>
+                    <span class="spec-pill">PEGI 12</span>
+                    <span class="spec-pill">1 jugador</span>
+                </div>
 
+                <!-- Bloque de precio y botón de compra -->
+                <div class="product-purchase-box">
+                    <div class="product-price-row">
+                        <span class="product-price">39,99 €</span>
+                        <div class="product-price-meta">
+                            <span class="vat-notice">IVA incluido</span>
+                            <span class="stock-status">Disponible ahora</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-primary-buy">
+                        Añadir al carrito &rarr;
+                    </button>
+
+                    <p class="product-delivery-notice">
+                        <span class="sparkle-icon" aria-hidden="true">&#9670;</span>
+                        Clave digital al instante · Pago seguro · Activación en España
+                    </p>
+
+                    <p class="product-languages-info">
+                        Idiomas: español e inglés · Audio: inglés · Compatible con mando
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <h2>Antes de despegar</h2>
-        <p>Requisitos para PC - Windows </p>
+        <!-- SECCIÓN DE CONTENIDO ADICIONAL (DLCs) -->
+        <section class="product-dlc-section">
+            <h2 class="dlc-section-title">Expande tu aventura</h2>
+            <p class="dlc-section-subtitle">
+                Contenido adicional para ASTRA: Ecos del vacío. El juego base se vende por separado.
+            </p>
 
-        <div>
-            <dl>
-                <h3>Minimos</h3>
-                <dt>Sistema</dt>
-                <dd>Windows10</dd>
+            <div class="dlc-items-list">
+                <!-- DLC 1: Órbita perdida -->
+                <article class="dlc-card">
+                    <div class="dlc-card-left">
+                        <div class="dlc-thumb-badge" aria-hidden="true">
+                            <span>&#9737;</span>
+                        </div>
+                        <div class="dlc-card-info">
+                            <h3 class="dlc-title">Órbita perdida</h3>
+                            <p class="dlc-description">Nueva campaña · 5 horas · Requiere ASTRA</p>
+                        </div>
+                    </div>
 
-                <dt>Procesador</dt>
-                <dd>Intel i5</dd>
+                    <div class="dlc-card-right">
+                        <span class="dlc-price">12,99 €</span>
+                        <button type="button" class="btn-dlc-add">Agregar</button>
+                    </div>
+                </article>
 
-                <dt>Memoria</dt>
-                <dd>8 GB RAM</dd>
+                <!-- DLC 2: Archivo sonoro -->
+                <article class="dlc-card">
+                    <div class="dlc-card-left">
+                        <div class="dlc-thumb-badge" aria-hidden="true">
+                            <span>&#9834;</span>
+                        </div>
+                        <div class="dlc-card-info">
+                            <h3 class="dlc-title">Archivo sonoro</h3>
+                            <p class="dlc-description">Banda sonora digital · 24 pistas · Requiere ASTRA</p>
+                        </div>
+                    </div>
 
-                <dt>Graficos</dt>
-                <dd>GTX 960</dd>
+                    <div class="dlc-card-right">
+                        <span class="dlc-price">4,99 €</span>
+                        <button type="button" class="btn-dlc-add">Agregar</button>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-                <dt>Espacio</dt>
-                <dd>30 GB</dd>
-            </dl>
-        </div>
+        <!-- SECCIÓN DE REQUISITOS DEL SISTEMA -->
+        <section class="product-requirements-section">
+            <h2 class="requirements-section-title">Antes de despegar</h2>
+            <p class="requirements-section-subtitle">
+                Requisitos para PC - Windows de 64 bits · Conexión para la activación inicial.
+            </p>
 
-        <div>
-            <dl>
-                <h3>Recomendaciones</h3>
-                <dt>Sistema</dt>
-                <dd>Windows11</dd>
+            <div class="requirements-cards-grid">
+                <!-- Tarjeta Requisitos Mínimos -->
+                <div class="requirements-card">
+                    <h3 class="requirements-tier-title">Mínimos</h3>
+                    <dl class="requirements-spec-list">
+                        <div class="req-spec-row">
+                            <dt class="req-label">Sistema</dt>
+                            <dd class="req-value">Windows 10</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Procesador</dt>
+                            <dd class="req-value">Intel i5-4460 / Ryzen 3 1200</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Memoria</dt>
+                            <dd class="req-value">8 GB RAM</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Gráficos</dt>
+                            <dd class="req-value">GTX 960 / RX 470</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Espacio</dt>
+                            <dd class="req-value">30 GB disponibles</dd>
+                        </div>
+                    </dl>
+                </div>
 
-                <dt>Procesador</dt>
-                <dd>Intel i7</dd>
-
-                <dt>Memoria</dt>
-                <dd>16 GB RAM</dd>
-
-                <dt>Graficos</dt>
-                <dd>RTX 960</dd>
-
-                <dt>Espacio</dt>
-                <dd>30 GB + 8 GB</dd>
-            </dl>
-        </div>
+                <!-- Tarjeta Requisitos Recomendados -->
+                <div class="requirements-card">
+                    <h3 class="requirements-tier-title">Recomendados</h3>
+                    <dl class="requirements-spec-list">
+                        <div class="req-spec-row">
+                            <dt class="req-label">Sistema</dt>
+                            <dd class="req-value">Windows 11</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Procesador</dt>
+                            <dd class="req-value">Intel i7-8700 / Ryzen 5 3600</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Memoria</dt>
+                            <dd class="req-value">16 GB RAM</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Gráficos</dt>
+                            <dd class="req-value">RTX 2060 / RX 5600 XT</dd>
+                        </div>
+                        <div class="req-spec-row">
+                            <dt class="req-label">Espacio</dt>
+                            <dd class="req-value">30 GB + 8 GB por DLC</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
     </main>
+
     <div id="footer-container"></div>
+    <script src="products-data.js"></script>
     <script src="main.js"></script>
 </body>
 

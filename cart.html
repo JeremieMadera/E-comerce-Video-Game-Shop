@@ -1,88 +1,200 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrito</title>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXO PLAY - Carrito</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="Features/cart/cart.css" />
+</head>
+
+
+  <body class="cart-page-body">
     <div id="header-container"></div>
-    <!-- Contenido de la página del carrito. -->
-    <!-- CONTENEDOR PRINCIPAL (Estructura de dos columnas) -->
+
+    <!-- CONTENEDOR PRINCIPAL: Dos Columnas -->
     <main class="cart-container">
-      <!-- COLUMNA IZQUIERDA: Listado Dinámico de Productos -->
+      <!-- COLUMNA IZQUIERDA: Listado de Productos y Avisos -->
       <section class="cart-main">
+        <!-- Indicador de pasos del proceso de compra -->
+        <nav class="cart-steps" aria-label="Progreso de compra">
+          <span class="cart-step cart-step-active">01 Carrito</span>
+          <span class="cart-step-separator">/</span>
+          <span class="cart-step">02 Pago</span>
+          <span class="cart-step-separator">/</span>
+          <span class="cart-step">03 A jugar</span>
+        </nav>
+
         <h1 class="cart-title">Tu próxima partida.</h1>
 
-        <!-- El subtítulo cambiará dinámicamente con JS (ej: "3 artículos • 2 juegos...") -->
         <p id="cart-dynamic-subtitle" class="cart-subtitle">
-          Cargando productos...
+          3 artículos · 2 juegos y 1 DLC · Entrega digital
         </p>
 
-        <!-- CONTENEDOR TOTALMENTE VACÍO: Aquí JavaScript inyectará las tarjetas de los juegos -->
-        <div id="cart-items-container" class="cart-items-list"></div>
+        <!-- Listado de tarjetas de productos -->
+        <div id="cart-items-container" class="cart-items-list">
+          <!-- Artículo 1: Juego base ASTRA con DLC anidado -->
+          <article class="cart-card cart-card-bundle">
+            <!-- Bloque Juego Base -->
+            <div class="cart-item-row cart-item-base">
+              <div class="cart-item-media">
+                <img src="Features/HomePage/images/hollow knight.jpg" alt="Portada de ASTRA: Ecos del vacío"
+                  class="cart-item-thumb" />
+              </div>
 
-        <!-- Avisos y navegación de la sección izquierda -->
-        <p class="cart-notice">
-          Si eliminas un juego base, también se retirará su DLC asociado.
-          Siempre podrás revisar el cambio antes de continuar.
-        </p>
-        <a href="#catalogo" class="btn-secondary">Seguir explorando →</a>
-      </section>
+      <div class="cart-item-info">
+        <h2 class="cart-item-title">ASTRA</h2>
+        <p class="cart-item-edition">Ecos del vacío</p>
+        <p class="cart-item-meta">Juego base · PC · Cantidad: 1</p>
+        <p class="cart-item-price">39,99 €</p>
+      </div>
 
-      <!-- COLUMNA DERECHA: Resumen de Totales Dinámicos -->
-      <aside class="cart-summary">
-        <h2 class="summary-title">Tu resumen</h2>
-
-        <div class="summary-row">
-          <span class="row-label">Juegos</span>
-          <span id="summary-games-price" class="row-value">0,00 €</span>
+        <div class="cart-item-actions">
+          <button type="button" class="btn-remove-item" aria-label="Eliminar ASTRA del carrito">
+            <span class="remove-icon" aria-hidden="true">&#128465;</span>
+            <span class="remove-text">Eliminar</span>
+          </button>
         </div>
-        <div class="summary-row">
-          <span class="row-label">DLC</span>
-          <span id="summary-dlc-price" class="row-value">0,00 €</span>
-        </div>
-
-        <hr class="summary-divider" />
-
-        <div class="summary-row">
-          <span class="row-label">Subtotal</span>
-          <span id="summary-subtotal" class="row-value">0,00 €</span>
-        </div>
-        <div class="summary-row">
-          <span class="row-label">Descuentos</span>
-          <span id="summary-discounts" class="row-value">0,00 €</span>
-        </div>
-        <div class="summary-row">
-          <span class="row-label">Envío digital</span>
-          <span class="row-value delivery-free">Gratis</span>
         </div>
 
-        <hr class="summary-divider" />
+        <!-- Bloque DLC anidado -->
+        <div class="cart-item-row cart-item-dlc">
+          <div class="cart-dlc-tag">
+            <span class="cart-dlc-arrow">&#8627;</span>
+            DLC PARA ASTRA · REQUIERE EL JUEGO BASE
+          </div>
 
-        <div class="summary-total">
-          <span class="total-label">Total</span>
-          <span id="summary-total-price" class="total-value">0,00 €</span>
+          <div class="cart-dlc-content">
+            <div class="cart-item-media cart-dlc-media">
+              <div class="cart-dlc-badge" aria-hidden="true">
+                <span>&#9737;</span>
+              </div>
+            </div>
+
+              <div class="cart-item-info">
+                <h3 class="cart-item-title">Órbita perdida</h3>
+                <p class="cart-item-meta">PC · Expansión digital · Cantidad: 1</p>
+                <p class="cart-item-price">12,99 €</p>
+              </div>
+
+              <div class="cart-item-actions">
+                <button type="button" class="btn-remove-item" aria-label="Eliminar Órbita perdida del carrito">
+                  <span class="remove-icon" aria-hidden="true">&#128465;</span>
+                  <span class="remove-text">Eliminar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          </article>
+
+          <!-- Artículo 2: Juego BOSQUE -->
+          <article class="cart-card">
+            <div class="cart-item-row cart-item-base">
+              <div class="cart-item-media">
+                <img src="Features/HomePage/images/hollow knight.jpg" alt="Portada de BOSQUE: de bruma"
+                  class="cart-item-thumb" />
+              </div>
+
+              <div class="cart-item-info">
+                <h2 class="cart-item-title">BOSQUE</h2>
+                <p class="cart-item-edition">de bruma</p>
+                <p class="cart-item-meta">Juego base · PC · Cantidad: 1</p>
+                <p class="cart-item-price">24,99 €</p>
+              </div>
+
+              <div class="cart-item-actions">
+                <button type="button" class="btn-remove-item" aria-label="Eliminar BOSQUE del carrito">
+                  <span class="remove-icon" aria-hidden="true">&#128465;</span>
+                  <span class="remove-text">Eliminar</span>
+                </button>
+              </div>
+            </div>
+          </article>
         </div>
 
-        <!-- Botón para procesar el pago -->
-        <button type="button" id="btn-checkout" class="btn-primary-checkout">
-          Continuar al pago →
-        </button>
+          <!-- Aviso contextual sobre DLCs dependientes -->
+          <div class="cart-notice">
+            <span class="cart-notice-icon" aria-hidden="true">&#9432;</span>
+            <p class="cart-notice-text">
+              Si eliminas ASTRA, también se retirará su DLC. Siempre podrás revisar el cambio antes de continuar.
+            </p>
+          </div>
 
-        <!-- Bloque informativo de seguridad y métodos -->
-        <div class="secure-badge">
-          <span class="lock-icon"></span> Pago cifrado y protegido
-        </div>
-        <p class="payment-methods">VISA - Mastercard - PayPal</p>
+            <!-- Enlace para seguir comprando -->
+            <div class="cart-navigation-back">
+              <a href="index.html#catalog" class="btn-secondary-explore">
+                Seguir explorando &rarr;
+              </a>
+            </div>
+            </section>
 
-        <p class="delivery-notice">
-          Recibirás tus claves en el correo de tu cuenta al confirmar el pago.
-        </p>
-      </aside>
+            <!-- COLUMNA DERECHA: Resumen de Totales -->
+            <aside class="cart-summary" aria-label="Resumen de tu pedido">
+              <h2 class="summary-title">Tu resumen</h2>
+
+                <div class="summary-breakdown">
+                  <div class="summary-row">
+                    <span class="row-label">Juegos (2)</span>
+                    <span id="summary-games-price" class="row-value">64,98 €</span>
+                  </div>
+
+                  <div class="summary-row">
+                    <span class="row-label">DLC (1)</span>
+                    <span id="summary-dlc-price" class="row-value">12,99 €</span>
+                  </div>
+
+                  <hr class="summary-divider" />
+
+                  <div class="summary-row">
+                    <span class="row-label">Subtotal</span>
+                    <span id="summary-subtotal" class="row-value">77,97 €</span>
+                  </div>
+
+                  <div class="summary-row">
+                    <span class="row-label">Descuentos</span>
+                    <span id="summary-discounts" class="row-value">0,00 €</span>
+                  </div>
+
+                  <div class="summary-row">
+                    <span class="row-label">Envío digital</span>
+                    <span class="row-value delivery-free">Gratis</span>
+                  </div>
+
+                  <hr class="summary-divider" />
+
+                  <!-- Bloque de Total destacado -->
+                  <div class="summary-total-group">
+                    <div class="summary-total-meta">
+                      <span class="total-label">Total</span>
+                      <span class="total-tax-notice">IVA incluido · Sin cargos adicionales</span>
+                    </div>
+                    <span id="summary-total-price" class="total-value">77,97 €</span>
+                  </div>
+                </div>
+
+                <!-- Botón principal de Checkout -->
+                <button type="button" id="btn-checkout" class="btn-primary-checkout">
+                  Continuar al pago &rarr;
+                </button>
+
+                  <!-- Garantías de seguridad y métodos de pago -->
+                  <div class="cart-trust-badges">
+                    <div class="secure-badge">
+                      <span class="lock-icon" aria-hidden="true">&#128274;</span>
+                      Pago cifrado y protegido
+                    </div>
+                    <p class="payment-methods">VISA · Mastercard · PayPal</p>
+                    <p class="delivery-notice">
+                      Recibirás tus claves en el correo de tu cuenta al confirmar el pago.
+                    </p>
+                  </div>
+            </aside>
     </main>
 
     <div id="footer-container"></div>
+    <script src="products-data.js"></script>
     <script src="main.js"></script>
   </body>
+
 </html>
