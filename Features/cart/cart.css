@@ -1,0 +1,353 @@
+/* ==========================================================================
+   1. VARIABLES DE ESTILO Y CONFIGURACIÓN BASE
+   ========================================================================== */
+.cart-page-body {
+  background-color: #0b071e;
+  color: #ffffff;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+/* ==========================================================================
+   2. CONTENEDOR PRINCIPAL (ESTRUCTURA DE DOS COLUMNAS)
+   ========================================================================== */
+.cart-container {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* ==========================================================================
+   3. PASOS DEL PROCESO DE COMPRA
+   ========================================================================== */
+.cart-steps {
+  font-size: 0.85rem;
+  color: #635f8a;
+  margin-bottom: 25px;
+}
+
+.cart-step-active {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.cart-step-separator {
+  margin: 0 8px;
+  color: #3b3561;
+}
+
+/* Títulos y Subtítulos Principales */
+.cart-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.cart-subtitle {
+  color: #635f8a;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+/* ==========================================================================
+   4. TARJETAS DE PRODUCTO
+   ========================================================================== */
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Estructura base de la tarjeta */
+.cart-card {
+  background-color: #120e2b;
+  border: 1px solid #1f1a3a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Contenedor de fila para alinear elementos por renglón */
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  gap: 20px;
+}
+
+/* Multimedia / Portadas */
+.cart-item-thumb {
+  width: 75px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Bloques de Información textual */
+.cart-item-info {
+  flex-grow: 1;
+}
+
+.cart-item-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px 0;
+}
+
+.cart-item-edition {
+  color: #a4a0c6;
+  font-size: 0.9rem;
+  margin: 0 0 12px 0;
+}
+
+.cart-item-meta {
+  color: #635f8a;
+  font-size: 0.8rem;
+  margin: 0 0 6px 0;
+}
+
+.cart-item-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Acciones (Botón Eliminar) */
+.btn-remove-item {
+  background: none;
+  border: none;
+  color: #635f8a;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  transition: color 0.2s ease;
+}
+
+.btn-remove-item:hover {
+  color: #ff5252;
+}
+
+.remove-icon {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   5. DISEÑO ESPECÍFICO PARA EL BUNDLE
+   ========================================================================== */
+.cart-card-bundle {
+  border-left: 3px solid #d4ff5e;
+}
+
+.cart-item-dlc {
+  background-color: #161135;
+  border-top: 1px solid #1f1a3a;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px 24px 20px 24px;
+}
+
+.cart-dlc-tag {
+  color: #d4ff5e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.cart-dlc-arrow {
+  margin-right: 4px;
+}
+
+.cart-dlc-content {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Círculo indicador alternativo para la imagen pequeña del DLC */
+.cart-dlc-badge {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #1d1742;
+  border: 1px dashed #d4ff5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4ff5e;
+}
+
+/* Avisos inferiores del área de productos */
+.cart-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #635f8a;
+  font-size: 0.8rem;
+  margin-top: 25px;
+  line-height: 1.4;
+}
+
+.cart-navigation-back {
+  margin-top: 20px;
+}
+
+.btn-secondary-explore {
+  display: inline-block;
+  border: 1px solid #2d2654;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-secondary-explore:hover {
+  background-color: #161131;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   6. COLUMNA DERECHA: TARJETA DE RESUMEN FINANCIERO
+   ========================================================================== */
+.cart-summary {
+  background-color: #120e2b;
+  border: 1px solid #1f1a3a;
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.summary-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: #a4a0c6;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px solid #1f1a3a;
+  margin: 18px 0;
+}
+
+.delivery-free {
+  color: #00ffaa;
+  font-weight: 500;
+}
+
+/* Grupo de Total Adaptado */
+.summary-total-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+.summary-total-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.total-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.total-tax-notice {
+  color: #635f8a;
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.total-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Botón de pago */
+.btn-primary-checkout {
+  width: 100%;
+  background-color: #d4ff5e;
+  color: #0b071e;
+  border: none;
+  padding: 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-primary-checkout:hover {
+  opacity: 0.9;
+}
+
+/* Marcas de Confianza Inferiores */
+.cart-trust-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.secure-badge {
+  font-size: 0.85rem;
+  color: #a4a0c6;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.payment-methods {
+  font-size: 0.8rem;
+  color: #635f8a;
+  margin-bottom: 20px;
+}
+
+.delivery-notice {
+  font-size: 0.75rem;
+  color: #635f8a;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE / MEDIA QUERIES (ADAPTACIÓN MÓVIL)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .cart-container {
+    grid-template-columns: 1fr; /* Colapsa en una sola columna */
+    gap: 25px;
+  }
+  
+  .cart-item-row {
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .cart-item-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+  }
+}
