@@ -11,42 +11,52 @@
   // 1. CARGA MODULAR DE HEADER Y FOOTER
   // =========================================================
   const HEADER_FALLBACK_HTML = `
-<header>
-  <div>
-    <a href="index.html">
-      <h2>NEXO PLAY</h2>
-    </a>
+<header class="navbar">
+  <div class="navbar-wrapper">
+    <div class="navbar-top">
+      <a href="index.html" class="brand-logo">NEXO PLAY</a>
 
-    <form role="search">
-      <label for="site-search">&#128269;</label>
-      <input type="search" id="site-search" name="q" placeholder="Busca tu próxima aventura">
-      <kbd>&#8984; K</kbd>
-    </form>
+      <div class="navbar-right">
+        <div class="search-box">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Busca tu próxima aventura">
+          <span class="cmd-badge">&#8984; K</span>
+        </div>
 
-    <nav aria-label="Acciones de usuario">
-      <a href="account.html">
-        <span>&#128100;</span> Mi cuenta
-      </a>
-      <a href="cart.html" aria-label="Ver carrito">
-        <span>&#128092;</span> <span id="header-cart-badge">3</span>
-      </a>
-    </nav>
+        <div class="user-menu">
+          <a href="account.html" class="account-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Mi cuenta</span>
+          </a>
+
+          <a href="cart.html" class="cart-btn" aria-label="Ver carrito">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="cart-count" id="header-cart-badge">3</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-bottom">
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="index.html#catalog" class="active">Catálogo</a>
+        <a href="index.html#novedades">Novedades</a>
+        <a href="index.html#ofertas">Ofertas</a>
+      </nav>
+      <p class="navbar-tagline">Juegos independientes. Mundos extraordinarios.</p>
+    </div>
   </div>
-
-  <hr>
-
-  <div>
-    <nav aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="index.html#catalog">Catálogo</a>
-      <a href="index.html#novedades">Novedades</a>
-      <a href="index.html#ofertas">Ofertas</a>
-    </nav>
-
-    <p>Juegos independientes. Mundos extraordinarios.</p>
-  </div>
-
-  <hr>
 </header>
 `;
 
@@ -93,20 +103,31 @@
 </footer>
 `;
 
+  function ensureNavBarStyles() {
+    if (!document.querySelector('link[href*="nav-bar.css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Features/NavBar/nav-bar.css";
+      document.head.appendChild(link);
+    }
+  }
+
   function updateHeaderCartCount() {
-    const badge = document.querySelector(".shopping.car .car-acount, .account-cart-badge, #header-cart-badge, [data-cart-count]");
-    if (badge && typeof getCartFromStorage === "function") {
+    const badges = document.querySelectorAll(".cart-count, #header-cart-badge, .account-cart-badge, .car-acount");
+    if (badges.length && typeof getCartFromStorage === "function") {
       const cart = getCartFromStorage();
       let count = 0;
       cart.forEach((item) => {
         count += 1;
         if (item.hasDlc) count += 1;
       });
-      badge.textContent = count;
+      badges.forEach((b) => (b.textContent = count));
     }
   }
 
   function initHeader() {
+    ensureNavBarStyles();
+
     const container =
       document.getElementById("header-container") ||
       document.getElementById("header-placeholder") ||

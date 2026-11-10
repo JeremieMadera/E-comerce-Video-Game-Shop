@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Play Navbar</title>
+
+    <!-- Fuentes de Google: VT323 para el estilo retro pixel de NEXO PLAY e Inter para la interfaz -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=VT323&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="Features/ejemplo/ejemplo.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="navbar-wrapper">
+
+            <!-- Bloque Superior -->
+            <div class="navbar-top">
+                <!-- Logo -->
+                <a href="#" class="brand-logo">NEXO PLAY</a>
+
+                <!-- Contenedor central y derecho (Búsqueda + Usuario + Carrito) -->
+                <div class="navbar-right">
+                    <!-- Input Búsqueda -->
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Busca tu próxima aventura">
+                        <span class="cmd-badge">&#8984; K</span>
+                    </div>
+
+                    <!-- Acciones de Usuario -->
+                    <div class="user-menu">
+                        <a href="#" class="account-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>Mi cuenta</span>
+                        </a>
+
+                        <a href="#" class="cart-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            </svg>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menú Inferior de Pestañas -->
+            <nav class="navbar-bottom">
+                <ul class="nav-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#" class="active">Catálogo</a></li>
+                    <li><a href="#">Novedades</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+</body>
+
+</html>

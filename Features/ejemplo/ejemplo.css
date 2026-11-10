@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #080711;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+/* Navbar general con fondo morado oscuro exacto al Figma */
+.navbar {
+    background-color: #110e29;
+    width: 100%;
+    border-bottom: 1px solid #1f1b40;
+}
+
+.navbar-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 32px 0 32px;
+}
+
+/* Fila Superior */
+.navbar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* Logo con la tipografía retro exacta */
+.brand-logo {
+    font-family: 'VT323', monospace;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+/* Campo de Búsqueda */
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #3d356b;
+    border-radius: 4px;
+    padding: 8px 14px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.search-icon {
+    stroke: #807ca6;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+}
+
+.search-box input::placeholder {
+    color: #7b77a3;
+}
+
+.cmd-badge {
+    font-size: 11px;
+    color: #8c88b8;
+    border: 1px solid #3d356b;
+    border-radius: 3px;
+    padding: 2px 6px;
+    white-space: nowrap;
+}
+
+/* Menú de Usuario (Mi Cuenta / Carrito) */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.account-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Indicador Verde Neón del Carrito */
+.cart-count {
+    background-color: #d2ff00;
+    color: #000000;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 2px 7px;
+    border-radius: 2px;
+}
+
+/* Fila Inferior (Navegación) */
+.navbar-bottom {
+    margin-top: 16px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 36px;
+}
+
+.nav-links a {
+    display: inline-block;
+    color: #928eb8;
+    text-decoration: none;
+    font-size: 14px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+/* Pestaña Seleccionada con Línea Blanca Inferior */
+.nav-links a.active {
+    color: #ffffff;
+    font-weight: 600;
+    border-bottom: 2px solid #ffffff;
+}
