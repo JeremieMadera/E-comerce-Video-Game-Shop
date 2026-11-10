@@ -1,263 +1,394 @@
-/* ==========================================================================
-   1. VARIABLES DE ESTILO Y CONFIGURACIÓN BASE
-   ========================================================================== */
-.cart-page-body {
-  background-color: #0b071e;
-  color: #ffffff;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  min-height: 100vh;
-  margin: 0;
-  padding: 40px 20px;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --cart-bg: #110e26;
+  --cart-surface: #171333;
+  --cart-border: #2e2659;
+  --cart-border-subtle: rgba(183, 171, 223, 0.15);
+  --cart-text-light: #ffffff;
+  --cart-text-muted: #9f94c9;
+  --cart-text-subtle: #6f6696;
+  --cart-lime: #d5ff52;
+  --cart-lime-hover: #bde93e;
+  --cart-font-pixel: 'Press Start 2P', monospace;
+  --cart-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ==========================================================================
-   2. CONTENEDOR PRINCIPAL (ESTRUCTURA DE DOS COLUMNAS)
-   ========================================================================== */
+/* =========================================================
+   ESTILOS GENERALES DE LA PÁGINA DEL CARRITO
+   ========================================================= */
+body.cart-page-body {
+  background-color: var(--cart-bg);
+  color: var(--cart-text-light);
+  font-family: var(--cart-font-body);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Contenedor principal a dos columnas */
 .cart-container {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr;
-  gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
   align-items: start;
+  box-sizing: border-box;
 }
 
-/* ==========================================================================
-   3. PASOS DEL PROCESO DE COMPRA
-   ========================================================================== */
+/* =========================================================
+   COLUMNA IZQUIERDA: LISTADO DE PRODUCTOS Y PASOS
+   ========================================================= */
+.cart-main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pasos de compra (01 Carrito / 02 Pago / 03 A jugar) */
 .cart-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.85rem;
-  color: #635f8a;
-  margin-bottom: 25px;
+  color: var(--cart-text-muted);
+  margin-bottom: 20px;
+}
+
+.cart-step {
+  color: var(--cart-text-muted);
 }
 
 .cart-step-active {
-  color: #ffffff;
+  color: var(--cart-text-light);
   font-weight: 500;
 }
 
 .cart-step-separator {
-  margin: 0 8px;
-  color: #3b3561;
+  color: var(--cart-text-subtle);
+  user-select: none;
 }
 
-/* Títulos y Subtítulos Principales */
+/* Título principal retro */
 .cart-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 6px;
+  font-family: var(--cart-font-pixel);
+  font-size: 1.85rem;
+  line-height: 1.35;
+  color: var(--cart-text-light);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.02em;
 }
 
+/* Subtítulo informativo */
 .cart-subtitle {
-  color: #635f8a;
-  font-size: 0.9rem;
-  margin-bottom: 30px;
+  font-size: 0.95rem;
+  color: var(--cart-text-muted);
+  margin: 0 0 32px 0;
 }
 
-/* ==========================================================================
-   4. TARJETAS DE PRODUCTO
-   ========================================================================== */
+/* Listado de tarjetas de productos */
 .cart-items-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Estructura base de la tarjeta */
+/* Tarjeta contenedora de producto */
 .cart-card {
-  background-color: #120e2b;
-  border: 1px solid #1f1a3a;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* Contenedor de fila para alinear elementos por renglón */
-.cart-item-row {
-  display: flex;
-  align-items: center;
-  padding: 24px;
-  gap: 20px;
-}
-
-/* Multimedia / Portadas */
-.cart-item-thumb {
-  width: 75px;
-  height: 95px;
-  object-fit: cover;
+  background-color: var(--cart-surface);
+  border: 1px solid var(--cart-border);
   border-radius: 4px;
+  padding: 24px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
 }
 
-/* Bloques de Información textual */
+.cart-card:hover {
+  border-color: rgba(183, 171, 223, 0.35);
+}
+
+/* Fila del juego base */
+.cart-item-row.cart-item-base {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+}
+
+/* Miniatura del juego */
+.cart-item-media {
+  width: 88px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.cart-item-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Información del juego */
 .cart-item-info {
-  flex-grow: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-item-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cart-text-light);
   margin: 0 0 4px 0;
+  letter-spacing: 0.02em;
 }
 
 .cart-item-edition {
-  color: #a4a0c6;
-  font-size: 0.9rem;
-  margin: 0 0 12px 0;
+  font-size: 0.92rem;
+  color: var(--cart-text-muted);
+  margin: 0 0 8px 0;
 }
 
 .cart-item-meta {
-  color: #635f8a;
-  font-size: 0.8rem;
-  margin: 0 0 6px 0;
+  font-size: 0.82rem;
+  color: var(--cart-text-subtle);
+  margin: 0 0 16px 0;
 }
 
 .cart-item-price {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
+  color: var(--cart-text-light);
   margin: 0;
 }
 
-/* Acciones (Botón Eliminar) */
-.btn-remove-item {
-  background: none;
-  border: none;
-  color: #635f8a;
-  cursor: pointer;
-  font-size: 0.85rem;
+/* Botón eliminar (papelera) */
+.cart-item-actions {
   display: flex;
+  align-items: flex-start;
+}
+
+.btn-remove-item {
+  background: transparent;
+  border: none;
+  color: var(--cart-text-muted);
+  font-size: 0.85rem;
+  font-family: inherit;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px;
-  transition: color 0.2s ease;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-remove-item:hover {
-  color: #ff5252;
+  color: #ff4d4f;
+  background-color: rgba(255, 77, 79, 0.12);
+}
+
+.btn-remove-item:hover .remove-icon {
+  opacity: 1;
 }
 
 .remove-icon {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
 }
 
-/* ==========================================================================
-   5. DISEÑO ESPECÍFICO PARA EL BUNDLE
-   ========================================================================== */
-.cart-card-bundle {
-  border-left: 3px solid #d4ff5e;
-}
-
-.cart-item-dlc {
-  background-color: #161135;
-  border-top: 1px solid #1f1a3a;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 15px 24px 20px 24px;
+/* =========================================================
+   BLOQUE ANIDADO DE DLC
+   ========================================================= */
+.cart-item-row.cart-item-dlc {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cart-border);
 }
 
 .cart-dlc-tag {
-  color: #d4ff5e;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cart-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .cart-dlc-arrow {
-  margin-right: 4px;
+  color: var(--cart-lime);
+  font-size: 0.95rem;
+  line-height: 1;
 }
 
 .cart-dlc-content {
   display: flex;
-  width: 100%;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 
-/* Círculo indicador alternativo para la imagen pequeña del DLC */
+.cart-dlc-media {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
 .cart-dlc-badge {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: #1d1742;
-  border: 1px dashed #d4ff5e;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cart-lime);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #d4ff5e;
+  color: #110e26;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
-/* Avisos inferiores del área de productos */
+.cart-dlc-content .cart-item-title {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.cart-dlc-content .cart-item-meta {
+  margin-bottom: 10px;
+}
+
+.cart-dlc-content .cart-item-price {
+  font-size: 1.1rem;
+}
+
+/* =========================================================
+   AVISOS Y NAVEGACIÓN INFERIOR
+   ========================================================= */
 .cart-notice {
+  margin-top: 24px;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  color: #635f8a;
-  font-size: 0.8rem;
-  margin-top: 25px;
+  gap: 10px;
+  color: var(--cart-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.cart-notice-icon {
+  font-size: 1.05rem;
+  color: var(--cart-text-muted);
+  flex-shrink: 0;
   line-height: 1.4;
 }
 
+.cart-notice-text {
+  margin: 0;
+}
+
 .cart-navigation-back {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .btn-secondary-explore {
-  display: inline-block;
-  border: 1px solid #2d2654;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--cart-surface);
+  border: 1px solid #362e68;
+  color: var(--cart-text-light);
   padding: 10px 20px;
   border-radius: 4px;
+  text-decoration: none;
   font-size: 0.9rem;
-  transition: background-color 0.2s, color 0.2s;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .btn-secondary-explore:hover {
-  background-color: #161131;
-  color: #ffffff;
+  border-color: var(--cart-lime);
+  color: var(--cart-lime);
+  background-color: rgba(213, 255, 82, 0.05);
 }
 
-/* ==========================================================================
-   6. COLUMNA DERECHA: TARJETA DE RESUMEN FINANCIERO
-   ========================================================================== */
+/* Mensaje de carrito vacío */
+.cart-empty-message {
+  color: var(--cart-text-muted);
+  font-size: 1rem;
+  padding: 32px;
+  background-color: var(--cart-surface);
+  border: 1px solid var(--cart-border);
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* =========================================================
+   COLUMNA DERECHA: ASIDE "TU RESUMEN"
+   ========================================================= */
 .cart-summary {
-  background-color: #120e2b;
-  border: 1px solid #1f1a3a;
-  border-radius: 8px;
-  padding: 30px;
+  background-color: var(--cart-surface);
+  border: 1px solid var(--cart-border);
+  border-radius: 4px;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 24px;
 }
 
 .summary-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 25px;
+  font-family: var(--cart-font-pixel);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: var(--cart-text-light);
+  margin: 0 0 24px 0;
+  letter-spacing: 0.02em;
+}
+
+.summary-breakdown {
+  display: flex;
+  flex-direction: column;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 14px;
-  font-size: 0.95rem;
-  color: #a4a0c6;
+}
+
+.row-label {
+  color: var(--cart-text-muted);
+  font-size: 0.92rem;
+}
+
+.row-value {
+  color: var(--cart-text-light);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.delivery-free {
+  color: var(--cart-text-light);
 }
 
 .summary-divider {
   border: none;
-  border-top: 1px solid #1f1a3a;
-  margin: 18px 0;
+  border-top: 1px solid var(--cart-border);
+  margin: 16px 0;
 }
 
-.delivery-free {
-  color: #00ffaa;
-  font-weight: 500;
-}
-
-/* Grupo de Total Adaptado */
+/* Fila de Total destacado */
 .summary-total-group {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 5px;
-  margin-bottom: 8px;
+  align-items: flex-end;
+  margin: 24px 0 28px;
 }
 
 .summary-total-meta {
@@ -266,88 +397,124 @@
 }
 
 .total-label {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
+  color: var(--cart-text-light);
+  margin-bottom: 4px;
 }
 
 .total-tax-notice {
-  color: #635f8a;
   font-size: 0.75rem;
-  margin-top: 2px;
+  color: var(--cart-text-subtle);
 }
 
 .total-value {
-  font-size: 1.8rem;
+  font-size: 1.85rem;
   font-weight: 700;
+  color: var(--cart-text-light);
+  line-height: 1;
 }
 
-/* Botón de pago */
+/* Botón principal Continuar al pago */
 .btn-primary-checkout {
   width: 100%;
-  background-color: #d4ff5e;
-  color: #0b071e;
+  background-color: var(--cart-lime);
+  color: #110e26;
   border: none;
-  padding: 16px;
   border-radius: 4px;
+  padding: 14px 20px;
+  font-size: 0.98rem;
   font-weight: 700;
-  font-size: 1rem;
+  font-family: inherit;
   cursor: pointer;
-  transition: opacity 0.2s ease;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
 }
 
 .btn-primary-checkout:hover {
-  opacity: 0.9;
+  background-color: var(--cart-lime-hover);
 }
 
-/* Marcas de Confianza Inferiores */
+.btn-primary-checkout:active {
+  transform: scale(0.99);
+}
+
+/* Bloque de garantías y pagos */
 .cart-trust-badges {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  margin-top: 24px;
 }
 
 .secure-badge {
-  font-size: 0.85rem;
-  color: #a4a0c6;
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--cart-text-muted);
+  margin-bottom: 8px;
+}
+
+.lock-icon {
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
 .payment-methods {
   font-size: 0.8rem;
-  color: #635f8a;
-  margin-bottom: 20px;
+  color: var(--cart-text-subtle);
+  margin: 0 0 12px 0;
 }
 
 .delivery-notice {
-  font-size: 0.75rem;
-  color: #635f8a;
-  line-height: 1.45;
+  font-size: 0.76rem;
+  color: var(--cart-text-subtle);
+  line-height: 1.5;
+  margin: 0;
 }
 
-/* ==========================================================================
-   7. RESPONSIVE / MEDIA QUERIES (ADAPTACIÓN MÓVIL)
-   ========================================================================== */
-@media (max-width: 900px) {
+/* =========================================================
+   RESPONSIVE DESIGN (Tablets y Móviles)
+   ========================================================= */
+@media (max-width: 960px) {
   .cart-container {
-    grid-template-columns: 1fr; /* Colapsa en una sola columna */
-    gap: 25px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 24px 16px 60px;
   }
-  
-  .cart-item-row {
+
+  .cart-summary {
+    position: static;
+  }
+
+  .cart-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .cart-card {
     padding: 16px;
-    flex-wrap: wrap;
   }
-  
-  .cart-item-actions {
+
+  .cart-item-row.cart-item-base {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cart-item-media {
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -10px;
+    height: 160px;
+  }
+
+  .cart-item-actions {
+    align-self: flex-end;
+  }
+
+  .cart-dlc-content {
+    flex-direction: column;
+    gap: 12px;
   }
 }
