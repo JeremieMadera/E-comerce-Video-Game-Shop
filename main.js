@@ -63,7 +63,7 @@
   const FOOTER_FALLBACK_HTML = `
 <section>
   <h2>Menos ruido. Más juego.</h2>
-  <p>Sin catálogos infinitos: seis juegos con identidad, elegidos para que encuentres algo que de verdad te mueva.</p>
+  <p>Los mejores videojuegos seleccionados para PC, PlayStation, Xbox y Nintendo Switch.</p>
 </section>
 
 <hr>
@@ -125,6 +125,13 @@
     }
   }
 
+  function syncNavbarHeight() {
+    const nav = document.querySelector(".navbar") || document.getElementById("header-container");
+    if (nav && nav.offsetHeight > 0) {
+      document.documentElement.style.setProperty("--navbar-height", `${nav.offsetHeight}px`);
+    }
+  }
+
   function initHeader() {
     ensureNavBarStyles();
 
@@ -143,14 +150,29 @@
       .then((html) => {
         container.innerHTML = html;
         updateHeaderCartCount();
+        syncNavbarHeight();
       })
       .catch(() => {
         container.innerHTML = HEADER_FALLBACK_HTML;
         updateHeaderCartCount();
+        syncNavbarHeight();
       });
+
+    window.addEventListener("resize", syncNavbarHeight);
+  }
+
+  function ensureFooterStyles() {
+    if (!document.querySelector('link[href*="footer.css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Features/Footer/footer.css";
+      document.head.appendChild(link);
+    }
   }
 
   function initFooter() {
+    ensureFooterStyles();
+
     const container =
       document.getElementById("footer-container") ||
       document.getElementById("footer-placeholder") ||
@@ -172,7 +194,271 @@
   }
 
   // =========================================================
-  // 2. CATÁLOGO DINÁMICO EN MEMORIA (index.html)
+  // 2. CARRUSEL DINÁMICO DE FONDOS CON ANIME.JS (HOMEPAGE)
+  // =========================================================
+  const CAROUSEL_GAMES = [
+    {
+      id: "hollow-knight",
+      image: "Assets/hero/hollow-knight.jpg",
+      shortTitle: "Hollow Knight",
+      shortDesc: "Explora las ruinas de Hallownest, un reino subterráneo de insectos y héroes.",
+      featName: "HOLLOW KNIGHT",
+      featTagline: "Edición Corazón del Vacío",
+      featPrice: "14,99 €"
+    },
+    {
+      id: "cyberpunk-2077",
+      image: "Assets/hero/cyberpunk-2077.jpg",
+      shortTitle: "Cyberpunk 2077",
+      shortDesc: "Conviértete en leyenda en las peligrosas calles futuristas de Night City.",
+      featName: "CYBERPUNK 2077",
+      featTagline: "Edición Ultimate",
+      featPrice: "39,99 €"
+    },
+    {
+      id: "gta-6",
+      image: "Assets/hero/gta-6.jpg",
+      shortTitle: "GTA VI",
+      shortDesc: "Regresa a Vice City y el estado de Leonida en la experiencia de mundo abierto más esperada.",
+      featName: "GRAND THEFT AUTO VI",
+      featTagline: "Edición Reserva Especial",
+      featPrice: "79,99 €"
+    },
+    {
+      id: "astro-bot",
+      image: "Assets/hero/astro-bot.jpg",
+      shortTitle: "Astro Bot",
+      shortDesc: "Diversión pura a través de más de 50 mundos mágicos en una aventura galáctica.",
+      featName: "ASTRO BOT",
+      featTagline: "Aventura galáctica",
+      featPrice: "59,99 €"
+    },
+    {
+      id: "god-of-war-ragnarok",
+      image: "Assets/hero/god-of-war-ragnarok.jpg",
+      shortTitle: "God of War",
+      shortDesc: "Kratos y Atreus deben desafiar el destino nórdico ante la llegada del Ragnarök.",
+      featName: "GOD OF WAR RAGNARÖK",
+      featTagline: "Valhalla Edition",
+      featPrice: "59,99 €"
+    },
+    {
+      id: "mario-kart-8-deluxe",
+      image: "Assets/hero/mario-kart-world.jpg",
+      shortTitle: "Mario Kart 8",
+      shortDesc: "Compite a toda velocidad desafiando la gravedad en 48 circuitos vertiginosos.",
+      featName: "MARIO KART 8 DELUXE",
+      featTagline: "Pase de pistas extras",
+      featPrice: "49,99 €"
+    }
+  ];
+
+  function initHeroCarousel() {
+    const carouselEl = document.getElementById("hero-carousel");
+    if (!carouselEl) return;
+
+    const bg1 = document.getElementById("carousel-bg-1");
+    const bg2 = document.getElementById("carousel-bg-2");
+    const gameDescEl = document.getElementById("hero-game-desc");
+    const featName = document.getElementById("carousel-feat-name");
+    const featTagline = document.getElementById("carousel-feat-tagline");
+    const featPrice = document.getElementById("carousel-feat-price");
+    const featuredLink = document.getElementById("hero-featured-link");
+    const prevBtn = document.getElementById("carousel-prev-btn");
+    const nextBtn = document.getElementById("carousel-next-btn");
+    const featuredCard = document.getElementById("carousel-featured-card");
+
+    let currentIndex = 0;
+    let activeLayerIndex = 1; // 1 = bg1 visible, 2 = bg2 visible
+    let isAnimating = false;
+    let timer = null;
+    let safetyTimeout = null;
+
+    // Inicializar capas de fondo de forma explícita
+    if (bg1) {
+      bg1.style.backgroundImage = `url("${CAROUSEL_GAMES[0].image}")`;
+      bg1.style.opacity = "1";
+      bg1.style.zIndex = "1";
+    }
+    if (bg2) {
+      bg2.style.opacity = "0";
+      bg2.style.zIndex = "0";
+    }
+
+    // Animación de entrada inicial: Efecto suave en los textos del Hero
+    if (typeof anime !== "undefined") {
+      anime({
+        targets: "#hero-static-content > *",
+        opacity: [0, 1],
+        translateY: [16, 0],
+        delay: anime.stagger(60),
+        duration: 500,
+        easing: "easeOutQuad"
+      });
+
+      anime({
+        targets: "#carousel-featured-card",
+        opacity: [0, 1],
+        translateX: [20, 0],
+        duration: 600,
+        easing: "easeOutBack"
+      });
+    }
+
+    function finalizeLayers(activeLayer, inactiveLayer) {
+      if (typeof anime !== "undefined") {
+        anime.remove(activeLayer);
+        anime.remove(inactiveLayer);
+      }
+      if (activeLayer) {
+        activeLayer.style.opacity = "1";
+        activeLayer.style.zIndex = "1";
+      }
+      if (inactiveLayer) {
+        inactiveLayer.style.opacity = "0";
+        inactiveLayer.style.zIndex = "0";
+      }
+      isAnimating = false;
+      if (safetyTimeout) {
+        clearTimeout(safetyTimeout);
+        safetyTimeout = null;
+      }
+    }
+
+    // Cambiar diapositiva con transición suave y segura
+    function goToSlide(targetIndex) {
+      const total = CAROUSEL_GAMES.length;
+      const newIndex = ((targetIndex % total) + total) % total;
+      if (newIndex === currentIndex) return;
+
+      const currentLayer = activeLayerIndex === 1 ? bg1 : bg2;
+      const nextLayer = activeLayerIndex === 1 ? bg2 : bg1;
+
+      // Si había una animación en curso, finalizarla de inmediato para no atascar
+      if (isAnimating) {
+        finalizeLayers(currentLayer, nextLayer);
+      }
+
+      currentIndex = newIndex;
+      const nextSlide = CAROUSEL_GAMES[newIndex];
+
+      // 1. Preparar la capa entrante con la nueva imagen
+      if (nextLayer) {
+        nextLayer.style.backgroundImage = `url("${nextSlide.image}")`;
+        nextLayer.style.opacity = "0";
+        nextLayer.style.zIndex = "2";
+      }
+      if (currentLayer) {
+        currentLayer.style.zIndex = "1";
+      }
+
+      // 2. Actualizar el breve texto descriptivo del juego y la tarjeta destacada
+      if (gameDescEl && nextSlide.shortDesc) {
+        gameDescEl.textContent = nextSlide.shortDesc;
+      }
+      if (featName) featName.textContent = nextSlide.featName;
+      if (featTagline) featTagline.textContent = nextSlide.featTagline;
+      if (featPrice) featPrice.textContent = nextSlide.featPrice;
+      if (featuredLink) {
+        featuredLink.textContent = `Ver ${nextSlide.shortTitle || nextSlide.featName} →`;
+        featuredLink.href = `product.html?id=${nextSlide.id}`;
+      }
+
+      isAnimating = true;
+
+      // 3. Transición cruzada fluida con anime.js
+      if (typeof anime !== "undefined" && nextLayer && currentLayer) {
+        anime({
+          targets: nextLayer,
+          opacity: [0, 1],
+          duration: 600,
+          easing: "easeOutQuad",
+          complete: function () {
+            activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
+            finalizeLayers(nextLayer, currentLayer);
+          }
+        });
+
+        anime({
+          targets: currentLayer,
+          opacity: [1, 0],
+          duration: 600,
+          easing: "easeOutQuad"
+        });
+
+        anime({
+          targets: ["#hero-game-desc", "#carousel-feat-name", "#carousel-feat-tagline", "#carousel-feat-price"],
+          opacity: [0.4, 1],
+          duration: 250,
+          easing: "easeOutQuad"
+        });
+
+        // Seguro contra congelamiento por callbacks no ejecutados
+        safetyTimeout = setTimeout(() => {
+          if (isAnimating) {
+            activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
+            finalizeLayers(nextLayer, currentLayer);
+          }
+        }, 750);
+      } else {
+        // Fallback directo sin dependencias
+        if (nextLayer) nextLayer.style.opacity = "1";
+        if (currentLayer) currentLayer.style.opacity = "0";
+        activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
+        finalizeLayers(nextLayer, currentLayer);
+      }
+    }
+
+    function handleNext() {
+      restartTimer();
+      goToSlide(currentIndex + 1);
+    }
+
+    function handlePrev() {
+      restartTimer();
+      goToSlide(currentIndex - 1);
+    }
+
+    // Flechas de navegación abajo a la derecha
+    if (nextBtn) {
+      nextBtn.addEventListener("click", handleNext);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", handlePrev);
+    }
+
+    // Temporizador automático continuo cada 4 segundos
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      timer = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 4000);
+    }
+
+    function restartTimer() {
+      stopTimer();
+      startTimer();
+    }
+
+    // Pausar auto-avance únicamente si el usuario sitúa el ratón encima de la tarjeta/botones
+    if (featuredCard) {
+      featuredCard.addEventListener("mouseenter", stopTimer);
+      featuredCard.addEventListener("mouseleave", startTimer);
+    }
+
+    startTimer();
+  }
+
+  // =========================================================
+  // 3. CATÁLOGO DINÁMICO EN MEMORIA (index.html)
   // =========================================================
   function formatPrice(val) {
     return val.toFixed(2).replace(".", ",") + " €";
@@ -189,7 +475,7 @@
           <h3 class="game-card-title">${game.title}</h3>
           <p class="game-card-subtitle">${game.subtitle}</p>
           <div class="game-card-meta">
-            <span class="game-card-genre">PC · ${game.genreFull || game.genre}</span>
+            <span class="game-card-genre">${game.platform} · ${game.genreFull || game.genre}</span>
             <span class="game-card-pegi">PEGI ${game.pegi}</span>
           </div>
           <p class="game-card-price">${formatPrice(game.price)}</p>
@@ -216,22 +502,37 @@
     const filtersForm = document.querySelector(".filters-form");
 
     function getFilteredProducts() {
-      // 1. Filtro Género
+      // 1. Filtro Plataforma (PC, PlayStation, Xbox, Nintendo)
+      const checkedPlatforms = Array.from(
+        document.querySelectorAll('input[name="platform"]:checked')
+      ).map((cb) => cb.value.toLowerCase());
+
+      // 2. Filtro Género
       const checkedGenres = Array.from(
         document.querySelectorAll('input[name="genre"]:checked')
       ).map((cb) => cb.value.toLowerCase());
 
-      // 2. Filtro Precio máximo
+      // 3. Filtro Precio máximo
       const maxPrice = priceSlider ? parseFloat(priceSlider.value) : 100;
 
-      // 3. Filtro Con DLC
+      // 4. Filtro Con DLC
       const dlcOnly = document.querySelector('input[name="has_dlc"]')?.checked;
 
       return PRODUCTS.filter((game) => {
+        // Plataforma
+        if (checkedPlatforms.length > 0) {
+          const gamePlatforms = (game.platforms || [game.platform || ""]).map((p) => p.toLowerCase());
+          const matchPlatform = checkedPlatforms.some((cp) =>
+            gamePlatforms.some((gp) => gp.includes(cp))
+          );
+          if (!matchPlatform) return false;
+        }
+
         // Género
         if (checkedGenres.length > 0) {
           const match = checkedGenres.some((g) =>
-            game.genre.toLowerCase().includes(g)
+            game.genre.toLowerCase().includes(g) ||
+            (game.genreFull && game.genreFull.toLowerCase().includes(g))
           );
           if (!match) return false;
         }
@@ -287,8 +588,8 @@
       filtersForm.addEventListener("change", render);
       filtersForm.addEventListener("reset", () => {
         setTimeout(() => {
-          if (priceSlider) priceSlider.value = 50;
-          if (priceDisplay) priceDisplay.textContent = `0 € — 50 €`;
+          if (priceSlider) priceSlider.value = priceSlider.max || 80;
+          if (priceDisplay) priceDisplay.textContent = `0 € — ${priceSlider.value} €`;
           render();
         }, 10);
       });
@@ -309,11 +610,12 @@
     const mainSection = document.querySelector(".product-hero-section");
     if (!mainSection || typeof PRODUCTS === "undefined") return;
 
-    // Obtener id de la URL (?id=bosque)
+    // Obtener id de la URL (?id=cyberpunk-2077)
     const urlParams = new URLSearchParams(window.location.search);
-    const productId = (urlParams.get("id") || "astra").toLowerCase();
+    const productId = (urlParams.get("id") || "cyberpunk-2077").toLowerCase();
 
-    const product = PRODUCTS.find((p) => p.id === productId) || PRODUCTS[0];
+    const catalogList = typeof ALL_PRODUCTS !== "undefined" ? ALL_PRODUCTS : PRODUCTS;
+    const product = catalogList.find((p) => p.id === productId) || PRODUCTS[0];
 
     // Actualizar título del documento
     document.title = `NEXO PLAY - ${product.title}: ${product.subtitle}`;
@@ -323,6 +625,7 @@
     if (currentBreadcrumb) currentBreadcrumb.textContent = product.title;
 
     // Actualizar Portada y Títulos
+    const coverImg = document.querySelector(".product-cover-img");
     const coverTitle = document.querySelector(".product-cover-title");
     const coverSubtitle = document.querySelector(".product-cover-edition");
     const titleEl = document.querySelector(".product-title");
@@ -333,6 +636,10 @@
     const editionBadge = document.querySelector(".product-badge-edition");
     const languagesEl = document.querySelector(".product-languages-info");
 
+    if (coverImg && product.image) {
+      coverImg.src = product.image;
+      coverImg.alt = `Portada de ${product.title}: ${product.subtitle}`;
+    }
     if (coverTitle) coverTitle.textContent = product.title;
     if (coverSubtitle) coverSubtitle.textContent = product.subtitle;
     if (titleEl) titleEl.textContent = product.title;
@@ -377,7 +684,7 @@
           <article class="dlc-card">
             <div class="dlc-card-left">
               <div class="dlc-thumb-badge" aria-hidden="true">
-                <span>${dlc.icon || "☉"}</span>
+                ${dlc.image ? `<img src="${dlc.image}" alt="${dlc.title}" class="dlc-badge-img" />` : `<span>${dlc.icon || "☉"}</span>`}
               </div>
               <div class="dlc-card-info">
                 <h3 class="dlc-title">${dlc.title}</h3>
@@ -447,9 +754,10 @@
       let totalGamesPrice = 0;
       let totalDlcPrice = 0;
 
+      const allGames = typeof ALL_PRODUCTS !== "undefined" ? ALL_PRODUCTS : PRODUCTS;
       cartContainer.innerHTML = cart
         .map((item, index) => {
-          const game = PRODUCTS.find((p) => p.id === item.productId);
+          const game = allGames.find((p) => p.id === item.productId);
           if (!game) return "";
 
           totalGamesPrice += game.price;
@@ -578,6 +886,7 @@
   function initAll() {
     initHeader();
     initFooter();
+    initHeroCarousel();
     initCatalog();
     initProductPage();
     initCartPage();

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NEXO PLAY - Tienda de Videojuegos Indie</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="main.css" />
     <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
     <link rel="stylesheet" href="Features/HomePage/home-page.css" />
@@ -16,36 +17,44 @@
     <div id="header-container"></div>
 
     <main>
-      <!-- SECCIÓN HERO: Portada principal y beneficios -->
-      <section class="home-page">
+      <!-- SECCIÓN HERO: Portada principal con Carrusel de Fondos -->
+      <section class="home-page" id="hero-carousel" aria-label="Juegos Destacados">
+        <!-- Capas de fondo animadas -->
+        <div class="home-carousel-backdrop" id="carousel-backdrop">
+          <div class="carousel-bg-layer" id="carousel-bg-1" style="background-image: url('Assets/hero/hollow-knight.jpg'); opacity: 1; z-index: 1;"></div>
+          <div class="carousel-bg-layer" id="carousel-bg-2" style="opacity: 0; z-index: 0;"></div>
+        </div>
+
         <div class="home-page-hero-main">
           <div class="home-page-player-one">
             <span class="home-page-player-one-badge">&#9654; PLAYER ONE</span>
           </div>
 
-          <div class="home-page-content">
-            <p class="home-page-eyebrow">SELECCIÓN INDEPENDIENTE / 2026</p>
+          <div class="home-page-content" id="hero-static-content">
+            <p class="home-page-eyebrow">SELECCIÓN DE VIDEOJUEGOS / 2026</p>
             <h1 class="home-page-title">Tu próxima aventura empieza aquí.</h1>
-            <p class="home-page-description">
-              Historias que se quedan contigo. Descubre juegos independientes para PC, elegidos por quienes aman jugar.
+            <p class="home-page-description" id="hero-game-desc">
+              Explora las ruinas de Hallownest, un reino subterráneo de insectos y héroes.
             </p>
             <div class="home-page-actions">
               <a href="#catalog" class="home-page-button home-page-button-primary">
                 Explorar catálogo &rarr;
               </a>
-              <a href="product.html" class="home-page-button">
-                Descubrir ASTRA &rarr;
+              <a href="product.html?id=hollow-knight" id="hero-featured-link" class="home-page-button">
+                Ver Hollow Knight &rarr;
               </a>
             </div>
-            <p class="home-page-meta">
-              6 mundos por descubrir · Desde 14,99 € · Descarga digital
-            </p>
           </div>
 
-          <div class="home-page-featured-game">
-            <p class="home-page-featured-name">ASTRA</p>
-            <p class="home-page-featured-tagline">Ecos del vacío</p>
-            <p class="home-page-featured-price">39,99 €</p>
+          <!-- Tarjeta Destacada y Flechas de Navegación abajo a la derecha (sin números) -->
+          <div class="home-page-featured-game" id="carousel-featured-card">
+            <p class="home-page-featured-name" id="carousel-feat-name">HOLLOW KNIGHT</p>
+            <p class="home-page-featured-tagline" id="carousel-feat-tagline">Edición Corazón del Vacío</p>
+            <p class="home-page-featured-price" id="carousel-feat-price">14,99 €</p>
+            <div class="home-carousel-arrows">
+              <button type="button" class="carousel-nav-btn prev" id="carousel-prev-btn" aria-label="Juego anterior">&#9664;</button>
+              <button type="button" class="carousel-nav-btn next" id="carousel-next-btn" aria-label="Siguiente juego">&#9654;</button>
+            </div>
           </div>
         </div>
 
@@ -116,8 +125,20 @@
               <div class="filter-group">
                 <h4 class="filter-group-title">Plataforma</h4>
                 <label class="filter-checkbox-label">
-                  <input type="checkbox" name="platform" value="pc" checked />
+                  <input type="checkbox" name="platform" value="pc" />
                   <span>PC / Windows</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="platform" value="playstation" />
+                  <span>PlayStation</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="platform" value="xbox" />
+                  <span>Xbox</span>
+                </label>
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" name="platform" value="nintendo" />
+                  <span>Nintendo Switch</span>
                 </label>
               </div>
 
@@ -142,10 +163,6 @@
                   <input type="checkbox" name="genre" value="estrategia" />
                   <span>Estrategia</span>
                 </label>
-                <label class="filter-checkbox-label">
-                  <input type="checkbox" name="genre" value="puzles" />
-                  <span>Puzles</span>
-                </label>
               </div>
 
               <hr class="filter-divider" />
@@ -156,13 +173,13 @@
                 <input
                   type="range"
                   min="0"
-                  max="50"
-                  value="50"
+                  max="80"
+                  value="80"
                   class="filter-range-slider"
                   id="priceRange"
                   aria-label="Rango de precio máximo"
                 />
-                <div class="filter-price-display">0 € — 50 €</div>
+                <div class="filter-price-display">0 € — 80 €</div>
                 <label class="filter-checkbox-label filter-dlc-option">
                   <input type="checkbox" name="has_dlc" value="true" />
                   <span>Con DLC</span>
@@ -205,6 +222,7 @@
 
     <div id="footer-container"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="products-data.js"></script>
     <script src="main.js"></script>
   </body>
