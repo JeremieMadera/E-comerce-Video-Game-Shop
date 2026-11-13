@@ -1,0 +1,485 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --cat-bg: #0f0c24;
+  --cat-card-bg: #14102c;
+  --cat-border: #28214b;
+  --cat-border-hover: rgba(183, 171, 223, 0.4);
+  --cat-text-light: #ffffff;
+  --cat-text-muted: #9f94c9;
+  --cat-text-subtle: #7b77a3;
+  --cat-text-dark: #6f6696;
+  --cat-lime: #d5ff52;
+  --cat-lime-hover: #bde93e;
+  --cat-font-pixel: 'Press Start 2P', monospace;
+  --cat-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* =========================================================
+   SECCIÓN PRINCIPAL DEL CATÁLOGO
+   ========================================================= */
+.catalog-section {
+  width: 100%;
+  background-color: var(--cat-bg);
+  color: var(--cat-text-light);
+  font-family: var(--cat-font-body);
+  box-sizing: border-box;
+  padding: 64px 32px 80px;
+}
+
+/* Contenedor centralizado */
+.catalog-section > * {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================================================
+   ENCABEZADO: "Hechos para explorar."
+   ========================================================= */
+.catalog-header {
+  margin-bottom: 40px;
+}
+
+.catalog-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.catalog-title {
+  font-family: var(--cat-font-pixel);
+  font-size: 1.85rem;
+  line-height: 1.35;
+  color: var(--cat-text-light);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.catalog-total-count {
+  font-size: 0.9rem;
+  color: var(--cat-text-subtle);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.catalog-subtitle {
+  font-size: 0.95rem;
+  color: var(--cat-text-muted);
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   DISTRIBUCIÓN EN 2 COLUMNAS (Filtros a la Izquierda)
+   ========================================================= */
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ---------------------------------------------------------
+   COLUMNA LATERAL: FILTROS
+   --------------------------------------------------------- */
+.catalog-filters {
+  background: transparent;
+}
+
+.filters-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.filters-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cat-text-light);
+  margin: 0;
+}
+
+.filters-icon {
+  color: var(--cat-text-subtle);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Grupos de filtros */
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cat-text-muted);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.filter-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--cat-text-muted);
+  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.filter-checkbox-label:hover {
+  color: var(--cat-text-light);
+}
+
+.filter-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--cat-lime);
+}
+
+.filter-divider {
+  border: none;
+  border-top: 1px solid rgba(183, 171, 223, 0.15);
+  margin: 18px 0 20px;
+}
+
+/* Slider de Precio */
+.filter-price-group {
+  margin-bottom: 16px;
+}
+
+.filter-range-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #28214b;
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--cat-lime);
+  margin: 8px 0;
+}
+
+.filter-price-display {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cat-text-light);
+  margin-bottom: 14px;
+}
+
+.filter-dlc-option {
+  margin-top: 10px;
+}
+
+.filter-actions {
+  margin-top: 12px;
+}
+
+.btn-clear-filters {
+  background: transparent;
+  border: none;
+  color: var(--cat-text-subtle);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.btn-clear-filters:hover {
+  color: var(--cat-lime);
+}
+
+/* ---------------------------------------------------------
+   COLUMNA PRINCIPAL: BARRA DE HERRAMIENTAS Y GRID
+   --------------------------------------------------------- */
+.catalog-main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  font-size: 0.88rem;
+  color: var(--cat-text-subtle);
+}
+
+.catalog-status-text {
+  color: var(--cat-text-subtle);
+}
+
+.catalog-sort-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.catalog-sort-label {
+  color: var(--cat-text-subtle);
+}
+
+.catalog-sort-select {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--cat-text-light);
+  font-size: 0.88rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.catalog-sort-select option {
+  background-color: var(--cat-card-bg);
+  color: var(--cat-text-light);
+}
+
+.catalog-sort-select:hover,
+.catalog-sort-select:focus {
+  border-color: #3d356b;
+  background-color: #1a153a;
+  outline: none;
+}
+
+/* =========================================================
+   CUADRÍCULA DE JUEGOS (3 Columnas)
+   ========================================================= */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Tarjeta de Juego */
+.game-card {
+  background-color: var(--cat-card-bg);
+  border: 1px solid var(--cat-border);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.game-card:hover {
+  border-color: var(--cat-border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Contenedor de Carátula */
+.game-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  background-color: #0b081c;
+}
+
+.game-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-card-img {
+  transform: scale(1.04);
+}
+
+/* Badges sobre la portada (CON DLC, SIN DLC, ARCADE, etc.) */
+.game-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(18, 14, 42, 0.88);
+  border: 1px solid #3d356b;
+  color: var(--cat-text-light);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+/* Cuerpo informativo de la tarjeta */
+.game-card-info {
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.game-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cat-text-light);
+  margin: 0 0 4px 0;
+  letter-spacing: 0.02em;
+}
+
+.game-card-subtitle {
+  font-size: 0.88rem;
+  color: var(--cat-text-muted);
+  margin: 0 0 14px 0;
+}
+
+.game-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--cat-text-dark);
+  margin-bottom: 16px;
+}
+
+.game-card-genre {
+  color: var(--cat-text-dark);
+}
+
+.game-card-pegi {
+  color: var(--cat-text-dark);
+  font-weight: 600;
+}
+
+.game-card-price {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cat-text-light);
+  margin: 0 0 16px 0;
+}
+
+/* Enlace "Ver detalle ↗" */
+.game-card-detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--cat-text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 18px;
+  transition: color 0.2s ease;
+  width: max-content;
+}
+
+.game-card-detail-link:hover {
+  color: var(--cat-lime);
+  text-decoration: underline;
+}
+
+/* Botón Añadir al carrito verde lima */
+.btn-add-cart {
+  width: 100%;
+  background-color: var(--cat-lime);
+  color: #110e26;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+.btn-add-cart:hover {
+  background-color: var(--cat-lime-hover);
+}
+
+.btn-add-cart:active {
+  transform: scale(0.99);
+}
+
+/* Aviso inferior */
+.catalog-end-notice {
+  text-align: center;
+  color: var(--cat-text-subtle);
+  font-size: 0.88rem;
+  margin: 56px 0 24px;
+  line-height: 1.5;
+}
+
+.no-products-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--cat-text-muted);
+  font-size: 1rem;
+  padding: 48px 24px;
+  background-color: var(--cat-card-bg);
+  border: 1px solid var(--cat-border);
+  border-radius: 4px;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN (Tablets y Móviles)
+   ========================================================= */
+@media (max-width: 1120px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .catalog-section {
+    padding: 48px 20px 60px;
+  }
+
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .filters-form {
+    background-color: var(--cat-card-bg);
+    border: 1px solid var(--cat-border);
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  .catalog-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
