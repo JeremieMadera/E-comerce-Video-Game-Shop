@@ -1,18 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 :root {
-    --acc-bg: #0d0b1e;
-    --acc-surface: #171333;
-    --acc-surface-sub: #110e26;
-    --acc-card-border: #2e2659;
-    --acc-input-bg: #0f0c22;
-    --acc-input-border: #362e68;
+    --acc-bg: #12102a;
+    --acc-surface: #201b3c;
+    --acc-surface-sub: rgba(18, 16, 42, 0.7);
+    --acc-card-border: rgba(183, 171, 223, 0.25);
+    --acc-input-bg: #12102a;
+    --acc-input-border: rgba(183, 171, 223, 0.3);
     --acc-lime: #d5ff52;
-    --acc-lime-hover: #bde93e;
+    --acc-lime-hover: #e3ff80;
     --acc-text-main: #f4f4ee;
-    --acc-text-muted: #9f94c9;
-    --acc-text-subtle: #6f6696;
-    --acc-font: 'Press Start 2P', monospace;
+    --acc-text-muted: #b7abdf;
+    --acc-text-subtle: rgba(183, 171, 223, 0.7);
+    --acc-font-pixel: 'Press Start 2P', monospace;
+    --acc-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --acc-font: var(--acc-font-body);
 }
 
 * {
@@ -24,7 +26,7 @@
 body.account-page-body {
     background-color: var(--acc-bg);
     color: var(--acc-text-main);
-    font-family: var(--acc-font);
+    font-family: var(--acc-font-body);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -58,20 +60,21 @@ body.account-page-body::after {
 }
 
 /* =========================================
-   HEADER / NAVBAR
+   HEADER / NAVBAR (Fallback si se usa propio)
    ========================================= */
 .account-header {
     width: 100%;
-    border-bottom: 1px solid rgba(160, 140, 220, 0.12);
+    border-bottom: 2px solid rgba(183, 171, 223, 0.2);
     position: relative;
     z-index: 10;
-    background: rgba(13, 11, 30, 0.95);
+    background: #12102a;
+    font-family: var(--acc-font-body);
 }
 
 .account-header-top {
-    max-width: 1360px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 24px 32px 14px;
+    padding: 18px 64px 0 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,25 +83,23 @@ body.account-page-body::after {
 .account-brand-logo {
     display: inline-flex;
     align-items: center;
-    font-family: var(--acc-font);
-    font-size: 1.1rem;
+    font-family: var(--acc-font-pixel);
+    font-size: 16px;
     color: var(--acc-text-main);
     text-decoration: none;
-    letter-spacing: 0.08em;
-    transition: color 0.2s ease;
+    letter-spacing: 0.04em;
+    transition: transform 180ms ease, color 180ms ease;
 }
 
 .account-brand-logo:hover {
     color: var(--acc-lime);
+    transform: translateY(-2px);
 }
 
 .account-header-tagline {
-    font-family: var(--acc-font);
-    font-size: 7px;
-    line-height: 1.6;
-    letter-spacing: 0.12em;
-    color: var(--acc-text-subtle);
-    text-transform: uppercase;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
+    color: var(--acc-text-muted);
 }
 
 .account-header-actions {
@@ -110,43 +111,43 @@ body.account-page-body::after {
 .account-cart-button {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: transparent;
     border: none;
     color: var(--acc-text-main);
     cursor: pointer;
     text-decoration: none;
     padding: 6px 8px;
-    border-radius: 4px;
-    transition: transform 0.15s ease;
+    transition: color 180ms ease, transform 180ms ease;
 }
 
 .account-cart-button:hover {
-    transform: scale(1.05);
+    color: var(--acc-lime);
+    transform: translateY(-2px);
 }
 
 .account-cart-icon {
     width: 20px;
     height: 20px;
-    stroke: var(--acc-text-main);
+    stroke: currentColor;
 }
 
 .account-cart-badge {
     background: var(--acc-lime);
-    color: #0e0c1f;
-    font-family: var(--acc-font);
-    font-size: 8px;
-    padding: 5px 7px;
+    color: #12102a;
+    font-family: var(--acc-font-body);
+    font-size: 12px;
+    padding: 2px 7px;
     border-radius: 2px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.3;
 }
 
 /* Nav Subrow */
 .account-nav-bar {
-    max-width: 1360px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 32px 18px;
+    padding: 16px 64px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -160,45 +161,46 @@ body.account-page-body::after {
 }
 
 .account-nav-link {
-    font-family: var(--acc-font);
+    font-family: var(--acc-font-body);
     color: var(--acc-text-muted);
     text-decoration: none;
-    font-size: 9px;
-    letter-spacing: 0.05em;
-    transition: color 0.2s ease;
-    position: relative;
-    padding-bottom: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 180ms ease, transform 180ms ease;
+    display: inline-block;
 }
 
 .account-nav-link:hover,
 .account-nav-link.active {
     color: var(--acc-text-main);
+    transform: translateY(-2px);
 }
 
 .account-nav-notice {
-    font-family: var(--acc-font);
-    font-size: 8px;
-    letter-spacing: 0.04em;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
     color: var(--acc-text-muted);
 }
 
 /* =========================================
-   MAIN WRAPPER / TWO-COLUMN HERO
+   MAIN LAYOUT (2 Column Grid)
    ========================================= */
 .account-main {
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 64px 0 80px;
     position: relative;
     z-index: 1;
-    padding: 48px 0 64px;
+    font-family: var(--acc-font-body);
 }
 
 .account-container {
     width: 100%;
-    max-width: 1360px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 32px;
+    padding: 0 64px;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 64px;
@@ -215,36 +217,36 @@ body.account-page-body::after {
     display: inline-flex;
     align-items: center;
     align-self: flex-start;
-    padding: 7px 14px;
-    border: 1px solid rgba(160, 140, 220, 0.4);
-    background: rgba(23, 19, 51, 0.6);
-    color: var(--acc-text-muted);
-    font-family: var(--acc-font);
+    padding: 6px 12px;
+    border: 2px solid var(--acc-lime);
+    background: rgba(32, 27, 60, 0.7);
+    color: var(--acc-lime);
+    font-family: var(--acc-font-pixel);
     font-size: 8px;
-    letter-spacing: 0.1em;
-    margin-bottom: 28px;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
     border-radius: 2px;
+    box-shadow: 0 0 12px rgba(213, 255, 82, 0.15);
 }
 
 .account-hero-title {
-    font-family: var(--acc-font);
-    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-    line-height: 1.6;
+    font-family: var(--acc-font-pixel);
+    font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+    line-height: 1.5;
     color: var(--acc-text-main);
-    letter-spacing: 0.02em;
-    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     word-break: break-word;
 }
 
 .account-hero-desc {
-    font-family: var(--acc-font);
-    font-size: 9px;
-    line-height: 2.2;
+    font-family: var(--acc-font-body);
+    font-size: 16px;
+    line-height: 1.65;
     color: var(--acc-text-muted);
     max-width: 580px;
-    margin-bottom: 48px;
-    letter-spacing: 0.03em;
+    margin-bottom: 40px;
 }
 
 /* 3 Feature Highlights */
@@ -253,13 +255,13 @@ body.account-page-body::after {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding-top: 32px;
-    border-top: 1px solid rgba(160, 140, 220, 0.14);
+    border-top: 1px solid rgba(183, 171, 223, 0.2);
 }
 
 .account-feature-item {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     position: relative;
 }
 
@@ -270,31 +272,29 @@ body.account-page-body::after {
     top: 10%;
     height: 80%;
     width: 1px;
-    background: rgba(160, 140, 220, 0.12);
+    background: rgba(183, 171, 223, 0.15);
 }
 
 .account-feature-icon {
-    width: 24px;
-    height: 24px;
-    color: var(--acc-text-main);
-    stroke-width: 1.75;
+    width: 26px;
+    height: 26px;
+    color: var(--acc-lime);
+    stroke-width: 2;
 }
 
 .account-feature-title {
-    font-family: var(--acc-font);
-    font-size: 8px;
-    font-weight: normal;
+    font-family: var(--acc-font-body);
+    font-size: 14.5px;
+    font-weight: 600;
     color: var(--acc-text-main);
-    line-height: 1.8;
-    letter-spacing: 0.03em;
+    line-height: 1.4;
 }
 
 .account-feature-text {
-    font-family: var(--acc-font);
-    font-size: 7px;
-    line-height: 2;
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    line-height: 1.55;
     color: var(--acc-text-muted);
-    letter-spacing: 0.02em;
 }
 
 /* =========================================
@@ -310,9 +310,10 @@ body.account-page-body::after {
     width: 100%;
     max-width: 480px;
     background: var(--acc-surface);
-    border: 1px solid var(--acc-card-border);
+    border: 2px solid var(--acc-card-border);
     position: relative;
-    box-shadow: 0 24px 48px rgba(5, 4, 15, 0.6);
+    border-radius: 2px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* Lime corner square indicator like in Figma */
@@ -328,33 +329,34 @@ body.account-page-body::after {
 }
 
 .account-card-main {
-    padding: 34px 32px 28px;
+    padding: 36px 36px 32px;
 }
 
 .account-card-step {
-    font-family: var(--acc-font);
-    font-size: 8px;
+    font-family: var(--acc-font-body);
+    font-size: 12px;
+    font-weight: 700;
     color: var(--acc-lime);
-    letter-spacing: 0.1em;
-    margin-bottom: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
     display: block;
 }
 
 .account-card-title {
-    font-family: var(--acc-font);
-    font-size: 1.15rem;
+    font-family: var(--acc-font-pixel);
+    font-size: 1.35rem;
     color: var(--acc-text-main);
-    line-height: 1.5;
+    line-height: 1.4;
     margin-bottom: 12px;
 }
 
 .account-card-subtitle {
-    font-family: var(--acc-font);
-    font-size: 8px;
-    line-height: 1.8;
+    font-family: var(--acc-font-body);
+    font-size: 14px;
+    line-height: 1.55;
     color: var(--acc-text-muted);
     margin-bottom: 28px;
-    letter-spacing: 0.02em;
 }
 
 /* Form Groups */
@@ -377,21 +379,22 @@ body.account-page-body::after {
 }
 
 .account-label {
-    font-family: var(--acc-font);
-    font-size: 8px;
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    font-weight: 600;
     color: var(--acc-text-main);
-    letter-spacing: 0.04em;
 }
 
 .account-toggle-pwd {
     background: none;
     border: none;
     color: var(--acc-text-muted);
-    font-family: var(--acc-font);
-    font-size: 8px;
+    font-family: var(--acc-font-body);
+    font-size: 12.5px;
+    font-weight: 500;
     cursor: pointer;
     padding: 0;
-    transition: color 0.2s ease;
+    transition: color 180ms ease;
     text-decoration: underline;
     text-underline-offset: 3px;
 }
@@ -407,28 +410,28 @@ body.account-page-body::after {
 .account-input {
     width: 100%;
     background-color: var(--acc-input-bg);
-    border: 1px solid var(--acc-input-border);
+    border: 2px solid var(--acc-input-border);
     border-radius: 2px;
-    padding: 14px 14px;
-    font-size: 9px;
-    font-family: var(--acc-font);
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: var(--acc-font-body);
     line-height: 1.5;
     color: var(--acc-text-main);
     outline: none;
-    letter-spacing: 0.03em;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+    box-sizing: border-box;
 }
 
 .account-input::placeholder {
-    color: #554e7a;
-    font-family: var(--acc-font);
-    font-size: 8px;
-    letter-spacing: 0.02em;
+    color: var(--acc-text-muted);
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    opacity: 0.65;
 }
 
 .account-input:focus {
     border-color: var(--acc-lime);
-    box-shadow: 0 0 0 2px rgba(213, 255, 82, 0.15);
+    box-shadow: 0 0 0 2px rgba(213, 255, 82, 0.2);
 }
 
 /* Remember me & Forgot Password */
@@ -436,11 +439,10 @@ body.account-page-body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--acc-font);
-    font-size: 7.5px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
     margin-top: -2px;
     margin-bottom: 8px;
-    letter-spacing: 0.02em;
 }
 
 .account-checkbox-label {
@@ -450,8 +452,8 @@ body.account-page-body::after {
     color: var(--acc-text-muted);
     cursor: pointer;
     user-select: none;
-    font-family: var(--acc-font);
-    font-size: 7.5px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
 }
 
 .account-checkbox {
@@ -459,13 +461,13 @@ body.account-page-body::after {
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
-    background: var(--acc-input-bg);
-    border: 1px solid var(--acc-input-border);
+    background-color: var(--acc-input-bg);
+    border: 2px solid var(--acc-input-border);
     border-radius: 2px;
     cursor: pointer;
-    display: inline-grid;
+    display: grid;
     place-content: center;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition: border-color 180ms ease, background-color 180ms ease;
 }
 
 .account-checkbox:checked {
@@ -475,50 +477,50 @@ body.account-page-body::after {
 
 .account-checkbox:checked::before {
     content: "✓";
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 900;
-    color: #0d0b1e;
-    font-family: monospace;
+    color: #12102a;
+    font-family: var(--acc-font-body);
 }
 
 .account-link-forgot {
-    font-family: var(--acc-font);
-    font-size: 7.5px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
     color: var(--acc-text-muted);
     text-decoration: none;
-    transition: color 0.2s;
-    line-height: 1.5;
+    transition: color 180ms ease;
 }
 
 .account-link-forgot:hover {
-    color: var(--acc-text-main);
+    color: var(--acc-lime);
     text-decoration: underline;
 }
 
-/* Submit Button */
+/* Submit Button - Rebote consola de 2px en 180ms */
 .account-submit-btn {
     width: 100%;
     background-color: var(--acc-lime);
-    color: #0e0c1f;
-    border: none;
-    padding: 16px 20px;
-    font-family: var(--acc-font);
-    font-size: 9px;
+    color: #12102a;
+    border: 2px solid var(--acc-lime);
+    border-radius: 2px;
+    padding: 14px 20px;
+    font-family: var(--acc-font-body);
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    letter-spacing: 0.06em;
-    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+    transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     margin-top: 8px;
 }
 
 .account-submit-btn:hover {
     background-color: var(--acc-lime-hover);
-    box-shadow: 0 0 18px rgba(213, 255, 82, 0.4);
-    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(213, 255, 82, 0.35);
+    transform: translateY(-2px);
 }
 
 .account-submit-btn:active {
@@ -528,61 +530,58 @@ body.account-page-body::after {
 /* Bottom Card Box (Don't have an account?) */
 .account-card-bottom {
     background-color: var(--acc-surface-sub);
-    border-top: 1px solid var(--acc-card-border);
-    padding: 18px 32px;
+    border-top: 2px solid var(--acc-card-border);
+    padding: 18px 36px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .account-card-bottom-text {
-    font-family: var(--acc-font);
-    font-size: 7.5px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
     color: var(--acc-text-muted);
-    letter-spacing: 0.02em;
 }
 
 .account-register-link {
-    font-family: var(--acc-font);
-    font-size: 8px;
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    font-weight: 600;
     color: var(--acc-lime);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    letter-spacing: 0.03em;
-    transition: color 0.2s, gap 0.2s;
+    transition: color 180ms ease, gap 180ms ease, transform 180ms ease;
 }
 
 .account-register-link:hover {
-    color: #ffffff;
+    color: #f4f4ee;
     gap: 6px;
+    transform: translateY(-2px);
 }
 
 /* Terms / Privacy Disclaimer under card */
 .account-card-disclaimer {
-    margin-top: 18px;
+    margin-top: 20px;
     text-align: center;
-    font-family: var(--acc-font);
-    font-size: 7px;
-    line-height: 2;
+    font-family: var(--acc-font-body);
+    font-size: 12.5px;
+    line-height: 1.6;
     color: var(--acc-text-subtle);
     max-width: 460px;
-    letter-spacing: 0.02em;
 }
 
 .account-card-disclaimer a {
     color: var(--acc-text-muted);
     text-decoration: none;
     border-bottom: 1px dotted var(--acc-text-subtle);
-    transition: color 0.2s;
+    transition: color 180ms ease;
 }
 
 .account-card-disclaimer a:hover {
-    color: var(--acc-text-main);
+    color: var(--acc-lime);
 }
-
-
 
 /* =========================================
    RESPONSIVE DESIGN
@@ -591,6 +590,7 @@ body.account-page-body::after {
     .account-container {
         grid-template-columns: 1fr;
         gap: 48px;
+        padding: 0 32px;
     }
 
     .account-hero-info {
@@ -611,12 +611,16 @@ body.account-page-body::after {
 }
 
 @media (max-width: 768px) {
+    .account-main {
+        padding: 40px 0 60px;
+    }
+
     .account-header-top {
-        padding: 20px 20px 12px;
+        padding: 16px 20px 0 20px;
     }
 
     .account-nav-bar {
-        padding: 0 20px 16px;
+        padding: 12px 20px 16px;
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
@@ -637,7 +641,7 @@ body.account-page-body::after {
 
     .account-features-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
     }
 
     .account-feature-item:not(:last-child)::after {

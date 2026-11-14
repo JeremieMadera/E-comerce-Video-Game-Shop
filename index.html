@@ -3,109 +3,192 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEXO PLAY - Tienda de Videojuegos Indie</title>
+    <title>ISLA GAMING - La Tienda #1 de la Isla</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
-    <link rel="stylesheet" href="Features/HomePage/home-page.css" />
-    <link rel="stylesheet" href="Features/Catalog/catalog.css" />
-    <link rel="stylesheet" href="Features/Footer/footer.css" />
+    <link rel="stylesheet" href="main.css?v=17" />
+    <link rel="stylesheet" href="Features/NavBar/nav-bar.css?v=17" />
+    <link rel="stylesheet" href="Features/HomePage/home-page.css?v=17" />
+    <link rel="stylesheet" href="Features/LootBox/lootbox.css?v=17" />
+    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=17" />
+    <link rel="stylesheet" href="Features/Footer/footer.css?v=17" />
+
+    <!-- Inicialización de scroll instantánea: siempre empezar y recargar en Inicio -->
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+      if (window.location.hash && history.replaceState) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+    </script>
   </head>
 
   <body class="home-page-body">
+    <!-- Starfield interactivo de fondo (reacciona y brilla con el mouse) -->
+    <canvas id="space-starfield" class="space-starfield-canvas" aria-hidden="true"></canvas>
+
     <div id="header-container"></div>
 
     <main>
-      <!-- SECCIÓN HERO: Portada principal con Carrusel de Fondos -->
+      <!-- SECCIÓN HERO: Portada principal con Carrusel de Fondos (100% Pantalla) -->
       <section class="home-page" id="hero-carousel" aria-label="Juegos Destacados">
         <!-- Capas de fondo animadas -->
         <div class="home-carousel-backdrop" id="carousel-backdrop">
-          <div class="carousel-bg-layer" id="carousel-bg-1" style="background-image: url('Assets/hero/hollow-knight.jpg'); opacity: 1; z-index: 1;"></div>
+          <div class="carousel-bg-layer" id="carousel-bg-1" style="background-image: url('Assets/hero/gta-6.jpg'); opacity: 1; z-index: 1;"></div>
           <div class="carousel-bg-layer" id="carousel-bg-2" style="opacity: 0; z-index: 0;"></div>
         </div>
 
         <div class="home-page-hero-main">
-          <div class="home-page-player-one">
-            <span class="home-page-player-one-badge">&#9654; PLAYER ONE</span>
-          </div>
-
           <div class="home-page-content" id="hero-static-content">
-            <p class="home-page-eyebrow">SELECCIÓN DE VIDEOJUEGOS / 2026</p>
-            <h1 class="home-page-title">Tu próxima aventura empieza aquí.</h1>
+            <p class="home-page-eyebrow">LOS MÁS VENDIDOS EN 2026</p>
+            <h1 class="home-page-title" aria-label="Tu próxima aventura empieza aquí.">
+              <span id="hero-title-text" data-fulltext="Tu próxima aventura empieza aquí.">Tu próxima aventura empieza aquí.</span><span class="hero-cursor" aria-hidden="true">_</span>
+            </h1>
             <p class="home-page-description" id="hero-game-desc">
-              Explora las ruinas de Hallownest, un reino subterráneo de insectos y héroes.
+              Regresa a Vice City y el estado de Leonida en la experiencia de mundo abierto más esperada.
             </p>
             <div class="home-page-actions">
-              <a href="#catalog" class="home-page-button home-page-button-primary">
+              <a href="#catalog" class="home-page-button home-page-button-primary" style="text-decoration: none !important;">
                 Explorar catálogo &rarr;
               </a>
-              <a href="product.html?id=hollow-knight" id="hero-featured-link" class="home-page-button">
-                Ver Hollow Knight &rarr;
+              <a href="product.html?id=gta-6" id="hero-featured-link" class="home-page-button" style="text-decoration: none !important;">
+                Ver GTA VI &rarr;
               </a>
             </div>
           </div>
 
-          <!-- Tarjeta Destacada y Flechas de Navegación abajo a la derecha (sin números) -->
+          <!-- Tarjeta Destacada y Flechas de Navegación abajo a la derecha -->
           <div class="home-page-featured-game" id="carousel-featured-card">
-            <p class="home-page-featured-name" id="carousel-feat-name">HOLLOW KNIGHT</p>
-            <p class="home-page-featured-tagline" id="carousel-feat-tagline">Edición Corazón del Vacío</p>
-            <p class="home-page-featured-price" id="carousel-feat-price">14,99 €</p>
+            <p class="home-page-featured-name" id="carousel-feat-name">GRAND THEFT AUTO VI</p>
+            <p class="home-page-featured-tagline" id="carousel-feat-tagline">Edición Reserva Especial</p>
+            <p class="home-page-featured-price" id="carousel-feat-price">$79.99</p>
             <div class="home-carousel-arrows">
               <button type="button" class="carousel-nav-btn prev" id="carousel-prev-btn" aria-label="Juego anterior">&#9664;</button>
               <button type="button" class="carousel-nav-btn next" id="carousel-next-btn" aria-label="Siguiente juego">&#9654;</button>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="home-page-more-details">
-          <div class="home-page-benefits">
-            <article class="home-page-benefit">
-              <div class="home-page-benefit-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
+      <!-- SECCIÓN OFERTAS: Productos en Oferta (Directamente bajo el Hero) -->
+      <section id="ofertas" class="offers-section" aria-label="Ofertas destacadas de videojuegos">
+        <div class="offers-container">
+          <!-- Cabecera de Ofertas (Estilo Hechos para explorar) -->
+          <div class="offers-header">
+            <div class="offers-header-top">
+              <h2 class="offers-title">Ofertas destacadas.</h2>
+              <span class="offers-total-count">4 ofertas</span>
+            </div>
+            <p class="offers-subtitle">
+              Precios rebajados y descuentos exclusivos por tiempo limitado en Puerto Rico.
+            </p>
+          </div>
+
+          <!-- Cuadrícula de 4 productos en oferta -->
+          <div class="offers-grid" id="offers-grid">
+            <!-- Producto 1: Bloodborne (-50% OFF) -->
+            <article class="game-card offer-card" data-id="bloodborne" onclick="window.NexoShop.goToProduct('bloodborne', event)" role="link" tabindex="0" aria-label="Ver detalles de BLOODBORNE: Game of the Year Edition">
+              <div class="game-card-media">
+                <span class="game-card-badge offer-discount-badge">-50% OFF</span>
+                <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: Game of the Year Edition" class="game-card-img" loading="lazy" decoding="async" />
               </div>
-              <div class="home-page-benefit-text">
-                <h3 class="home-page-benefit-title">Juega al instante</h3>
-                <p class="home-page-benefit-description">Clave digital en tu correo, sin esperas.</p>
+              <div class="game-card-info">
+                <h3 class="game-card-title">BLOODBORNE</h3>
+                <p class="game-card-subtitle">Game of the Year Edition</p>
+                <div class="game-card-meta">
+                  <span class="game-card-genre">PlayStation · Acción / Souls</span>
+                  <span class="game-card-pegi">PEGI 18</span>
+                </div>
+                <div class="offer-price-row">
+                  <span class="offer-old-price">$39.99</span>
+                  <p class="game-card-price">$19.99</p>
+                </div>
+                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('bloodborne', false, event)">
+                  Añadir al carrito &rarr;
+                </button>
               </div>
             </article>
 
-            <article class="home-page-benefit">
-              <div class="home-page-benefit-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>
+            <!-- Producto 2: Cyberpunk 2077 (-33% OFF) -->
+            <article class="game-card offer-card" data-id="cyberpunk-2077" onclick="window.NexoShop.goToProduct('cyberpunk-2077', event)" role="link" tabindex="0" aria-label="Ver detalles de CYBERPUNK 2077: Edición Ultimate">
+              <div class="game-card-media">
+                <span class="game-card-badge offer-discount-badge">-33% OFF</span>
+                <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate" class="game-card-img" loading="lazy" decoding="async" />
               </div>
-              <div class="home-page-benefit-text">
-                <h3 class="home-page-benefit-title">Compra con confianza</h3>
-                <p class="home-page-benefit-description">Pago seguro y precios con IVA incluido.</p>
+              <div class="game-card-info">
+                <h3 class="game-card-title">CYBERPUNK 2077</h3>
+                <p class="game-card-subtitle">Edición Ultimate</p>
+                <div class="game-card-meta">
+                  <span class="game-card-genre">PC · PS5 · Xbox · Aventura</span>
+                  <span class="game-card-pegi">PEGI 18</span>
+                </div>
+                <div class="offer-price-row">
+                  <span class="offer-old-price">$59.99</span>
+                  <p class="game-card-price">$39.99</p>
+                </div>
+                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('cyberpunk-2077', false, event)">
+                  Añadir al carrito &rarr;
+                </button>
               </div>
             </article>
 
-            <article class="home-page-benefit">
-              <div class="home-page-benefit-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                </svg>
+            <!-- Producto 3: Hollow Knight (-40% OFF) -->
+            <article class="game-card offer-card" data-id="hollow-knight" onclick="window.NexoShop.goToProduct('hollow-knight', event)" role="link" tabindex="0" aria-label="Ver detalles de HOLLOW KNIGHT: Edición Corazón del Vacío">
+              <div class="game-card-media">
+                <span class="game-card-badge offer-discount-badge">-40% OFF</span>
+                <img src="Assets/hollow-knight.jpg" alt="Portada de HOLLOW KNIGHT: Edición Corazón del Vacío" class="game-card-img" loading="lazy" decoding="async" />
               </div>
-              <div class="home-page-benefit-text">
-                <h3 class="home-page-benefit-title">Apoya el talento indie</h3>
-                <p class="home-page-benefit-description">Cada compra impulsa nuevos mundos.</p>
+              <div class="game-card-info">
+                <h3 class="game-card-title">HOLLOW KNIGHT</h3>
+                <p class="game-card-subtitle">Edición Corazón del Vacío</p>
+                <div class="game-card-meta">
+                  <span class="game-card-genre">Multiplataforma · Aventura</span>
+                  <span class="game-card-pegi">PEGI 7</span>
+                </div>
+                <div class="offer-price-row">
+                  <span class="offer-old-price">$24.99</span>
+                  <p class="game-card-price">$14.99</p>
+                </div>
+                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('hollow-knight', false, event)">
+                  Añadir al carrito &rarr;
+                </button>
+              </div>
+            </article>
+
+            <!-- Producto 4: God of War (-40% OFF) -->
+            <article class="game-card offer-card" data-id="god-of-war" onclick="window.NexoShop.goToProduct('god-of-war', event)" role="link" tabindex="0" aria-label="Ver detalles de GOD OF WAR: Edición PC / PS4">
+              <div class="game-card-media">
+                <span class="game-card-badge offer-discount-badge">-40% OFF</span>
+                <img src="Assets/god-of-war.jpg" alt="Portada de GOD OF WAR: Edición PC / PS4" class="game-card-img" loading="lazy" decoding="async" />
+              </div>
+              <div class="game-card-info">
+                <h3 class="game-card-title">GOD OF WAR</h3>
+                <p class="game-card-subtitle">Edición PC / PS4</p>
+                <div class="game-card-meta">
+                  <span class="game-card-genre">PC · PlayStation · Acción</span>
+                  <span class="game-card-pegi">PEGI 18</span>
+                </div>
+                <div class="offer-price-row">
+                  <span class="offer-old-price">$49.99</span>
+                  <p class="game-card-price">$29.99</p>
+                </div>
+                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('god-of-war', false, event)">
+                  Añadir al carrito &rarr;
+                </button>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN CATÁLOGO: Filtros y listado de 6 juegos -->
+      <!-- SECCIÓN CATÁLOGO: Filtros y listado completo de juegos -->
       <section id="catalog" class="catalog-section">
         <div class="catalog-header">
           <div class="catalog-header-top">
             <h2 class="catalog-title">Hechos para explorar.</h2>
-            <span class="catalog-total-count">6 juegos</span>
+            <span class="catalog-total-count">15 juegos</span>
           </div>
           <p class="catalog-subtitle">
             De viajes tranquilos a desafíos sin pausa. Encuentra tu próxima obsesión.
@@ -113,12 +196,15 @@
         </div>
 
         <div class="catalog-layout">
-          <!-- Columna Lateral: Filtros -->
+          <!-- Columna Lateral: Filtros (Botón en móvil + Formulario lateral 220px) -->
           <aside class="catalog-filters" aria-label="Filtros de catálogo">
-            <form class="filters-form">
+            <button type="button" class="btn-mobile-filters" id="btn-toggle-filters" aria-expanded="false" aria-controls="catalog-filters-form">
+              <span>⚡ Filtros</span>
+              <span class="filter-toggle-arrow">▾</span>
+            </button>
+            <form class="filters-form" id="catalog-filters-form">
               <div class="filters-heading">
                 <h3 class="filters-title">Filtros</h3>
-                <span class="filters-icon" aria-hidden="true">&#9776;</span>
               </div>
 
               <!-- Filtro de Plataforma -->
@@ -179,7 +265,7 @@
                   id="priceRange"
                   aria-label="Rango de precio máximo"
                 />
-                <div class="filter-price-display">0 € — 80 €</div>
+                <div class="filter-price-display">$0 — $80</div>
                 <label class="filter-checkbox-label filter-dlc-option">
                   <input type="checkbox" name="has_dlc" value="true" />
                   <span>Con DLC</span>
@@ -195,7 +281,7 @@
           <!-- Columna Principal: Barra de herramientas y Cuadrícula de juegos -->
           <div class="catalog-main-content">
             <div class="catalog-toolbar">
-              <span class="catalog-status-text">Mostrando 6 de 6 juegos</span>
+              <span class="catalog-status-text">Mostrando 15 de 15 juegos</span>
               <div class="catalog-sort-group">
                 <label for="catalogSort" class="catalog-sort-label">Ordenar:</label>
                 <select id="catalogSort" class="catalog-sort-select">
@@ -218,12 +304,100 @@
           </div>
         </div>
       </section>
+
+      <!-- SECCIÓN INTERACTIVA: Mystery Arcade Loot Box & Recompensas (Ubicada abajo antes del Footer) -->
+      <section class="lootbox-arcade-section" id="arcade-lootbox" aria-label="Mystery Loot Box Arcade">
+        <div class="lootbox-container">
+          <!-- Cabecera del Minijuego -->
+          <div class="lootbox-header">
+            <div class="lootbox-header-badge">
+              <span class="lootbox-live-dot"></span>
+              <span>ARCADE REWARDS 2026</span>
+            </div>
+            <h2 class="lootbox-title">MYSTERY LOOT BOX</h2>
+            <p class="lootbox-subtitle">
+              ¡Abre la caja sorpresa arcade! Tienes <strong>1 moneda gratis de bienvenida</strong>. Gana descuentos de <strong>5%</strong>, <strong>15%</strong>, <strong>25%</strong> y hasta <strong>50%</strong> (cada uno con menor probabilidad). Ganas <strong>+1 moneda</strong> por cada juego base que compres (los DLC no generan monedas).
+            </p>
+          </div>
+
+          <!-- Gabinete / Terminal Arcade -->
+          <div class="lootbox-cabinet">
+            <!-- HUD Superior: Datos del Jugador y Monedas -->
+            <div class="lootbox-hud">
+              <div class="lootbox-player-info">
+                <span class="hud-label">PLAYER:</span>
+                <span class="hud-val">GAMER #1</span>
+              </div>
+              <div class="lootbox-coin-balance" id="lootbox-coin-display">
+                <span class="coin-icon">🪙</span>
+                <span class="coin-label">MONEDAS:</span>
+                <span class="coin-count" id="lootbox-coins">1</span>
+              </div>
+              <div class="lootbox-cost-pill">
+                <span>COSTE: 1 🪙 / TIRO</span>
+              </div>
+            </div>
+
+            <!-- Pantalla Central / Escenario -->
+            <div class="lootbox-stage" id="lootbox-stage">
+              <!-- Estado 1: Caja en espera -->
+              <div class="lootbox-box-wrap" id="lootbox-box-wrap">
+                <div class="lootbox-pixel-chest" id="lootbox-chest">
+                  <span class="chest-icon">🎁</span>
+                </div>
+                <div class="lootbox-prompt-text" id="lootbox-prompt">
+                  ¿QUÉ RECOMPENSA TE TOCARÁ HOY?
+                </div>
+              </div>
+
+              <!-- Estado 2: Animación giratoria / Ruleta -->
+              <div class="lootbox-reel-wrap" id="lootbox-reel" style="display: none;">
+                <div class="lootbox-reel-display" id="lootbox-reel-display">
+                  🎲 PROCESANDO DROP...
+                </div>
+                <div class="lootbox-reel-status">Sincronizando con el servidor arcade...</div>
+              </div>
+
+              <!-- Estado 3: Premio Desbloqueado -->
+              <div class="lootbox-reward-card" id="lootbox-reward" style="display: none;">
+                <span class="reward-sparkles">✧ ¡PREMIO DESBLOQUEADO! ✧</span>
+                <div class="reward-badge" id="reward-type-badge">CUPÓN EXCLUSIVO</div>
+                <h3 class="reward-title" id="reward-title">15% DE DESCUENTO</h3>
+                <p class="reward-desc" id="reward-desc">Aplica este código en el carrito para ahorrar en cualquier juego de la tienda.</p>
+                <div class="reward-code-box">
+                  <span class="reward-code" id="reward-code-val">ISLA15</span>
+                  <button type="button" class="btn-copy-code" id="btn-copy-reward" aria-label="Copiar código de descuento">
+                    📋 COPIAR
+                  </button>
+                </div>
+                <span class="copy-success-msg" id="copy-msg" style="display: none;">¡Código copiado al portapapeles! ✓</span>
+              </div>
+            </div>
+
+            <!-- Panel de Controles Inferior -->
+            <div class="lootbox-controls">
+              <button type="button" class="btn-arcade-spin" id="btn-open-lootbox">
+                <span class="btn-coin-anim">🪙</span> INSERT COIN · ABRIR LOOT BOX
+              </button>
+              <div class="lootbox-hint" id="lootbox-hint">
+                Presiona para usar 1 moneda y desbloquear tu recompensa
+              </div>
+            </div>
+
+            <!-- Pie de Reglas Informativas -->
+            <div class="lootbox-footer-rules">
+              <span class="rule-tag">💡 REGLA:</span>
+              <span class="rule-text">Tiers de descuento: 5% (Común) · 15% (Raro) · 25% (Épico) · 50% (Jackpot) · +1 moneda por juego base · DLCs no otorgan monedas.</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <div id="footer-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="products-data.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=17"></script>
   </body>
 </html>

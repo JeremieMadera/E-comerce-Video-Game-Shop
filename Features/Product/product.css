@@ -1,15 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
 
+/* =========================================================
+   DETALLE DE PRODUCTO - ISLA GAMING (Puerto Rico)
+   Paleta oficial Figma:
+   - #12102A (Noche violeta)
+   - #201B3C (Superficie)
+   - #D5FF52 (Acento lima)
+   - #F4F4EE (Blanco cálido)
+   - #B7ABDF (Lavanda suave)
+   ========================================================= */
+
 :root {
-  --prod-bg: #0f0c24;
-  --prod-surface: #14102c;
-  --prod-border: #28214b;
-  --prod-border-hover: rgba(183, 171, 223, 0.4);
-  --prod-text-light: #ffffff;
-  --prod-text-muted: #9f94c9;
-  --prod-text-subtle: #7b77a3;
+  --prod-bg: #12102a;
+  --prod-surface: #201b3c;
+  --prod-border: rgba(183, 171, 223, 0.25);
+  --prod-border-hover: #d5ff52;
+  --prod-text-light: #f4f4ee;
+  --prod-text-muted: #b7abdf;
+  --prod-text-subtle: rgba(183, 171, 223, 0.7);
   --prod-lime: #d5ff52;
-  --prod-lime-hover: #bde93e;
+  --prod-lime-hover: #e3ff80;
   --prod-font-pixel: 'Press Start 2P', monospace;
   --prod-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -28,9 +38,9 @@
 }
 
 .product-main-container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 24px 80px;
+  padding: 40px 64px 80px;
   box-sizing: border-box;
 }
 
@@ -49,15 +59,17 @@
 .product-breadcrumbs a {
   color: var(--prod-text-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 180ms ease, transform 180ms ease;
+  display: inline-block;
 }
 
 .product-breadcrumbs a:hover {
   color: var(--prod-lime);
+  transform: translateY(-2px);
 }
 
 .breadcrumb-separator {
-  color: var(--prod-text-subtle);
+  color: var(--prod-text-muted);
   user-select: none;
 }
 
@@ -85,16 +97,16 @@
 .product-cover-card {
   position: relative;
   background-color: var(--prod-surface);
-  border: 1px solid var(--prod-border);
-  border-radius: 6px;
+  border: 2px solid var(--prod-border);
+  border-radius: 2px;
   overflow: hidden;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 180ms ease, border-color 180ms ease;
 }
 
 .product-cover-card:hover {
-  border-color: var(--prod-border-hover);
-  transform: translateY(-4px);
+  border-color: var(--prod-lime);
+  transform: translateY(-2px);
 }
 
 .product-cover-img {
@@ -106,8 +118,8 @@
 
 .product-cover-caption {
   padding: 16px 20px;
-  background: linear-gradient(180deg, rgba(20, 16, 44, 0.85) 0%, rgba(15, 12, 36, 0.98) 100%);
-  border-top: 1px solid var(--prod-border);
+  background: #201b3c;
+  border-top: 2px solid var(--prod-border);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -140,14 +152,14 @@
 
 .product-badge-edition {
   display: inline-block;
-  background-color: rgba(61, 53, 107, 0.4);
-  border: 1px solid #3d356b;
+  background-color: #201b3c;
+  border: 2px solid var(--prod-lime);
   color: var(--prod-lime);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   padding: 5px 12px;
-  border-radius: 4px;
+  border-radius: 2px;
   text-transform: uppercase;
 }
 
@@ -161,7 +173,7 @@
 }
 
 .rating-star {
-  color: #ffc107;
+  color: var(--prod-lime);
   font-size: 1rem;
 }
 
@@ -183,7 +195,7 @@
 .product-description {
   font-size: 1rem;
   line-height: 1.65;
-  color: #d1cbe5;
+  color: var(--prod-text-light);
   margin: 0 0 28px 0;
 }
 
@@ -196,20 +208,20 @@
 }
 
 .spec-pill {
-  background-color: rgba(25, 20, 52, 0.85);
-  border: 1px solid var(--prod-border);
+  background-color: var(--prod-surface);
+  border: 2px solid var(--prod-border);
   color: var(--prod-text-muted);
   font-size: 0.84rem;
   font-weight: 500;
   padding: 6px 14px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 /* Caja de Compra */
 .product-purchase-box {
   background-color: var(--prod-surface);
-  border: 1px solid var(--prod-border);
-  border-radius: 6px;
+  border: 2px solid var(--prod-border);
+  border-radius: 2px;
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -239,7 +251,7 @@
 
 .vat-notice {
   font-size: 0.82rem;
-  color: var(--prod-text-subtle);
+  color: var(--prod-text-muted);
 }
 
 .stock-status {
@@ -248,12 +260,13 @@
   color: var(--prod-lime);
 }
 
+/* Botón de compra tipo consola (rebote vertical de 2px, 180ms) */
 .btn-primary-buy {
   width: 100%;
   background-color: var(--prod-lime);
-  color: #0b081c;
-  border: none;
-  border-radius: 4px;
+  color: #12102a;
+  border: 2px solid var(--prod-lime);
+  border-radius: 2px;
   padding: 16px 24px;
   font-size: 1.05rem;
   font-weight: 700;
@@ -262,7 +275,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s ease;
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
   font-family: inherit;
 }
 
@@ -293,9 +306,9 @@
 
 .product-languages-info {
   font-size: 0.82rem;
-  color: var(--prod-text-subtle);
+  color: var(--prod-text-muted);
   margin: 0;
-  border-top: 1px solid var(--prod-border);
+  border-top: 2px solid var(--prod-border);
   padding-top: 14px;
   line-height: 1.4;
 }
@@ -329,18 +342,19 @@
 
 .dlc-card {
   background-color: var(--prod-surface);
-  border: 1px solid var(--prod-border);
-  border-radius: 6px;
+  border: 2px solid var(--prod-border);
+  border-radius: 2px;
   padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  transition: border-color 0.2s ease;
+  transition: border-color 180ms ease, transform 180ms ease;
 }
 
 .dlc-card:hover {
-  border-color: var(--prod-border-hover);
+  border-color: var(--prod-lime);
+  transform: translateY(-2px);
 }
 
 .dlc-card-left {
@@ -355,11 +369,11 @@
   height: 54px;
   flex-shrink: 0;
   background-color: var(--prod-lime);
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0b081c;
+  color: #12102a;
   font-size: 1.5rem;
   font-weight: 800;
   overflow: hidden;
@@ -406,22 +420,27 @@
 
 .btn-dlc-add {
   background-color: transparent;
-  border: 1px solid var(--prod-lime);
+  border: 2px solid var(--prod-lime);
   color: var(--prod-lime);
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 10px 20px;
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 180ms ease;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .btn-dlc-add:hover {
   background-color: var(--prod-lime);
-  color: #0b081c;
+  color: #12102a;
+  transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(213, 255, 82, 0.25);
+}
+
+.btn-dlc-add:active {
+  transform: translateY(0);
 }
 
 /* =========================================================
@@ -453,8 +472,8 @@
 
 .requirements-card {
   background-color: var(--prod-surface);
-  border: 1px solid var(--prod-border);
-  border-radius: 6px;
+  border: 2px solid var(--prod-border);
+  border-radius: 2px;
   padding: 28px;
 }
 
@@ -479,7 +498,7 @@
   grid-template-columns: 120px 1fr;
   gap: 16px;
   align-items: baseline;
-  border-bottom: 1px solid rgba(40, 33, 75, 0.6);
+  border-bottom: 1px solid rgba(183, 171, 223, 0.2);
   padding-bottom: 10px;
 }
 
@@ -490,7 +509,7 @@
 
 .req-label {
   font-size: 0.85rem;
-  color: var(--prod-text-subtle);
+  color: var(--prod-text-muted);
   font-weight: 500;
   margin: 0;
 }
@@ -506,6 +525,10 @@
    RESPONSIVE DESIGN (Tablets y Móviles)
    ========================================================= */
 @media (max-width: 900px) {
+  .product-main-container {
+    padding: 32px 20px 60px;
+  }
+
   .product-hero-section {
     grid-template-columns: 1fr;
     gap: 36px;
@@ -526,7 +549,7 @@
   }
 
   .product-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .dlc-card {
@@ -538,4 +561,3 @@
     justify-content: space-between;
   }
 }
-
