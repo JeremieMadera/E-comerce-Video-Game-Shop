@@ -1,25 +1,37 @@
 #footer-container {
     color: #f4f4ee;
-    background: #12102a;
+    background: transparent;
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+.banner-manifesto-section {
+    position: relative;
+    width: 100%;
+    background: #12102a;
+    padding: 36px 64px 16px;
+    box-sizing: border-box;
+}
+
+.banner-manifesto-card,
 #footer-container > section {
     position: relative;
     box-sizing: border-box;
-    margin: 32px 64px 64px;
+    max-width: 1440px;
+    margin: 0 auto;
     padding: 27px 30px 28px;
     color: #f4f4ee;
     background: #201b3c;
     border: 2px solid rgba(183, 171, 223, 0.48);
 }
 
+.banner-manifesto-card h2,
 #footer-container > section h2 {
     margin: 0 0 8px;
     font: 20px/1.6 "Press Start 2P", monospace;
     letter-spacing: 0.03em;
 }
 
+.banner-manifesto-card p,
 #footer-container > section p {
     max-width: calc(100% - 64px);
     margin: 0;
@@ -28,27 +40,77 @@
     line-height: 1.7;
 }
 
+.banner-manifesto-card::before,
 #footer-container > section::before,
+.banner-manifesto-card::after,
 #footer-container > section::after {
     position: absolute;
     color: #f4f4ee;
     pointer-events: none;
 }
 
+.banner-manifesto-card::before,
 #footer-container > section::before {
     top: 26px;
     right: 31px;
     content: "✧";
     font-size: 42px;
     line-height: 1;
+    color: #d5ff52;
+    display: inline-block;
+    animation: star-spin-pulse 4s ease-in-out infinite;
+    text-shadow: 0 0 16px rgba(213, 255, 82, 0.7);
+    transform-origin: center center;
 }
 
+.banner-manifesto-card::after,
 #footer-container > section::after {
     top: 32px;
     right: 25px;
     content: "✦";
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
+    color: #f4f4ee;
+    display: inline-block;
+    animation: star-twinkle 2.4s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px rgba(244, 244, 238, 0.9);
+    transform-origin: center center;
+}
+
+@keyframes star-spin-pulse {
+    0% {
+        transform: rotate(0deg) scale(1);
+        color: #d5ff52;
+        text-shadow: 0 0 12px rgba(213, 255, 82, 0.5);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.25);
+        color: #f4f4ee;
+        text-shadow: 0 0 24px rgba(213, 255, 82, 0.95), 0 0 35px rgba(213, 255, 82, 0.4);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        color: #d5ff52;
+        text-shadow: 0 0 12px rgba(213, 255, 82, 0.5);
+    }
+}
+
+@keyframes star-twinkle {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.5;
+        text-shadow: 0 0 6px rgba(244, 244, 238, 0.4);
+    }
+    50% {
+        transform: scale(1.35) rotate(45deg);
+        opacity: 1;
+        text-shadow: 0 0 16px rgba(213, 255, 82, 0.9);
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        text-shadow: 0 0 8px rgba(244, 244, 238, 0.5);
+    }
 }
 
 #footer-container > hr {
@@ -111,13 +173,53 @@
     line-height: 1.6;
 }
 
-#footer-container > footer > nav[aria-label="Redes sociales"] {
+#footer-container > footer > nav[aria-label="Redes sociales"],
+#footer-container > footer > .footer-social-icons {
     grid-column: 1;
     grid-row: 3;
     display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-top: 12px;
+    align-items: center;
+    gap: 18px;
+    margin-top: 14px;
+}
+
+.social-icon-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: default;
+    user-select: none;
+}
+
+.social-icon-img {
+    width: 32px;
+    height: 32px;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.3s ease;
+}
+
+/* Animación Icons8 al hacer HOVER (sin cuadro alrededor) */
+.social-icon-item:hover .social-icon-img {
+    transform: translateY(-5px) scale(1.25);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 10px rgba(213, 255, 82, 0.5));
+    animation: icon-wiggle 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes icon-wiggle {
+    0% {
+        transform: translateY(-5px) scale(1.25) rotate(-9deg);
+    }
+    100% {
+        transform: translateY(-5px) scale(1.25) rotate(9deg);
+    }
 }
 
 #footer-container > footer h3 {
@@ -227,27 +329,36 @@
 }
 
 @media (max-width: 760px) {
+    .banner-manifesto-section {
+        padding: 24px 20px 16px;
+    }
+
+    .banner-manifesto-card,
     #footer-container > section {
-        margin: 24px 20px 36px;
+        margin: 0 auto;
         padding: 22px 20px;
     }
 
+    .banner-manifesto-card h2,
     #footer-container > section h2 {
         max-width: calc(100% - 44px);
         font-size: 15px;
     }
 
+    .banner-manifesto-card p,
     #footer-container > section p {
         max-width: 100%;
         font-size: 13px;
     }
 
+    .banner-manifesto-card::before,
     #footer-container > section::before {
         top: 18px;
         right: 18px;
         font-size: 30px;
     }
 
+    .banner-manifesto-card::after,
     #footer-container > section::after {
         top: 20px;
         right: 13px;

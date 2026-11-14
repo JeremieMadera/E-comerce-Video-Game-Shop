@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEXO PLAY - Carrito</title>
+  <title>ISLA GAMING - Carrito</title>
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
   <link rel="stylesheet" href="Features/cart/cart.css" />
@@ -42,14 +42,14 @@
             <div class="cart-item-row cart-item-base">
               <div class="cart-item-media">
                 <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate"
-                  class="cart-item-thumb" />
+                  class="cart-item-thumb" loading="lazy" decoding="async" />
               </div>
 
       <div class="cart-item-info">
         <h2 class="cart-item-title">CYBERPUNK 2077</h2>
         <p class="cart-item-edition">Edición Ultimate</p>
         <p class="cart-item-meta">Juego base · PC / Consolas · Cantidad: 1</p>
-        <p class="cart-item-price">39,99 €</p>
+        <p class="cart-item-price">$39.99</p>
       </div>
 
         <div class="cart-item-actions">
@@ -77,7 +77,7 @@
               <div class="cart-item-info">
                 <h3 class="cart-item-title">Phantom Liberty</h3>
                 <p class="cart-item-meta">Expansión digital · Cantidad: 1</p>
-                <p class="cart-item-price">29,99 €</p>
+                <p class="cart-item-price">$29.99</p>
               </div>
 
               <div class="cart-item-actions">
@@ -95,14 +95,14 @@
             <div class="cart-item-row cart-item-base">
               <div class="cart-item-media">
                 <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: GOTY"
-                  class="cart-item-thumb" />
+                  class="cart-item-thumb" loading="lazy" decoding="async" />
               </div>
 
               <div class="cart-item-info">
                 <h2 class="cart-item-title">BLOODBORNE</h2>
                 <p class="cart-item-edition">Game of the Year Edition</p>
                 <p class="cart-item-meta">Juego base · PlayStation · Cantidad: 1</p>
-                <p class="cart-item-price">19,99 €</p>
+                <p class="cart-item-price">$19.99</p>
               </div>
 
               <div class="cart-item-actions">
@@ -138,24 +138,24 @@
                 <div class="summary-breakdown">
                   <div class="summary-row">
                     <span class="row-label">Juegos (2)</span>
-                    <span id="summary-games-price" class="row-value">64,98 €</span>
+                    <span id="summary-games-price" class="row-value">$64.98</span>
                   </div>
 
                   <div class="summary-row">
                     <span class="row-label">DLC (1)</span>
-                    <span id="summary-dlc-price" class="row-value">12,99 €</span>
+                    <span id="summary-dlc-price" class="row-value">$12.99</span>
                   </div>
 
                   <hr class="summary-divider" />
 
                   <div class="summary-row">
                     <span class="row-label">Subtotal</span>
-                    <span id="summary-subtotal" class="row-value">77,97 €</span>
+                    <span id="summary-subtotal" class="row-value">$77.97</span>
                   </div>
 
                   <div class="summary-row">
                     <span class="row-label">Descuentos</span>
-                    <span id="summary-discounts" class="row-value">0,00 €</span>
+                    <span id="summary-discounts" class="row-value">$0.00</span>
                   </div>
 
                   <div class="summary-row">
@@ -169,9 +169,18 @@
                   <div class="summary-total-group">
                     <div class="summary-total-meta">
                       <span class="total-label">Total</span>
-                      <span class="total-tax-notice">IVA incluido · Sin cargos adicionales</span>
+                      <span class="total-tax-notice">IVU incluido · Paga seguro con ATH Móvil o tarjeta</span>
                     </div>
-                    <span id="summary-total-price" class="total-value">77,97 €</span>
+                    <span id="summary-total-price" class="total-value">$77.97</span>
+                  </div>
+
+                  <!-- Canje de cupón o Drop de Loot Box -->
+                  <div class="cart-coupon-box">
+                    <div class="cart-coupon-input-wrap">
+                      <input type="text" id="cart-coupon-input" placeholder="Código de Loot Box..." aria-label="Código de cupón o recompensa" />
+                      <button type="button" id="btn-apply-coupon" class="btn-apply-coupon">Canjear</button>
+                    </div>
+                    <div id="coupon-feedback" class="coupon-feedback"></div>
                   </div>
                 </div>
 
@@ -186,7 +195,7 @@
                       <span class="lock-icon" aria-hidden="true">&#128274;</span>
                       Pago cifrado y protegido
                     </div>
-                    <p class="payment-methods">VISA · Mastercard · PayPal</p>
+                    <p class="payment-methods">ATH Móvil · VISA · Mastercard · PayPal</p>
                     <p class="delivery-notice">
                       Recibirás tus claves en el correo de tu cuenta al confirmar el pago.
                     </p>

@@ -1,6 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+
 /* ==========================================================================
-   ESTILOS GLOBALES COMPARTIDOS - NEXO PLAY
+   ESTILOS GLOBALES COMPARTIDOS - ISLA GAMING
+   Paleta oficial Figma:
+   - #12102A (Noche violeta)
+   - #201B3C (Superficie)
+   - #D5FF52 (Acento lima)
+   - #F4F4EE (Blanco cálido)
+   - #B7ABDF (Lavanda suave)
+   Tipografía:
+   - Títulos / Retro: 'Press Start 2P', monospace
+   - Navegación / Contenido / Formularios: 'Inter', sans-serif
    ========================================================================== */
+
+:root {
+  --color-ink: #12102a;
+  --color-surface: #201b3c;
+  --color-lime: #d5ff52;
+  --color-light: #f4f4ee;
+  --color-muted: #b7abdf;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
 *,
 *::before,
@@ -13,21 +34,52 @@
 html {
   margin: 0;
   padding: 0;
-  background-color: #0f0c24;
-  color: #ffffff;
+  background-color: var(--color-ink);
+  color: var(--color-light);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #0f0c24;
-  color: #ffffff;
+  background-color: var(--color-ink);
+  color: var(--color-light);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-x: clip;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#header-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+/* Starfield interactivo de fondo (estrellas que brillan con el mouse) */
+.space-starfield-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Espacio superior para anclas con navbar sticky */
+#hero-carousel,
+#ofertas,
+#catalog,
+#arcade-lootbox,
+.offers-section,
+.catalog-section,
+.lootbox-arcade-section {
+  scroll-margin-top: calc(var(--navbar-height, 100px) + 16px);
 }
 
 /* Evitar desbordes horizontales o franjas indeseadas */
@@ -40,10 +92,163 @@ svg {
   max-width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 input,
 button,
 textarea,
 select {
   font: inherit;
+}
+
+/* ==========================================================================
+   ANIMACIONES DE ENTRADA AL HACER SCROLL (Scroll Reveal)
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cascada escalonada en tarjetas del catálogo */
+.game-card.reveal-on-scroll {
+  transition-delay: calc(var(--card-delay, 0) * 85ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   ESTILOS GENERALES PARA PÁGINAS DE TEXTO (Términos y Condiciones, etc.)
+   ========================================================================== */
+body:has(main > nav > h2) {
+  padding: 0;
+}
+
+main:has(> nav > h2) {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px 64px 32px;
+  box-sizing: border-box;
+}
+
+main > nav:has(> h2) {
+  background: var(--color-surface);
+  border: 2px solid rgba(183, 171, 223, 0.25);
+  border-radius: 2px;
+  padding: 32px 36px;
+  margin-bottom: 40px;
+}
+
+main > nav > h2 {
+  font-family: var(--font-pixel);
+  font-size: 1.25rem;
+  color: var(--color-light);
+  margin-bottom: 24px;
+}
+
+main > nav:has(> h2) div {
+  display: inline-block;
+  vertical-align: top;
+  width: 48%;
+  line-height: 2;
+}
+
+main > nav:has(> h2) a {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 180ms ease, transform 180ms ease;
+  display: inline-block;
+}
+
+main > nav:has(> h2) a:hover {
+  color: var(--color-lime);
+  transform: translateX(4px);
+}
+
+section[id^="aceptacion"],
+section[id^="uso"],
+section[id^="productos"],
+section[id^="disponibilidad"],
+section[id^="precios"],
+section[id^="pedidos"],
+section[id^="pagos"],
+section[id^="envios"],
+section[id^="cancelaciones"],
+section[id^="cuentas"],
+section[id^="propiedad"],
+section[id^="limitacion"],
+section[id^="enlaces"],
+section[id^="privacidad"],
+section[id^="cookies"],
+section[id^="modificaciones"],
+section[id^="legislacion"],
+section[id^="contacto"] {
+  max-width: 1440px;
+  margin: 0 auto 24px;
+  padding: 24px 64px;
+  box-sizing: border-box;
+}
+
+section[id^="aceptacion"] h2,
+section[id^="uso"] h2,
+section[id^="productos"] h2,
+section[id^="disponibilidad"] h2,
+section[id^="precios"] h2,
+section[id^="pedidos"] h2,
+section[id^="pagos"] h2,
+section[id^="envios"] h2,
+section[id^="cancelaciones"] h2,
+section[id^="cuentas"] h2,
+section[id^="propiedad"] h2,
+section[id^="limitacion"] h2,
+section[id^="enlaces"] h2,
+section[id^="privacidad"] h2,
+section[id^="cookies"] h2,
+section[id^="modificaciones"] h2,
+section[id^="legislacion"] h2,
+section[id^="contacto"] h2 {
+  font-family: var(--font-pixel);
+  font-size: 1.1rem;
+  color: var(--color-light);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+section[id^="aceptacion"] p,
+section[id^="uso"] p,
+section[id^="productos"] p,
+section[id^="disponibilidad"] p,
+section[id^="precios"] p,
+section[id^="pedidos"] p,
+section[id^="pagos"] p,
+section[id^="envios"] p,
+section[id^="cancelaciones"] p,
+section[id^="cuentas"] p,
+section[id^="propiedad"] p,
+section[id^="limitacion"] p,
+section[id^="enlaces"] p,
+section[id^="privacidad"] p,
+section[id^="cookies"] p,
+section[id^="modificaciones"] p,
+section[id^="legislacion"] p,
+section[id^="contacto"] p {
+  color: var(--color-muted);
+  font-size: 15px;
+  line-height: 1.7;
 }
 

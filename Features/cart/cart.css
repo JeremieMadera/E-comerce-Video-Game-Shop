@@ -1,15 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
 
+/* =========================================================
+   CARRITO DE COMPRAS - ISLA GAMING (Puerto Rico)
+   Paleta oficial Figma:
+   - #12102A (Noche violeta)
+   - #201B3C (Superficie)
+   - #D5FF52 (Acento lima)
+   - #F4F4EE (Blanco cálido)
+   - #B7ABDF (Lavanda suave)
+   ========================================================= */
+
 :root {
-  --cart-bg: #110e26;
-  --cart-surface: #171333;
-  --cart-border: #2e2659;
+  --cart-bg: #12102a;
+  --cart-surface: #201b3c;
+  --cart-border: rgba(183, 171, 223, 0.25);
   --cart-border-subtle: rgba(183, 171, 223, 0.15);
-  --cart-text-light: #ffffff;
-  --cart-text-muted: #9f94c9;
-  --cart-text-subtle: #6f6696;
+  --cart-text-light: #f4f4ee;
+  --cart-text-muted: #b7abdf;
+  --cart-text-subtle: rgba(183, 171, 223, 0.7);
   --cart-lime: #d5ff52;
-  --cart-lime-hover: #bde93e;
+  --cart-lime-hover: #e3ff80;
   --cart-font-pixel: 'Press Start 2P', monospace;
   --cart-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -27,14 +37,14 @@ body.cart-page-body {
   box-sizing: border-box;
 }
 
-/* Contenedor principal a dos columnas */
+/* Contenedor principal a dos columnas (Desktop 1440px / 64px márgenes) */
 .cart-container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 24px 80px;
+  padding: 40px 64px 80px;
   display: grid;
   grid-template-columns: 1fr 380px;
-  gap: 40px;
+  gap: 48px;
   align-items: start;
   box-sizing: border-box;
 }
@@ -63,11 +73,11 @@ body.cart-page-body {
 
 .cart-step-active {
   color: var(--cart-text-light);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .cart-step-separator {
-  color: var(--cart-text-subtle);
+  color: var(--cart-text-muted);
   user-select: none;
 }
 
@@ -95,18 +105,18 @@ body.cart-page-body {
   gap: 20px;
 }
 
-/* Tarjeta contenedora de producto */
+/* Tarjeta contenedora de producto con marcos rectos de 2px */
 .cart-card {
   background-color: var(--cart-surface);
-  border: 1px solid var(--cart-border);
-  border-radius: 4px;
+  border: 2px solid var(--cart-border);
+  border-radius: 2px;
   padding: 24px;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 180ms ease;
 }
 
 .cart-card:hover {
-  border-color: rgba(183, 171, 223, 0.35);
+  border-color: rgba(183, 171, 223, 0.45);
 }
 
 /* Fila del juego base */
@@ -122,9 +132,9 @@ body.cart-page-body {
   width: 88px;
   height: 110px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 2px;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: #12102a;
 }
 
 .cart-item-thumb {
@@ -157,7 +167,7 @@ body.cart-page-body {
 
 .cart-item-meta {
   font-size: 0.82rem;
-  color: var(--cart-text-subtle);
+  color: var(--cart-text-muted);
   margin: 0 0 16px 0;
 }
 
@@ -176,7 +186,7 @@ body.cart-page-body {
 
 .btn-remove-item {
   background: transparent;
-  border: none;
+  border: 2px solid transparent;
   color: var(--cart-text-muted);
   font-size: 0.85rem;
   font-family: inherit;
@@ -185,17 +195,14 @@ body.cart-page-body {
   gap: 6px;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 4px;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 2px;
+  transition: all 180ms ease;
 }
 
 .btn-remove-item:hover {
-  color: #ff4d4f;
-  background-color: rgba(255, 77, 79, 0.12);
-}
-
-.btn-remove-item:hover .remove-icon {
-  opacity: 1;
+  color: #ff5252;
+  border-color: rgba(255, 82, 82, 0.4);
+  transform: translateY(-2px);
 }
 
 .remove-icon {
@@ -209,7 +216,7 @@ body.cart-page-body {
 .cart-item-row.cart-item-dlc {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid var(--cart-border);
+  border-top: 2px solid var(--cart-border);
 }
 
 .cart-dlc-tag {
@@ -246,11 +253,11 @@ body.cart-page-body {
   width: 100%;
   height: 100%;
   background-color: var(--cart-lime);
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #110e26;
+  color: #12102a;
   font-size: 1.4rem;
   font-weight: 700;
 }
@@ -283,7 +290,7 @@ body.cart-page-body {
 
 .cart-notice-icon {
   font-size: 1.05rem;
-  color: var(--cart-text-muted);
+  color: var(--cart-lime);
   flex-shrink: 0;
   line-height: 1.4;
 }
@@ -301,20 +308,20 @@ body.cart-page-body {
   align-items: center;
   gap: 8px;
   background-color: var(--cart-surface);
-  border: 1px solid #362e68;
+  border: 2px solid var(--cart-border);
   color: var(--cart-text-light);
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: all 180ms ease;
 }
 
 .btn-secondary-explore:hover {
   border-color: var(--cart-lime);
   color: var(--cart-lime);
-  background-color: rgba(213, 255, 82, 0.05);
+  transform: translateY(-2px);
 }
 
 /* Mensaje de carrito vacío */
@@ -323,8 +330,8 @@ body.cart-page-body {
   font-size: 1rem;
   padding: 32px;
   background-color: var(--cart-surface);
-  border: 1px solid var(--cart-border);
-  border-radius: 4px;
+  border: 2px solid var(--cart-border);
+  border-radius: 2px;
   text-align: center;
 }
 
@@ -333,8 +340,8 @@ body.cart-page-body {
    ========================================================= */
 .cart-summary {
   background-color: var(--cart-surface);
-  border: 1px solid var(--cart-border);
-  border-radius: 4px;
+  border: 2px solid var(--cart-border);
+  border-radius: 2px;
   padding: 28px 24px;
   box-sizing: border-box;
   position: sticky;
@@ -374,12 +381,13 @@ body.cart-page-body {
 }
 
 .delivery-free {
-  color: var(--cart-text-light);
+  color: var(--cart-lime);
+  font-weight: 600;
 }
 
 .summary-divider {
   border: none;
-  border-top: 1px solid var(--cart-border);
+  border-top: 2px solid var(--cart-border);
   margin: 16px 0;
 }
 
@@ -405,7 +413,7 @@ body.cart-page-body {
 
 .total-tax-notice {
   font-size: 0.75rem;
-  color: var(--cart-text-subtle);
+  color: var(--cart-text-muted);
 }
 
 .total-value {
@@ -415,13 +423,74 @@ body.cart-page-body {
   line-height: 1;
 }
 
-/* Botón principal Continuar al pago */
+/* Canje de cupón o Drop de Loot Box */
+.cart-coupon-box {
+  margin: 18px 0 24px;
+}
+
+.cart-coupon-input-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.cart-coupon-input-wrap input {
+  flex: 1;
+  background-color: var(--cart-bg);
+  border: 2px solid var(--cart-border);
+  color: var(--cart-text-light);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 180ms ease;
+}
+
+.cart-coupon-input-wrap input:focus {
+  border-color: var(--cart-lime);
+}
+
+.btn-apply-coupon {
+  background-color: var(--cart-surface);
+  color: var(--cart-lime);
+  border: 2px solid var(--cart-lime);
+  border-radius: 2px;
+  padding: 10px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 180ms ease;
+  white-space: nowrap;
+}
+
+.btn-apply-coupon:hover {
+  background-color: var(--cart-lime);
+  color: #12102a;
+  transform: translateY(-2px);
+}
+
+.coupon-feedback {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  min-height: 18px;
+}
+
+.coupon-feedback.success {
+  color: var(--cart-lime);
+  font-weight: 600;
+}
+
+.coupon-feedback.error {
+  color: #ff5252;
+}
+
+/* Botón principal Continuar al pago (rebote vertical 2px, 180ms) */
 .btn-primary-checkout {
   width: 100%;
   background-color: var(--cart-lime);
-  color: #110e26;
-  border: none;
-  border-radius: 4px;
+  color: #12102a;
+  border: 2px solid var(--cart-lime);
+  border-radius: 2px;
   padding: 14px 20px;
   font-size: 0.98rem;
   font-weight: 700;
@@ -431,16 +500,18 @@ body.cart-page-body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
   box-sizing: border-box;
 }
 
 .btn-primary-checkout:hover {
   background-color: var(--cart-lime-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(213, 255, 82, 0.35);
 }
 
 .btn-primary-checkout:active {
-  transform: scale(0.99);
+  transform: translateY(0);
 }
 
 /* Bloque de garantías y pagos */
@@ -459,30 +530,30 @@ body.cart-page-body {
 
 .lock-icon {
   font-size: 0.9rem;
-  opacity: 0.85;
+  color: var(--cart-lime);
 }
 
 .payment-methods {
   font-size: 0.8rem;
-  color: var(--cart-text-subtle);
+  color: var(--cart-text-muted);
   margin: 0 0 12px 0;
 }
 
 .delivery-notice {
   font-size: 0.76rem;
-  color: var(--cart-text-subtle);
+  color: var(--cart-text-muted);
   line-height: 1.5;
   margin: 0;
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN (Tablets y Móviles)
+   RESPONSIVE DESIGN (Detalle y carrito pasan a una columna)
    ========================================================= */
 @media (max-width: 960px) {
   .cart-container {
     grid-template-columns: 1fr;
     gap: 32px;
-    padding: 24px 16px 60px;
+    padding: 24px 20px 60px;
   }
 
   .cart-summary {

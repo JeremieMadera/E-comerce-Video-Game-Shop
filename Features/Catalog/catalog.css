@@ -1,16 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
 
+/* =========================================================
+   CATÁLOGO - ISLA GAMING (Puerto Rico)
+   Paleta oficial Figma:
+   - #12102A (Noche violeta)
+   - #201B3C (Superficie)
+   - #D5FF52 (Acento lima)
+   - #F4F4EE (Blanco cálido)
+   - #B7ABDF (Lavanda suave)
+   ========================================================= */
+
 :root {
-  --cat-bg: #0f0c24;
-  --cat-card-bg: #14102c;
-  --cat-border: #28214b;
-  --cat-border-hover: rgba(183, 171, 223, 0.4);
-  --cat-text-light: #ffffff;
-  --cat-text-muted: #9f94c9;
-  --cat-text-subtle: #7b77a3;
-  --cat-text-dark: #6f6696;
+  --cat-bg: #12102a;
+  --cat-card-bg: #201b3c;
+  --cat-border: rgba(183, 171, 223, 0.25);
+  --cat-border-hover: #d5ff52;
+  --cat-text-light: #f4f4ee;
+  --cat-text-muted: #b7abdf;
+  --cat-text-subtle: rgba(183, 171, 223, 0.7);
   --cat-lime: #d5ff52;
-  --cat-lime-hover: #bde93e;
+  --cat-lime-hover: #e3ff80;
   --cat-font-pixel: 'Press Start 2P', monospace;
   --cat-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -20,16 +29,16 @@
    ========================================================= */
 .catalog-section {
   width: 100%;
-  background-color: var(--cat-bg);
+  background-color: transparent;
   color: var(--cat-text-light);
   font-family: var(--cat-font-body);
   box-sizing: border-box;
-  padding: 64px 32px 80px;
+  padding: 64px 64px 80px;
 }
 
-/* Contenedor centralizado */
+/* Contenedor centralizado (Desktop 1440px) */
 .catalog-section > * {
-  max-width: 1280px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -50,7 +59,7 @@
 
 .catalog-title {
   font-family: var(--cat-font-pixel);
-  font-size: 1.85rem;
+  font-size: 1.75rem;
   line-height: 1.35;
   color: var(--cat-text-light);
   margin: 0;
@@ -59,7 +68,7 @@
 
 .catalog-total-count {
   font-size: 0.9rem;
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -72,17 +81,17 @@
 }
 
 /* =========================================================
-   DISTRIBUCIÓN EN 2 COLUMNAS (Filtros a la Izquierda)
+   DISTRIBUCIÓN EN 2 COLUMNAS (Filtro lateral de 220px)
    ========================================================= */
 .catalog-layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 220px 1fr;
   gap: 48px;
   align-items: start;
 }
 
 /* ---------------------------------------------------------
-   COLUMNA LATERAL: FILTROS
+   COLUMNA LATERAL: FILTROS (220 px)
    --------------------------------------------------------- */
 .catalog-filters {
   background: transparent;
@@ -91,26 +100,34 @@
 .filters-form {
   display: flex;
   flex-direction: column;
+  background-color: var(--cat-card-bg);
+  border: 2px solid var(--cat-border);
+  padding: 24px 20px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.filters-form:hover {
+  border-color: rgba(213, 255, 82, 0.35);
 }
 
 .filters-heading {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
 }
 
 .filters-title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--cat-text-light);
   margin: 0;
 }
 
 .filters-icon {
-  color: var(--cat-text-subtle);
-  font-size: 1.1rem;
-  line-height: 1;
+  display: none !important;
 }
 
 /* Grupos de filtros */
@@ -136,7 +153,7 @@
   margin-bottom: 10px;
   cursor: pointer;
   user-select: none;
-  transition: color 0.2s ease;
+  transition: color 180ms ease;
 }
 
 .filter-checkbox-label:hover {
@@ -153,7 +170,7 @@
 
 .filter-divider {
   border: none;
-  border-top: 1px solid rgba(183, 171, 223, 0.15);
+  border-top: 1px solid rgba(183, 171, 223, 0.2);
   margin: 18px 0 20px;
 }
 
@@ -165,8 +182,9 @@
 .filter-range-slider {
   width: 100%;
   height: 6px;
-  border-radius: 3px;
-  background: #28214b;
+  border-radius: 2px;
+  background: #201b3c;
+  border: 1px solid rgba(183, 171, 223, 0.3);
   outline: none;
   cursor: pointer;
   accent-color: var(--cat-lime);
@@ -175,8 +193,8 @@
 
 .filter-price-display {
   font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--cat-text-light);
+  font-weight: 700;
+  color: var(--cat-lime);
   margin-bottom: 14px;
 }
 
@@ -191,18 +209,20 @@
 .btn-clear-filters {
   background: transparent;
   border: none;
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
   font-size: 0.82rem;
   font-family: inherit;
   cursor: pointer;
   padding: 4px 0;
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.2s ease;
+  transition: color 180ms ease, transform 180ms ease;
+  display: inline-block;
 }
 
 .btn-clear-filters:hover {
   color: var(--cat-lime);
+  transform: translateY(-2px);
 }
 
 /* ---------------------------------------------------------
@@ -219,11 +239,11 @@
   align-items: center;
   margin-bottom: 24px;
   font-size: 0.88rem;
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
 }
 
 .catalog-status-text {
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
 }
 
 .catalog-sort-group {
@@ -233,19 +253,19 @@
 }
 
 .catalog-sort-label {
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
 }
 
 .catalog-sort-select {
-  background-color: transparent;
-  border: 1px solid transparent;
+  background-color: var(--cat-card-bg);
+  border: 2px solid var(--cat-border);
   color: var(--cat-text-light);
   font-size: 0.88rem;
   font-family: inherit;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: 6px 12px;
+  border-radius: 2px;
+  transition: border-color 180ms ease;
 }
 
 .catalog-sort-select option {
@@ -255,13 +275,12 @@
 
 .catalog-sort-select:hover,
 .catalog-sort-select:focus {
-  border-color: #3d356b;
-  background-color: #1a153a;
+  border-color: var(--cat-lime);
   outline: none;
 }
 
 /* =========================================================
-   CUADRÍCULA DE JUEGOS (3 Columnas)
+   CUADRÍCULA DE JUEGOS (3 Columnas con marcos rectos de 2px)
    ========================================================= */
 .catalog-grid {
   display: grid;
@@ -269,22 +288,69 @@
   gap: 24px;
 }
 
-/* Tarjeta de Juego */
+/* Tarjeta de Juego - Toda la tarjeta es clickeable para ver detalles y con animación visible */
 .game-card {
   background-color: var(--cat-card-bg);
-  border: 1px solid var(--cat-border);
-  border-radius: 4px;
+  border: 2px solid var(--cat-border);
+  border-radius: 2px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  /* Estado inicial para animación visible de entrada */
+  opacity: 0;
+  transform: translateY(44px) scale(0.96);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 180ms ease,
+              box-shadow 180ms ease;
+  will-change: opacity, transform;
 }
 
-.game-card:hover {
-  border-color: var(--cat-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+/* Tarjeta visible tras revelarse */
+.game-card.is-revealed,
+.offer-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Cascada escalonada visible para cada tarjeta */
+.catalog-grid .game-card:nth-child(1),
+.offers-grid .offer-card:nth-child(1) { transition-delay: 0.05s; }
+.catalog-grid .game-card:nth-child(2),
+.offers-grid .offer-card:nth-child(2) { transition-delay: 0.15s; }
+.catalog-grid .game-card:nth-child(3),
+.offers-grid .offer-card:nth-child(3) { transition-delay: 0.25s; }
+.catalog-grid .game-card:nth-child(4),
+.offers-grid .offer-card:nth-child(4) { transition-delay: 0.35s; }
+.catalog-grid .game-card:nth-child(5) { transition-delay: 0.45s; }
+.catalog-grid .game-card:nth-child(6) { transition-delay: 0.55s; }
+
+.game-card.is-revealed:hover,
+.offer-card.is-revealed:hover {
+  border-color: var(--cat-lime);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(213, 255, 82, 0.28);
+}
+
+.game-card:hover .game-card-img,
+.offer-card:hover .game-card-img {
+  transform: scale(1.05);
+}
+
+.game-card:focus-visible {
+  outline: 2px solid var(--cat-lime);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Contenedor de Carátula */
@@ -293,7 +359,7 @@
   width: 100%;
   aspect-ratio: 4 / 3.4;
   overflow: hidden;
-  background-color: #0b081c;
+  background-color: #12102a;
 }
 
 .game-card-img {
@@ -305,24 +371,23 @@
 }
 
 .game-card:hover .game-card-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
-/* Badges sobre la portada (CON DLC, SIN DLC, ARCADE, etc.) */
+/* Badges sobre la portada */
 .game-card-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(18, 14, 42, 0.88);
-  border: 1px solid #3d356b;
-  color: var(--cat-text-light);
+  background: rgba(18, 16, 42, 0.9);
+  border: 2px solid var(--cat-lime);
+  color: var(--cat-lime);
   font-size: 0.68rem;
   font-weight: 700;
   padding: 4px 8px;
   border-radius: 2px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  backdrop-filter: blur(4px);
   z-index: 2;
 }
 
@@ -353,16 +418,16 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.78rem;
-  color: var(--cat-text-dark);
+  color: var(--cat-text-muted);
   margin-bottom: 16px;
 }
 
 .game-card-genre {
-  color: var(--cat-text-dark);
+  color: var(--cat-text-muted);
 }
 
 .game-card-pegi {
-  color: var(--cat-text-dark);
+  color: var(--cat-text-muted);
   font-weight: 600;
 }
 
@@ -370,35 +435,22 @@
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--cat-text-light);
-  margin: 0 0 16px 0;
+  margin: 0 0 20px 0;
 }
 
-/* Enlace "Ver detalle ↗" */
+/* Enlace "Ver detalle ↗" eliminado: el card entero es clickeable */
 .game-card-detail-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--cat-text-muted);
-  font-size: 0.85rem;
-  text-decoration: none;
-  margin-bottom: 18px;
-  transition: color 0.2s ease;
-  width: max-content;
+  display: none;
 }
 
-.game-card-detail-link:hover {
-  color: var(--cat-lime);
-  text-decoration: underline;
-}
-
-/* Botón Añadir al carrito verde lima */
+/* Botón Añadir al carrito consola (rebote vertical de 2px en hover, 180ms) */
 .btn-add-cart {
   width: 100%;
   background-color: var(--cat-lime);
-  color: #110e26;
-  border: none;
+  color: #12102a;
+  border: 2px solid var(--cat-lime);
   padding: 12px 16px;
-  border-radius: 4px;
+  border-radius: 2px;
   font-weight: 700;
   font-size: 0.92rem;
   font-family: inherit;
@@ -407,23 +459,25 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
   margin-top: auto;
   box-sizing: border-box;
 }
 
 .btn-add-cart:hover {
   background-color: var(--cat-lime-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(213, 255, 82, 0.35);
 }
 
 .btn-add-cart:active {
-  transform: scale(0.99);
+  transform: translateY(0);
 }
 
 /* Aviso inferior */
 .catalog-end-notice {
   text-align: center;
-  color: var(--cat-text-subtle);
+  color: var(--cat-text-muted);
   font-size: 0.88rem;
   margin: 56px 0 24px;
   line-height: 1.5;
@@ -436,17 +490,22 @@
   font-size: 1rem;
   padding: 48px 24px;
   background-color: var(--cat-card-bg);
-  border: 1px solid var(--cat-border);
-  border-radius: 4px;
+  border: 2px solid var(--cat-border);
+  border-radius: 2px;
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN (Tablets y Móviles)
+   RESPONSIVE DESIGN (Escala móvil 390px según guía Figma)
    ========================================================= */
 @media (max-width: 1120px) {
   .catalog-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Botón móvil para colapsar/desplegar filtros (Guía Figma: Móvil 390 px con botón «Filtros») */
+.btn-mobile-filters {
+  display: none;
 }
 
 @media (max-width: 860px) {
@@ -456,24 +515,87 @@
 
   .catalog-layout {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 24px;
+  }
+
+  .btn-mobile-filters {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--cat-card-bg);
+    border: 2px solid var(--cat-border);
+    color: var(--cat-text-light);
+    font-family: var(--cat-font-pixel);
+    font-size: 0.8rem;
+    padding: 12px 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .btn-mobile-filters:hover {
+    border-color: var(--cat-lime);
+    color: var(--cat-lime);
+    transform: translateY(-2px);
+  }
+
+  .btn-mobile-filters[aria-expanded="true"] .filter-toggle-arrow {
+    transform: rotate(180deg);
+  }
+
+  .filter-toggle-arrow {
+    transition: transform 180ms ease;
+    font-size: 0.9rem;
+    color: var(--cat-lime);
   }
 
   .filters-form {
-    background-color: var(--cat-card-bg);
-    border: 1px solid var(--cat-border);
-    padding: 20px;
-    border-radius: 4px;
+    display: none;
+    margin-top: 12px;
+  }
+
+  .filters-form.is-open {
+    display: flex;
+    animation: fadeInFilters 180ms ease;
+  }
+
+  @keyframes fadeInFilters {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .catalog-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 
 @media (max-width: 580px) {
+  .catalog-section {
+    padding: 32px 20px 48px;
+  }
+
   .catalog-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .game-card-info {
+    padding: 14px 12px 16px;
+  }
+
+  .game-card-title {
+    font-size: 0.92rem;
+  }
+
+  .game-card-price {
+    font-size: 1.05rem;
+  }
+
+  .btn-add-cart {
+    padding: 10px 10px;
+    font-size: 0.78rem;
   }
 
   .catalog-toolbar {
@@ -483,3 +605,154 @@
   }
 }
 
+/* Escala real móvil 390px (Guía Figma: márgenes de 20px, dos columnas y botón «Filtros») */
+@media (max-width: 390px) {
+  .catalog-section {
+    padding: 28px 20px 44px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .game-card-info {
+    padding: 10px 8px 12px;
+  }
+
+  .game-card-title {
+    font-size: 0.8rem;
+    line-height: 1.25;
+  }
+
+  .game-card-genre {
+    font-size: 0.68rem;
+  }
+
+  .game-card-price {
+    font-size: 0.95rem;
+  }
+
+  .btn-add-cart {
+    padding: 8px 6px;
+    font-size: 0.72rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* =========================================================
+   SECCIÓN OFERTAS: Productos en oferta retirados del catálogo
+   ========================================================= */
+.offers-section {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  padding: 48px 64px 36px;
+  box-sizing: border-box;
+  scroll-margin-top: calc(var(--navbar-height, 100px) + 16px);
+}
+
+.offers-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Cabecera de ofertas (Unificada visualmente con .catalog-header) */
+.offers-header {
+  margin-bottom: 32px;
+}
+
+.offers-header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.offers-title {
+  font-family: var(--cat-font-pixel);
+  font-size: 1.75rem;
+  line-height: 1.35;
+  color: var(--cat-text-light);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.offers-total-count {
+  font-size: 0.9rem;
+  color: var(--cat-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.offers-subtitle {
+  font-size: 0.95rem;
+  color: var(--cat-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.offer-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.offer-old-price {
+  font-size: 0.88rem;
+  color: var(--cat-text-muted);
+  text-decoration: line-through;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.offer-discount-badge {
+  background-color: #ff3366 !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.45);
+  letter-spacing: 0.03em;
+  animation: badge-pulse-glow 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes badge-pulse-glow {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 51, 102, 0.4);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 14px rgba(255, 51, 102, 0.85);
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 1024px) {
+  .offers-section {
+    padding: 36px 32px 24px;
+  }
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 680px) {
+  .offers-section {
+    padding: 28px 20px 20px;
+  }
+  .offers-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .offers-title {
+    font-size: 1.4rem;
+  }
+}
