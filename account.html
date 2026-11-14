@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISLA GAMING - Iniciar sesión / Cuenta</title>
+    <title>VEJIGAMES - Iniciar sesión / Cuenta</title>
+    <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="Features/NavBar/nav-bar.css">
     <link rel="stylesheet" href="Features/Account/account.css">
@@ -59,58 +60,185 @@
                 </div>
             </section>
 
-            <!-- Columna Derecha: Tarjeta de Iniciar Sesión -->
+            <!-- Columna Derecha: Tarjeta de Acceso (Iniciar Sesión / Crear Cuenta) -->
             <section class="account-card-wrapper" aria-labelledby="login-heading">
                 <div class="account-card">
-                    <div class="account-card-main">
-                        <span class="account-card-step">01 / IDENTIFÍCATE</span>
-                        <h2 id="login-heading" class="account-card-title">Iniciar sesión</h2>
-                        <p class="account-card-subtitle">Introduce tus datos para continuar.</p>
-
-                        <form id="account-login-form" class="account-form" novalidate>
-                            <div class="account-field">
-                                <label for="account-email" class="account-label">Correo electrónico</label>
-                                <div class="account-input-wrap">
-                                    <input type="email" id="account-email" class="account-input"
-                                        placeholder="tu@correo.es" autocomplete="email" required>
-                                </div>
-                            </div>
-
-                            <div class="account-field">
-                                <div class="account-label-row">
-                                    <label for="account-password" class="account-label">Contraseña</label>
-                                    <button type="button" id="account-toggle-password"
-                                        class="account-toggle-pwd">Mostrar</button>
-                                </div>
-                                <div class="account-input-wrap">
-                                    <input type="password" id="account-password" class="account-input"
-                                        placeholder="Mínimo 6 caracteres" autocomplete="current-password" required>
-                                </div>
-                            </div>
-
-                            <div class="account-form-meta">
-                                <label class="account-checkbox-label">
-                                    <input type="checkbox" id="account-remember" class="account-checkbox" checked>
-                                    <span>Recordarme</span>
-                                </label>
-                                <a href="#" class="account-link-forgot">¿Has olvidado tu contraseña?</a>
-                            </div>
-
-                            <button type="submit" class="account-submit-btn">
-                                Entrar a Isla Gaming &rarr;
-                            </button>
-                        </form>
+                    <!-- Selector de pestañas -->
+                    <div class="account-mode-tabs" role="tablist" aria-label="Modo de acceso">
+                        <button type="button" class="account-mode-tab is-active" id="tab-login" role="tab"
+                            aria-selected="true" aria-controls="view-login">Iniciar sesión</button>
+                        <button type="button" class="account-mode-tab" id="tab-register" role="tab"
+                            aria-selected="false" aria-controls="view-register">Crear cuenta</button>
                     </div>
 
-                    <div class="account-card-bottom">
-                        <span class="account-card-bottom-text">¿Aún no tienes cuenta?</span>
-                        <a href="#" class="account-register-link">Crear cuenta &#8599;</a>
+                    <!-- VISTA 1: Iniciar Sesión -->
+                    <div id="view-login" class="account-view">
+                        <div class="account-card-main">
+                            <span class="account-card-step">01 / IDENTIFÍCATE</span>
+                            <h2 id="login-heading" class="account-card-title">Iniciar sesión</h2>
+                            <p class="account-card-subtitle">Introduce tus datos para acceder a tu cuenta.</p>
+
+                            <form id="account-login-form" class="account-form" novalidate>
+                                <div class="account-field">
+                                    <label for="account-email" class="account-label">Correo electrónico</label>
+                                    <div class="account-input-wrap">
+                                        <input type="email" id="account-email" class="account-input"
+                                            placeholder="tu@correo.es" autocomplete="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="account-field">
+                                    <div class="account-label-row">
+                                        <label for="account-password" class="account-label">Contraseña</label>
+                                        <button type="button" class="account-toggle-pwd"
+                                            data-target="account-password">Mostrar</button>
+                                    </div>
+                                    <div class="account-input-wrap">
+                                        <input type="password" id="account-password" class="account-input"
+                                            placeholder="Introduce tu contraseña" autocomplete="current-password" required>
+                                    </div>
+                                </div>
+
+                                <div class="account-form-meta">
+                                    <label class="account-checkbox-label">
+                                        <input type="checkbox" id="account-remember" class="account-checkbox" checked>
+                                        <span>Recordarme</span>
+                                    </label>
+                                    <a href="#" class="account-link-forgot" id="account-link-forgot">¿Has olvidado tu contraseña?</a>
+                                </div>
+
+                                <div id="login-alert" class="account-alert" hidden></div>
+
+                                <button type="submit" class="account-submit-btn">
+                                    Entrar a VejiGames &rarr;
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="account-card-bottom">
+                            <span class="account-card-bottom-text">¿Aún no tienes cuenta?</span>
+                            <a href="#register" class="account-register-link" id="link-go-register">Crear cuenta &#8599;</a>
+                        </div>
+                    </div>
+
+                    <!-- VISTA 2: Crear Cuenta -->
+                    <div id="view-register" class="account-view" hidden>
+                        <div class="account-card-main">
+                            <span class="account-card-step">01 / REGÍSTRATE</span>
+                            <h2 id="register-heading" class="account-card-title">Crear cuenta</h2>
+                            <p class="account-card-subtitle">Únete a VejiGames para guardar tus juegos y pedidos.</p>
+
+                            <form id="account-register-form" class="account-form" novalidate>
+                                <div class="account-field">
+                                    <label for="register-name" class="account-label">Nombre o Gamertag</label>
+                                    <div class="account-input-wrap">
+                                        <input type="text" id="register-name" class="account-input"
+                                            placeholder="ej. BoricuaGamer" autocomplete="nickname" required>
+                                    </div>
+                                </div>
+
+                                <div class="account-field">
+                                    <label for="register-email" class="account-label">Correo electrónico</label>
+                                    <div class="account-input-wrap">
+                                        <input type="email" id="register-email" class="account-input"
+                                            placeholder="tu@correo.es" autocomplete="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="account-field">
+                                    <div class="account-label-row">
+                                        <label for="register-password" class="account-label">Contraseña</label>
+                                        <button type="button" class="account-toggle-pwd"
+                                            data-target="register-password">Mostrar</button>
+                                    </div>
+                                    <div class="account-input-wrap">
+                                        <input type="password" id="register-password" class="account-input"
+                                            placeholder="Mínimo 6 caracteres" autocomplete="new-password" required minlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="account-field">
+                                    <div class="account-label-row">
+                                        <label for="register-password-confirm" class="account-label">Confirmar contraseña</label>
+                                        <button type="button" class="account-toggle-pwd"
+                                            data-target="register-password-confirm">Mostrar</button>
+                                    </div>
+                                    <div class="account-input-wrap">
+                                        <input type="password" id="register-password-confirm" class="account-input"
+                                            placeholder="Repite tu contraseña" autocomplete="new-password" required>
+                                    </div>
+                                </div>
+
+                                <div class="account-form-meta">
+                                    <label class="account-checkbox-label">
+                                        <input type="checkbox" id="register-terms" class="account-checkbox" checked required>
+                                        <span>Acepto los <a href="terms.html" class="account-inline-link">términos y condiciones</a></span>
+                                    </label>
+                                </div>
+
+                                <div id="register-alert" class="account-alert" hidden></div>
+
+                                <button type="submit" class="account-submit-btn">
+                                    Crear mi cuenta &rarr;
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="account-card-bottom">
+                            <span class="account-card-bottom-text">¿Ya tienes una cuenta?</span>
+                            <a href="#login" class="account-register-link" id="link-go-login">Iniciar sesión &#8599;</a>
+                        </div>
+                    </div>
+
+                    <!-- VISTA 3: Sesión Activa / Perfil -->
+                    <div id="view-profile" class="account-view" hidden>
+                        <div class="account-card-main">
+                            <span class="account-card-step">02 / SESIÓN ACTIVA</span>
+                            <div class="account-profile-header">
+                                <div class="account-avatar" id="profile-avatar">PR</div>
+                                <div>
+                                    <h2 class="account-card-title" id="profile-name">Jugador</h2>
+                                    <p class="account-profile-email" id="profile-email">jugador@vejigames.pr</p>
+                                </div>
+                            </div>
+
+                            <div class="account-profile-badge">
+                                <span>🎮 Cuenta Verificada · VejiGames</span>
+                            </div>
+
+                            <div class="account-profile-stats">
+                                <div class="profile-stat-item">
+                                    <span class="stat-number" id="profile-cart-count">0</span>
+                                    <span class="stat-label">En Carrito</span>
+                                </div>
+                                <div class="profile-stat-item">
+                                    <span class="stat-number">ATH Móvil</span>
+                                    <span class="stat-label">Pago Rápido</span>
+                                </div>
+                                <div class="profile-stat-item">
+                                    <span class="stat-number">⭐ PRO</span>
+                                    <span class="stat-label">Nivel</span>
+                                </div>
+                            </div>
+
+                            <div class="account-profile-actions">
+                                <a href="index.html#catalog" class="account-submit-btn">
+                                    Explorar catálogo &rarr;
+                                </a>
+                                <a href="cart.html" class="account-submit-btn account-btn-outline">
+                                    Ver mi carrito &rarr;
+                                </a>
+                                <button type="button" id="account-btn-logout" class="account-logout-btn">
+                                    Cerrar sesión
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <p class="account-card-disclaimer">
                     Al continuar, aceptas los <a href="terms.html">Términos de uso</a> y la <a
-                        href="terms.html">Política de privacidad</a> de ISLA GAMING.
+                        href="terms.html">Política de privacidad</a> de VEJIGAMES.
                 </p>
             </section>
 

@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ISLA GAMING - La Tienda #1 de la Isla</title>
+    <title>VEJIGAMES - La Tienda #1 de Videojuegos · Puerto Rico</title>
+    <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="main.css?v=21" />
+    <link rel="stylesheet" href="main.css?v=34" />
     <link rel="stylesheet" href="Features/NavBar/nav-bar.css?v=21" />
     <link rel="stylesheet" href="Features/HomePage/home-page.css?v=21" />
     <link rel="stylesheet" href="Features/LootBox/lootbox.css?v=21" />
-    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=21" />
+    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=25" />
     <link rel="stylesheet" href="Features/Footer/footer.css?v=21" />
 
     <!-- Inicialización de scroll instantánea: siempre empezar y recargar en Inicio -->
@@ -313,18 +313,18 @@
         </div>
       </section>
 
-      <!-- SECCIÓN INTERACTIVA: Mystery Arcade Loot Box & Recompensas (Ubicada abajo antes del Footer) -->
-      <section class="lootbox-arcade-section" id="arcade-lootbox" aria-label="Mystery Loot Box Arcade">
+      <!-- SECCIÓN INTERACTIVA: Ruleta Arcade de la Suerte (Ubicada abajo antes del Footer) -->
+      <section class="lootbox-arcade-section" id="ruleta" data-alt-id="arcade-lootbox" aria-label="Ruleta Arcade de la Suerte">
         <div class="lootbox-container">
           <!-- Cabecera del Minijuego -->
           <div class="lootbox-header">
             <div class="lootbox-header-badge">
               <span class="lootbox-live-dot"></span>
-              <span>ARCADE REWARDS 2026</span>
+              <span>RULETA DE LA SUERTE · VEJIGAMES REWARDS</span>
             </div>
-            <h2 class="lootbox-title">MYSTERY LOOT BOX</h2>
+            <h2 class="lootbox-title">RULETA ARCADE</h2>
             <p class="lootbox-subtitle">
-              ¡Abre la caja sorpresa arcade! Tienes <strong>1 moneda gratis de bienvenida</strong>. Gana descuentos de <strong>5%</strong>, <strong>15%</strong>, <strong>25%</strong> y hasta <strong>50%</strong> (cada uno con menor probabilidad). Ganas <strong>+1 moneda</strong> por cada juego base que compres (los DLC no generan monedas).
+              ¡Gira la ruleta arcade de VejiGames! Tienes <strong>1 moneda gratis de bienvenida</strong>. Puedes ganar cupones del <strong>5%</strong>, <strong>15%</strong>, <strong>25%</strong>, <strong>+1 Moneda extra</strong> o el codiciado <strong>50% JACKPOT</strong>. Cada juego base comprado te otorga <strong>+1 moneda</strong>.
             </p>
           </div>
 
@@ -342,37 +342,104 @@
                 <span class="coin-count" id="lootbox-coins">1</span>
               </div>
               <div class="lootbox-cost-pill">
-                <span>COSTE: 1 🪙 / TIRO</span>
+                <span>COSTE: 1 🪙 / GIRO</span>
               </div>
             </div>
 
             <!-- Pantalla Central / Escenario -->
             <div class="lootbox-stage" id="lootbox-stage">
-              <!-- Estado 1: Caja en espera -->
-              <div class="lootbox-box-wrap" id="lootbox-box-wrap">
-                <div class="lootbox-pixel-chest" id="lootbox-chest">
-                  <span class="chest-icon">🎁</span>
+              <!-- Escenario de la Ruleta -->
+              <div class="ruleta-stage-wrap" id="ruleta-stage-wrap">
+                <div class="ruleta-cabinet-frame">
+                  <!-- Puntero / Indicador superior a las 12 -->
+                  <div class="ruleta-pointer" id="ruleta-pointer">
+                    <svg viewBox="0 0 24 32" width="28" height="36">
+                      <polygon points="12,32 0,4 24,4" fill="#D5FF52" stroke="#12102A" stroke-width="2" />
+                    </svg>
+                  </div>
+
+                  <!-- Aro de luces arcade exterior -->
+                  <div class="ruleta-lights-ring"></div>
+
+                  <!-- Rueda giratoria -->
+                  <div class="ruleta-wheel-outer" id="ruleta-wheel-disc">
+                    <svg id="ruleta-wheel-svg" class="ruleta-wheel-svg" viewBox="0 0 400 400">
+                      <defs>
+                        <!-- Modelo de sector de 45 grados -->
+                        <path id="ruleta-slice" d="M 200 200 L 127.29 24.46 A 190 190 0 0 1 272.71 24.46 Z" stroke="#12102A" stroke-width="2" />
+                      </defs>
+
+                      <!-- Sector 0 (0°): 50% JACKPOT -->
+                      <g transform="rotate(0, 200, 200)">
+                        <use href="#ruleta-slice" fill="#D5FF52" />
+                        <text x="200" y="65" text-anchor="middle" fill="#12102A" class="ruleta-slice-text">JACKPOT</text>
+                        <text x="200" y="82" text-anchor="middle" fill="#12102A" class="ruleta-slice-text" font-size="12">50%</text>
+                      </g>
+
+                      <!-- Sector 1 (45°): 5% OFF -->
+                      <g transform="rotate(45, 200, 200)">
+                        <use href="#ruleta-slice" fill="#251E4D" />
+                        <text x="200" y="72" text-anchor="middle" fill="#F4F4EE" class="ruleta-slice-text">5% OFF</text>
+                      </g>
+
+                      <!-- Sector 2 (90°): 15% OFF -->
+                      <g transform="rotate(90, 200, 200)">
+                        <use href="#ruleta-slice" fill="#3B2D6A" />
+                        <text x="200" y="72" text-anchor="middle" fill="#F4F4EE" class="ruleta-slice-text">15% OFF</text>
+                      </g>
+
+                      <!-- Sector 3 (135°): +1 MONEDA -->
+                      <g transform="rotate(135, 200, 200)">
+                        <use href="#ruleta-slice" fill="#1A4329" />
+                        <text x="200" y="64" text-anchor="middle" fill="#D5FF52" class="ruleta-slice-text">+1 🪙</text>
+                        <text x="200" y="80" text-anchor="middle" fill="#D5FF52" class="ruleta-slice-text" font-size="8.5">MONEDA</text>
+                      </g>
+
+                      <!-- Sector 4 (180°): 25% OFF -->
+                      <g transform="rotate(180, 200, 200)">
+                        <use href="#ruleta-slice" fill="#4C3A88" />
+                        <text x="200" y="72" text-anchor="middle" fill="#F4F4EE" class="ruleta-slice-text">25% OFF</text>
+                      </g>
+
+                      <!-- Sector 5 (225°): 5% OFF -->
+                      <g transform="rotate(225, 200, 200)">
+                        <use href="#ruleta-slice" fill="#251E4D" />
+                        <text x="200" y="72" text-anchor="middle" fill="#F4F4EE" class="ruleta-slice-text">5% OFF</text>
+                      </g>
+
+                      <!-- Sector 6 (270°): 15% OFF -->
+                      <g transform="rotate(270, 200, 200)">
+                        <use href="#ruleta-slice" fill="#3B2D6A" />
+                        <text x="200" y="72" text-anchor="middle" fill="#F4F4EE" class="ruleta-slice-text">15% OFF</text>
+                      </g>
+
+                      <!-- Sector 7 (315°): +1 MONEDA -->
+                      <g transform="rotate(315, 200, 200)">
+                        <use href="#ruleta-slice" fill="#1A4329" />
+                        <text x="200" y="64" text-anchor="middle" fill="#D5FF52" class="ruleta-slice-text">+1 🪙</text>
+                        <text x="200" y="80" text-anchor="middle" fill="#D5FF52" class="ruleta-slice-text" font-size="8.5">MONEDA</text>
+                      </g>
+                    </svg>
+
+                    <!-- Centro del eje -->
+                    <div class="ruleta-hub">
+                      <span class="hub-icon">🪙</span>
+                    </div>
+                  </div>
                 </div>
+
                 <div class="lootbox-prompt-text" id="lootbox-prompt">
                   ¿QUÉ RECOMPENSA TE TOCARÁ HOY?
                 </div>
               </div>
 
-              <!-- Estado 2: Animación giratoria / Ruleta -->
-              <div class="lootbox-reel-wrap" id="lootbox-reel" style="display: none;">
-                <div class="lootbox-reel-display" id="lootbox-reel-display">
-                  🎲 PROCESANDO DROP...
-                </div>
-                <div class="lootbox-reel-status">Sincronizando con el servidor arcade...</div>
-              </div>
-
-              <!-- Estado 3: Premio Desbloqueado -->
+              <!-- Estado 2: Premio Desbloqueado -->
               <div class="lootbox-reward-card" id="lootbox-reward" style="display: none;">
                 <span class="reward-sparkles">✧ ¡PREMIO DESBLOQUEADO! ✧</span>
                 <div class="reward-badge" id="reward-type-badge">CUPÓN EXCLUSIVO</div>
                 <h3 class="reward-title" id="reward-title">15% DE DESCUENTO</h3>
                 <p class="reward-desc" id="reward-desc">Aplica este código en el carrito para ahorrar en cualquier juego de la tienda.</p>
-                <div class="reward-code-box">
+                <div class="reward-code-box" id="reward-code-box">
                   <span class="reward-code" id="reward-code-val">ISLA15</span>
                   <button type="button" class="btn-copy-code" id="btn-copy-reward" aria-label="Copiar código de descuento">
                     📋 COPIAR
@@ -385,17 +452,17 @@
             <!-- Panel de Controles Inferior -->
             <div class="lootbox-controls">
               <button type="button" class="btn-arcade-spin" id="btn-open-lootbox">
-                <span class="btn-coin-anim">🪙</span> INSERT COIN · ABRIR LOOT BOX
+                <span class="btn-coin-anim">🪙</span> INSERT COIN · GIRAR RULETA
               </button>
               <div class="lootbox-hint" id="lootbox-hint">
-                Presiona para usar 1 moneda y desbloquear tu recompensa
+                Presiona para usar 1 moneda y girar la ruleta
               </div>
             </div>
 
             <!-- Pie de Reglas Informativas -->
             <div class="lootbox-footer-rules">
               <span class="rule-tag">💡 REGLA:</span>
-              <span class="rule-text">Tiers de descuento: 5% (Común) · 15% (Raro) · 25% (Épico) · 50% (Jackpot) · +1 moneda por juego base · DLCs no otorgan monedas.</span>
+              <span class="rule-text">Tiers: 5% (Común) · 15% (Raro) · 25% (Épico) · +1 Moneda · 50% (Jackpot) · +1 moneda por juego base · DLCs no otorgan monedas.</span>
             </div>
           </div>
         </div>
@@ -404,8 +471,8 @@
 
     <div id="footer-container"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="Assets/vendor/anime.min.js"></script>
     <script src="products-data.js"></script>
-    <script src="main.js?v=21"></script>
+    <script src="main.js?v=34"></script>
   </body>
 </html>

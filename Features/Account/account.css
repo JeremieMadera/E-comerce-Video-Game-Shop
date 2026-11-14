@@ -584,6 +584,197 @@ body.account-page-body::after {
 }
 
 /* =========================================
+   PESTAÑAS DE MODO (INICIAR SESIÓN / REGISTRO)
+   ========================================= */
+.account-mode-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid var(--acc-card-border);
+    background-color: var(--acc-surface-sub);
+}
+
+.account-mode-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 14px 16px;
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--acc-text-muted);
+    cursor: pointer;
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.account-mode-tab:hover {
+    color: var(--acc-text-main);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.account-mode-tab.is-active {
+    color: var(--acc-lime);
+    border-bottom-color: var(--acc-lime);
+    background-color: var(--acc-surface);
+}
+
+.account-view {
+    animation: acc-view-fade 220ms ease-out;
+}
+
+@keyframes acc-view-fade {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account-inline-link {
+    color: var(--acc-lime);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.account-inline-link:hover {
+    color: var(--acc-lime-hover);
+}
+
+/* Alertas de formulario */
+.account-alert {
+    padding: 10px 14px;
+    border-radius: 2px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+.account-alert.is-error {
+    background: rgba(255, 107, 122, 0.12);
+    border: 1px solid rgba(255, 107, 122, 0.45);
+    color: #ff949f;
+}
+
+.account-alert.is-success {
+    background: rgba(213, 255, 82, 0.12);
+    border: 1px solid rgba(213, 255, 82, 0.45);
+    color: var(--acc-lime);
+}
+
+/* Vista de perfil cuando ya se ha iniciado sesión */
+.account-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 20px;
+}
+
+.account-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    background: #12102a;
+    border: 2px solid var(--acc-lime);
+    color: var(--acc-lime);
+    display: grid;
+    place-content: center;
+    font-family: var(--acc-font-pixel);
+    font-size: 18px;
+    box-shadow: 0 0 16px rgba(213, 255, 82, 0.2);
+}
+
+.account-profile-email {
+    font-family: var(--acc-font-body);
+    font-size: 13.5px;
+    color: var(--acc-text-muted);
+    margin-top: 4px;
+}
+
+.account-profile-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(213, 255, 82, 0.1);
+    border: 1px solid rgba(213, 255, 82, 0.35);
+    color: var(--acc-lime);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 2px;
+    margin-bottom: 24px;
+}
+
+.account-profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.profile-stat-item {
+    background: #12102a;
+    border: 1px solid var(--acc-card-border);
+    padding: 12px 8px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.profile-stat-item .stat-number {
+    display: block;
+    font-family: var(--acc-font-pixel);
+    font-size: 13px;
+    color: var(--acc-lime);
+    margin-bottom: 4px;
+}
+
+.profile-stat-item .stat-label {
+    font-size: 11px;
+    color: var(--acc-text-muted);
+}
+
+.account-profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.account-btn-outline {
+    background: transparent;
+    color: var(--acc-text-main);
+    border-color: var(--acc-card-border);
+    text-decoration: none;
+}
+
+.account-btn-outline:hover {
+    background: rgba(183, 171, 223, 0.12);
+    border-color: var(--acc-text-muted);
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.account-logout-btn {
+    background: none;
+    border: 1px solid rgba(255, 107, 122, 0.35);
+    color: #ff949f;
+    padding: 12px;
+    font-family: var(--acc-font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+    margin-top: 4px;
+}
+
+.account-logout-btn:hover {
+    background-color: rgba(255, 107, 122, 0.15);
+    border-color: #ff6b7a;
+    color: #ffffff;
+}
+
+/* =========================================
    RESPONSIVE DESIGN
    ========================================= */
 @media (max-width: 1024px) {

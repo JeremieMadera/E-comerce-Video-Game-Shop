@@ -1,5 +1,5 @@
 /**
- * ISLA GAMING - Script global (Puerto Rico)
+ * VEJIGAMES - Script global (Puerto Rico)
  * 1. Carga modular de header.html y footer.html.
  * 2. Renderizado dinámico del catálogo en memoria (index.html).
  * 3. Renderizado dinámico del detalle de producto (product.html).
@@ -42,7 +42,10 @@
 <header class="navbar">
   <div class="navbar-wrapper">
     <div class="navbar-top">
-      <a href="index.html" class="brand-logo">ISLA GAMING</a>
+      <a href="index.html" class="brand-logo">
+        <img src="Assets/icons/Vejigante_mask_color.svg" alt="VejiGames Logo" class="brand-logo-img" />
+        <span>VEJIGAMES</span>
+      </a>
 
       <div class="navbar-right">
         <div class="search-box">
@@ -80,6 +83,7 @@
         <a href="index.html#hero-carousel" class="active" id="nav-link-inicio">Inicio</a>
         <a href="index.html#ofertas" id="nav-link-ofertas">Ofertas</a>
         <a href="index.html#catalog" id="nav-link-catalog">Catálogo</a>
+        <a href="index.html#ruleta" id="nav-link-ruleta">Ruleta</a>
       </nav>
       <p class="navbar-tagline">La tienda #1 de la Isla · Puerto Rico</p>
     </div>
@@ -89,7 +93,10 @@
 
   const FOOTER_FALLBACK_HTML = `
 <footer>
-  <h2>ISLA GAMING</h2>
+  <h2 class="footer-brand-title">
+    <img src="Assets/icons/Vejigante_mask_color.svg" alt="VejiGames Logo" class="footer-logo-img" />
+    <span>VEJIGAMES</span>
+  </h2>
   <p>La tienda #1 de la Isla · San Juan, Puerto Rico.</p>
   <div class="footer-social-icons" aria-label="Comunidad y redes sociales">
     <div class="social-icon-item" title="Instagram">
@@ -106,20 +113,17 @@
   <h3>Explora</h3>
   <nav aria-label="Explora">
     <a href="index.html#catalog">Catálogo</a> ·
-    <a href="index.html#novedades">Novedades</a>
-    <br>
-    <a href="index.html#sobre">Sobre Isla Gaming</a> ·
-    <a href="index.html#faq">Preguntas frecuentes</a>
+    <a href="index.html#ofertas">Ofertas</a>
   </nav>
 
   <h3>Estamos al otro lado</h3>
-  <p><a href="mailto:apoyo@islagaming.com">apoyo@islagaming.com</a></p>
+  <p>apoyo@vejigames.com</p>
   <p>Lun-Vie 9:00 AM - 6:00 PM AST</p>
   <p>Soporte local en Puerto Rico · Paga con ATH Móvil</p>
 
   <hr>
 
-  <p>&copy; 2026 ISLA GAMING · San Juan, Puerto Rico</p>
+  <p>&copy; 2026 VEJIGAMES · San Juan, Puerto Rico</p>
   <nav aria-label="Enlaces legales">
     <a href="terms.html#privacidad">Privacidad</a> ·
     <a href="terms.html#aceptacion_de_los_terminos">Términos</a> ·
@@ -135,6 +139,30 @@
       link.href = "Features/NavBar/nav-bar.css";
       document.head.appendChild(link);
     }
+  }
+
+  function getActiveUser() {
+    try {
+      const raw = localStorage.getItem("vejigames_user") || localStorage.getItem("isla_gaming_user");
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function updateHeaderUser() {
+    try {
+      const user = getActiveUser();
+      const labels = document.querySelectorAll(".account-btn span, .account-button span");
+      labels.forEach((label) => {
+        if (label.classList.contains("cart-count")) return;
+        if (user && user.name) {
+          label.textContent = user.name;
+        } else {
+          label.textContent = "Mi cuenta";
+        }
+      });
+    } catch (e) {}
   }
 
   function updateHeaderCartCount(animate = false) {
@@ -247,7 +275,22 @@
         });
       }
 
-      // 4. ScrollSpy dinámico en tiempo real: INICIO -> OFERTAS -> CATÁLOGO
+      // 4. RULETA ARCADE
+      const ruletaLink = document.getElementById("nav-link-ruleta") || navLinks[3];
+      if (ruletaLink) {
+        ruletaLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          lockScrollSpy();
+          setActiveTab("nav-link-ruleta");
+          const ruletaSec = document.getElementById("ruleta") || document.getElementById("arcade-lootbox");
+          if (ruletaSec) {
+            ruletaSec.scrollIntoView({ behavior: "smooth" });
+          }
+          if (history.pushState) history.pushState(null, "", "#ruleta");
+        });
+      }
+
+      // 5. ScrollSpy dinámico en tiempo real: INICIO -> OFERTAS -> CATÁLOGO -> RULETA
       let rafId = null;
       function updateScrollSpy() {
         if (isProgrammaticScroll) return;
@@ -256,10 +299,20 @@
         const navHeight = nav ? nav.offsetHeight : 100;
         const triggerPoint = navHeight + 80;
 
-        const ofertasSec = document.getElementById("ofertas");
+        const ruletaSec = document.getElementById("ruleta") || document.getElementById("arcade-lootbox");
         const catalogSec = document.getElementById("catalog");
+        const ofertasSec = document.getElementById("ofertas");
 
-        // 1. Sección Catálogo (y zonas inferiores)
+        // 1. Sección Ruleta (en la parte inferior)
+        if (ruletaSec) {
+          const ruletaTop = ruletaSec.getBoundingClientRect().top;
+          if (ruletaTop <= triggerPoint + 60) {
+            setActiveTab("nav-link-ruleta");
+            return;
+          }
+        }
+
+        // 2. Sección Catálogo
         if (catalogSec) {
           const catalogTop = catalogSec.getBoundingClientRect().top;
           if (catalogTop <= triggerPoint) {
@@ -268,7 +321,7 @@
           }
         }
 
-        // 2. Sección Ofertas (Directamente bajo el Hero)
+        // 3. Sección Ofertas (Directamente bajo el Hero)
         if (ofertasSec) {
           const ofertasTop = ofertasSec.getBoundingClientRect().top;
           if (ofertasTop <= triggerPoint) {
@@ -277,7 +330,7 @@
           }
         }
 
-        // 3. Sección Inicio (Hero en la parte superior)
+        // 4. Sección Inicio (Hero en la parte superior)
         setActiveTab("nav-link-inicio");
       }
 
@@ -313,12 +366,14 @@
       .then((html) => {
         container.innerHTML = html;
         updateHeaderCartCount();
+        updateHeaderUser();
         syncNavbarHeight();
         setupNavbarNavigation();
       })
       .catch(() => {
         container.innerHTML = HEADER_FALLBACK_HTML;
         updateHeaderCartCount();
+        updateHeaderUser();
         syncNavbarHeight();
         setupNavbarNavigation();
       });
@@ -450,24 +505,27 @@
       bg2.style.zIndex = "0";
     }
 
-    // Animación de entrada inicial: Efecto suave en los textos del Hero
-    if (typeof anime !== "undefined") {
-      anime({
-        targets: "#hero-static-content > *",
-        opacity: [0, 1],
-        translateY: [16, 0],
-        delay: anime.stagger(60),
-        duration: 500,
-        easing: "easeOutQuad"
-      });
+    // Función para reproducir la entrada del Hero e iniciar el temporizador
+    function playHeroEntrance() {
+      if (typeof anime !== "undefined") {
+        anime({
+          targets: "#hero-static-content > *",
+          opacity: [0, 1],
+          translateY: [16, 0],
+          delay: anime.stagger(60),
+          duration: 500,
+          easing: "easeOutQuad"
+        });
 
-      anime({
-        targets: "#carousel-featured-card",
-        opacity: [0, 1],
-        translateX: [20, 0],
-        duration: 600,
-        easing: "easeOutBack"
-      });
+        anime({
+          targets: "#carousel-featured-card",
+          opacity: [0, 1],
+          translateX: [20, 0],
+          duration: 600,
+          easing: "easeOutBack"
+        });
+      }
+      startTimer();
     }
 
     function finalizeLayers(activeLayer, inactiveLayer) {
@@ -605,7 +663,7 @@
       stopTimer();
       timer = setInterval(() => {
         goToSlide(currentIndex + 1);
-      }, 4000);
+      }, 5000); // 5 segundos para disfrutar de cada juego
     }
 
     function restartTimer() {
@@ -619,7 +677,8 @@
       featuredCard.addEventListener("mouseleave", startTimer);
     }
 
-    startTimer();
+    // Iniciar animación y rotación del Hero
+    playHeroEntrance();
   }
 
   // =========================================================
@@ -632,6 +691,7 @@
     if (!titleEl) return;
 
     const fullText = titleEl.getAttribute("data-fulltext") || titleEl.textContent.trim() || "Tu próxima aventura empieza aquí.";
+    titleEl.setAttribute("data-fulltext", fullText);
     titleEl.textContent = "";
 
     // Si el usuario prefiere movimiento reducido, mostrar de inmediato
@@ -642,22 +702,34 @@
       return;
     }
 
-    let i = 0;
-    setTimeout(() => {
-      const typeTimer = setInterval(() => {
-        if (i < fullText.length) {
-          titleEl.textContent += fullText.charAt(i);
-          i++;
-        } else {
-          clearInterval(typeTimer);
-          // Al culminar el tipeo del título, revelamos suavemente descripción y botones
-          setTimeout(() => {
-            if (descEl) descEl.classList.add("is-visible");
-            if (actionsEl) actionsEl.classList.add("is-visible");
-          }, 160);
-        }
-      }, 42); // 42 ms por carácter para un ritmo fluido y retro
-    }, 280);
+    let typeTimer = null;
+
+    function startTyping() {
+      if (typeTimer) clearInterval(typeTimer);
+      titleEl.textContent = "";
+      if (descEl) descEl.classList.remove("is-visible");
+      if (actionsEl) actionsEl.classList.remove("is-visible");
+
+      let i = 0;
+      setTimeout(() => {
+        typeTimer = setInterval(() => {
+          if (i < fullText.length) {
+            titleEl.textContent += fullText.charAt(i);
+            i++;
+          } else {
+            clearInterval(typeTimer);
+            typeTimer = null;
+            // Al culminar el tipeo del título, revelamos suavemente descripción y botones
+            setTimeout(() => {
+              if (descEl) descEl.classList.add("is-visible");
+              if (actionsEl) actionsEl.classList.add("is-visible");
+            }, 160);
+          }
+        }, 42); // 42 ms por carácter para un ritmo fluido y retro
+      }, 300);
+    }
+
+    startTyping();
   }
 
   // =========================================================
@@ -1023,7 +1095,7 @@
     }
 
     function observeCatalogCards() {
-      const cards = document.querySelectorAll(".game-card");
+      const cards = Array.from(document.querySelectorAll(".catalog-grid .game-card"));
       if (!cards.length) return;
 
       if (typeof IntersectionObserver === "undefined") {
@@ -1046,15 +1118,34 @@
         }
       );
 
-      cards.forEach((card) => {
+      // Calcular columnas reales para organizar la animación por filas (de arriba hacia abajo)
+      let cols = 3;
+      try {
+        const computedCols = window.getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+        if (computedCols > 0) cols = computedCols;
+      } catch (e) {
+        cols = window.innerWidth <= 1120 ? 2 : 3;
+      }
+
+      // Encontrar la primera fila visible en el viewport
+      let firstVisibleRow = -1;
+      cards.forEach((card, index) => {
         const rect = card.getBoundingClientRect();
         const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        const rowIndex = Math.floor(index / cols);
+
         if (inViewport) {
+          if (firstVisibleRow === -1) firstVisibleRow = rowIndex;
+          // Escalonado por fila: Fila superior (los de arriba) sale primero, luego Fila 1, Fila 2...
+          const relativeRow = Math.max(0, rowIndex - firstVisibleRow);
+          card.style.transitionDelay = `${0.08 + relativeRow * 0.22}s`;
           card.classList.remove("is-revealed");
           requestAnimationFrame(() => {
             setTimeout(() => card.classList.add("is-revealed"), 40);
           });
         } else {
+          // Tarjetas aún no visibles: se revelan suavemente al scrollear
+          card.style.transitionDelay = "0.08s";
           card.classList.remove("is-revealed");
           cardObserver.observe(card);
         }
@@ -1177,7 +1268,7 @@
     const product = catalogList.find((p) => p.id === productId) || PRODUCTS[0];
 
     // Actualizar título del documento
-    document.title = `ISLA GAMING - ${product.title}: ${product.subtitle}`;
+    document.title = `VEJIGAMES - ${product.title}: ${product.subtitle}`;
 
     // Actualizar Miga de Pan
     const currentBreadcrumb = document.querySelector(".breadcrumb-current");
@@ -1504,8 +1595,416 @@
       });
     }
 
-    // Checkout con acumulación de monedas (+1 por cada juego base, DLC no da monedas)
+    // =========================================================
+    // CONTROL DE AUTENTICACIÓN Y PASARELA DE PAGO (ATH MÓVIL)
+    // =========================================================
+    const authStatusEl = document.getElementById("cart-auth-status");
+    const modalAuthRequired = document.getElementById("modal-auth-required");
+    const modalGateway = document.getElementById("modal-checkout-gateway");
     const checkoutBtn = document.getElementById("btn-checkout");
+
+    function updateCartAuthStatus() {
+      if (!authStatusEl) return;
+      const user = getActiveUser();
+      if (user && user.name) {
+        authStatusEl.className = "cart-auth-status is-logged-in";
+        authStatusEl.innerHTML = `🟢 <strong>Sesión activa:</strong> Comprando como <strong>${user.name}</strong> (${user.email || ""})`;
+      } else {
+        authStatusEl.className = "cart-auth-status is-guest";
+        authStatusEl.innerHTML = `🔒 <strong>Acceso requerido:</strong> Debes <a href="account.html?redirect=cart.html#login" style="color:var(--cart-lime); text-decoration:underline;">iniciar sesión</a> o <a href="account.html?redirect=cart.html#register" style="color:#ff007f; text-decoration:underline;">crear cuenta</a> para poder comprar.`;
+      }
+    }
+
+    function setCheckoutStep(stepNumber) {
+      const steps = document.querySelectorAll(".cart-steps .cart-step");
+      if (!steps || !steps.length) return;
+      steps.forEach((step, idx) => {
+        if (idx === stepNumber - 1) {
+          step.classList.add("cart-step-active");
+        } else {
+          step.classList.remove("cart-step-active");
+        }
+      });
+    }
+
+    function openAuthModal() {
+      if (modalAuthRequired) {
+        modalAuthRequired.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeAuthModal() {
+      if (modalAuthRequired) {
+        modalAuthRequired.hidden = true;
+        document.body.style.overflow = "";
+      }
+    }
+
+    let activePaymentMethod = "ath";
+    let currentCartForKeys = [];
+    let currentFinalTotal = 0;
+    let paymentTimerId = null;
+
+    function openCheckoutModal() {
+      const user = getActiveUser();
+      if (!user) {
+        openAuthModal();
+        return;
+      }
+
+      const cart = getCartFromStorage();
+      if (cart.length === 0) {
+        alert("Tu carrito está vacío. Agrega juegos para continuar.");
+        return;
+      }
+
+      currentCartForKeys = [...cart];
+
+      // Calcular montos finales
+      const allGames = typeof ALL_PRODUCTS !== "undefined" ? ALL_PRODUCTS : PRODUCTS;
+      let rawSubtotal = 0;
+      cart.forEach((item) => {
+        const game = allGames.find((p) => p.id === item.productId);
+        if (game) {
+          rawSubtotal += game.price;
+          if (item.hasDlc && game.dlcs && game.dlcs.length) {
+            rawSubtotal += game.dlcs[0].price;
+          }
+        }
+      });
+
+      let discountAmount = 0;
+      if (window._activeLootCoupon && rawSubtotal > 0) {
+        if (window._activeLootCoupon.isFixed) {
+          discountAmount = Math.min(rawSubtotal, window._activeLootCoupon.discountVal);
+        } else {
+          discountAmount = rawSubtotal * window._activeLootCoupon.discountVal;
+        }
+      }
+      currentFinalTotal = Math.max(0, rawSubtotal - discountAmount);
+      const formattedTotal = formatPrice(currentFinalTotal);
+
+      // Actualizar datos del comprador en el modal
+      const buyerNameEl = document.getElementById("gateway-buyer-name");
+      const buyerEmailEl = document.getElementById("gateway-buyer-email");
+      if (buyerNameEl) buyerNameEl.textContent = user.name || "Jugador";
+      if (buyerEmailEl) buyerEmailEl.textContent = `(${user.email || ""})`;
+
+      // Actualizar montos en la pasarela
+      const gSubtotalEl = document.getElementById("g-subtotal");
+      const gTotalEl = document.getElementById("g-total");
+      const payAmountLabels = document.querySelectorAll(".btn-pay-amount");
+      if (gSubtotalEl) gSubtotalEl.textContent = formatPrice(rawSubtotal);
+      if (gTotalEl) gTotalEl.textContent = formattedTotal;
+      payAmountLabels.forEach((el) => {
+        el.textContent = formattedTotal;
+      });
+
+      // Pre-cargar nombre en tarjeta
+      const cardNameInput = document.getElementById("card-name-input");
+      if (cardNameInput && user.name) {
+        cardNameInput.value = user.name;
+      }
+
+      // Pre-cargar preview de items
+      const previewEl = document.getElementById("gateway-items-preview");
+      if (previewEl) {
+        previewEl.innerHTML = cart
+          .map((item) => {
+            const game = allGames.find((p) => p.id === item.productId);
+            if (!game) return "";
+            const dlcPart = item.hasDlc && game.dlcs && game.dlcs.length ? ` + DLC ${game.dlcs[0].title}` : "";
+            return `
+              <div class="gateway-item-row">
+                <img src="${game.image}" alt="${game.title}" class="gateway-item-thumb" />
+                <div class="gateway-item-meta">
+                  <p class="gateway-item-name">${game.title}${dlcPart}</p>
+                  <p class="gateway-item-qty">Cantidad: 1 · Digital</p>
+                </div>
+                <span class="gateway-item-price">${formatPrice(game.price + (item.hasDlc && game.dlcs && game.dlcs.length ? game.dlcs[0].price : 0))}</span>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // Recompensa de monedas
+      const coinsTextEl = document.getElementById("gateway-coins-text");
+      if (coinsTextEl) {
+        coinsTextEl.textContent = `¡Ganarás +${cart.length} moneda(s) arcade para la Mystery Loot Box!`;
+      }
+
+      // Restablecer vistas del modal al paso 1 (pago)
+      switchGatewayView("payment");
+      setCheckoutStep(2);
+
+      if (modalGateway) {
+        modalGateway.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeCheckoutModal() {
+      if (paymentTimerId) {
+        clearTimeout(paymentTimerId);
+        paymentTimerId = null;
+      }
+      if (modalGateway) {
+        modalGateway.hidden = true;
+        document.body.style.overflow = "";
+      }
+      setCheckoutStep(1);
+    }
+
+    function switchGatewayView(viewName) {
+      const viewPayment = document.getElementById("gateway-view-payment");
+      const viewProcessing = document.getElementById("gateway-view-processing");
+      const viewSuccess = document.getElementById("gateway-view-success");
+
+      if (viewPayment) viewPayment.hidden = viewName !== "payment";
+      if (viewProcessing) viewProcessing.hidden = viewName !== "processing";
+      if (viewSuccess) viewSuccess.hidden = viewName !== "success";
+    }
+
+    // Pestañas de método de pago (ATH Móvil, Tarjeta, PayPal)
+    const tabs = document.querySelectorAll(".gateway-tab");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-selected", "true");
+
+        const method = tab.getAttribute("data-method");
+        activePaymentMethod = method;
+
+        const panelAth = document.getElementById("panel-pay-ath");
+        const panelCard = document.getElementById("panel-pay-card");
+        const panelPaypal = document.getElementById("panel-pay-paypal");
+
+        if (panelAth) {
+          panelAth.hidden = method !== "ath";
+          panelAth.classList.toggle("is-active", method === "ath");
+        }
+        if (panelCard) {
+          panelCard.hidden = method !== "card";
+          panelCard.classList.toggle("is-active", method === "card");
+        }
+        if (panelPaypal) {
+          panelPaypal.hidden = method !== "paypal";
+          panelPaypal.classList.toggle("is-active", method === "paypal");
+        }
+      });
+    });
+
+    // Formateo automático de teléfono ATH Móvil: (787) 555-0199
+    const athPhoneInput = document.getElementById("ath-phone-input");
+    if (athPhoneInput) {
+      athPhoneInput.addEventListener("input", (e) => {
+        let digits = e.target.value.replace(/\D/g, "");
+        if (digits.length > 10) digits = digits.slice(0, 10);
+        let formatted = "";
+        if (digits.length > 0) {
+          formatted = "(" + digits.slice(0, 3);
+        }
+        if (digits.length >= 4) {
+          formatted += ") " + digits.slice(3, 6);
+        }
+        if (digits.length >= 7) {
+          formatted += "-" + digits.slice(6, 10);
+        }
+        e.target.value = formatted;
+      });
+    }
+
+    // Formateo de número de tarjeta: 4532 0000 0000 0000
+    const cardNumberInput = document.getElementById("card-number-input");
+    if (cardNumberInput) {
+      cardNumberInput.addEventListener("input", (e) => {
+        let v = e.target.value.replace(/\D/g, "").slice(0, 16);
+        let matches = v.match(/\d{4,16}/g);
+        let match = (matches && matches[0]) || "";
+        let parts = [];
+        for (let i = 0, len = match.length; i < len; i += 4) {
+          parts.push(match.substring(i, i + 4));
+        }
+        if (parts.length) {
+          e.target.value = parts.join(" ");
+        } else {
+          e.target.value = v;
+        }
+      });
+    }
+
+    // Formateo de fecha de expiración: MM/AA
+    const cardExpInput = document.getElementById("card-exp-input");
+    if (cardExpInput) {
+      cardExpInput.addEventListener("input", (e) => {
+        let v = e.target.value.replace(/\D/g, "").slice(0, 4);
+        if (v.length >= 2) {
+          e.target.value = v.slice(0, 2) + "/" + v.slice(2);
+        } else {
+          e.target.value = v;
+        }
+      });
+    }
+
+    // Ejecución y confirmación del pago
+    function executeOrderSuccess() {
+      const user = getActiveUser() || { name: "Jugador", email: "jugador@vejigames.com" };
+      const baseGamesCount = currentCartForKeys.length;
+      const currentCoins = getLootCoins();
+      const newCoins = currentCoins + baseGamesCount;
+      saveLootCoins(newCoins);
+
+      // Vaciar carrito
+      saveCartToStorage([]);
+      window._activeLootCoupon = null;
+      renderCart();
+      updateHeaderCartCount();
+
+      // Generar orden aleatoria y claves digitales
+      const orderId = `#VG-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      const orderIdEl = document.getElementById("success-order-id");
+      const userEmailEl = document.getElementById("success-user-email");
+      const coinsTitleEl = document.getElementById("success-coins-title");
+
+      if (orderIdEl) orderIdEl.textContent = orderId;
+      if (userEmailEl) userEmailEl.textContent = user.email || "tu correo registrado";
+      if (coinsTitleEl) {
+        coinsTitleEl.textContent = `¡Has ganado +${baseGamesCount} moneda(s) arcade para la Ruleta!`;
+      }
+
+      // Generar claves para cada juego comprado
+      const allGames = typeof ALL_PRODUCTS !== "undefined" ? ALL_PRODUCTS : PRODUCTS;
+      const keysContainer = document.getElementById("success-keys-list");
+      if (keysContainer) {
+        keysContainer.innerHTML = currentCartForKeys
+          .map((item) => {
+            const game = allGames.find((p) => p.id === item.productId);
+            const prefix = (game ? game.title.replace(/[^A-Za-z]/g, "").slice(0, 4) : "GAME").toUpperCase();
+            const r1 = Math.floor(1000 + Math.random() * 9000);
+            const r2 = Math.floor(1000 + Math.random() * 9000);
+            const gameKey = `VG-${prefix}-${r1}-${r2}-PR`;
+
+            let dlcKeyHTML = "";
+            if (item.hasDlc && game && game.dlcs && game.dlcs.length) {
+              const dlc = game.dlcs[0];
+              const dlcPrefix = (dlc.title.replace(/[^A-Za-z]/g, "").slice(0, 4) || "DLC").toUpperCase();
+              const dlcR1 = Math.floor(1000 + Math.random() * 9000);
+              const dlcKey = `VG-DLC-${dlcPrefix}-${dlcR1}-PR`;
+              dlcKeyHTML = `
+                <div class="key-card-item">
+                  <span class="key-game-name">↳ DLC: ${dlc.title}</span>
+                  <div class="key-code-wrap">
+                    <code class="key-code-display">${dlcKey}</code>
+                    <button type="button" class="btn-copy-key" onclick="window.NexoShop.copyKey('${dlcKey}', this)">Copiar</button>
+                  </div>
+                </div>
+              `;
+            }
+
+            return `
+              <div class="key-card-item">
+                <span class="key-game-name">🎮 ${game ? game.title : "Juego Digital"}</span>
+                <div class="key-code-wrap">
+                  <code class="key-code-display">${gameKey}</code>
+                  <button type="button" class="btn-copy-key" onclick="window.NexoShop.copyKey('${gameKey}', this)">Copiar</button>
+                </div>
+              </div>
+              ${dlcKeyHTML}
+            `;
+          })
+          .join("");
+      }
+
+      // Mostrar pantalla de éxito
+      switchGatewayView("success");
+      setCheckoutStep(3);
+    }
+
+    function startProcessingPayment(methodName) {
+      switchGatewayView("processing");
+
+      const titleEl = document.getElementById("processing-title");
+      const descEl = document.getElementById("processing-desc");
+      const amountTextEl = document.getElementById("processing-amount-text");
+      const formattedTotal = formatPrice(currentFinalTotal);
+
+      if (amountTextEl) amountTextEl.textContent = formattedTotal;
+
+      if (methodName === "ath") {
+        if (titleEl) titleEl.textContent = "Esperando autorización de ATH Móvil...";
+        if (descEl) {
+          descEl.innerHTML = `Revisa tu teléfono móvil. Hemos enviado la solicitud por <strong>${formattedTotal}</strong> a tu app de ATH Móvil para autorizar a <strong>VejiGames Business</strong>.`;
+        }
+      } else if (methodName === "card") {
+        if (titleEl) titleEl.textContent = "Cifrando y verificando tarjeta...";
+        if (descEl) {
+          descEl.innerHTML = `Conectando con tu banco emisor para autorizar el cargo seguro de <strong>${formattedTotal}</strong>...`;
+        }
+      } else {
+        if (titleEl) titleEl.textContent = "Conectando con pasarela PayPal...";
+        if (descEl) {
+          descEl.innerHTML = `Autorizando transacción segura por <strong>${formattedTotal}</strong>...`;
+        }
+      }
+
+      // Simulación automática de confirmación tras 2.8s
+      paymentTimerId = setTimeout(() => {
+        executeOrderSuccess();
+      }, 2800);
+    }
+
+    // Botón Pagar con ATH Móvil
+    const btnSubmitAth = document.getElementById("btn-submit-ath");
+    if (btnSubmitAth) {
+      btnSubmitAth.addEventListener("click", () => {
+        const phone = (athPhoneInput ? athPhoneInput.value : "").replace(/\D/g, "");
+        if (phone.length < 10) {
+          alert("Por favor ingresa un número de teléfono válido de Puerto Rico con código de área (787 o 939).");
+          if (athPhoneInput) athPhoneInput.focus();
+          return;
+        }
+        startProcessingPayment("ath");
+      });
+    }
+
+    // Botón Pagar con Tarjeta
+    const btnSubmitCard = document.getElementById("btn-submit-card");
+    if (btnSubmitCard) {
+      btnSubmitCard.addEventListener("click", () => {
+        const cardNum = (cardNumberInput ? cardNumberInput.value : "").replace(/\D/g, "");
+        if (cardNum.length < 15) {
+          alert("Por favor introduce un número de tarjeta válido de 16 dígitos.");
+          if (cardNumberInput) cardNumberInput.focus();
+          return;
+        }
+        startProcessingPayment("card");
+      });
+    }
+
+    // Botón Pagar con PayPal
+    const btnSubmitPaypal = document.getElementById("btn-submit-paypal");
+    if (btnSubmitPaypal) {
+      btnSubmitPaypal.addEventListener("click", () => {
+        startProcessingPayment("paypal");
+      });
+    }
+
+    // Botón de demostración rápida para ATH Móvil
+    const btnSimulateAth = document.getElementById("btn-simulate-ath-confirm");
+    if (btnSimulateAth) {
+      btnSimulateAth.addEventListener("click", () => {
+        if (paymentTimerId) clearTimeout(paymentTimerId);
+        executeOrderSuccess();
+      });
+    }
+
+    // Botón principal de checkout del carrito
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", () => {
         const cart = getCartFromStorage();
@@ -1514,30 +2013,41 @@
           return;
         }
 
-        // Regla: 1 moneda por cada juego base comprado. Los DLC no dan monedas.
-        const baseGamesCount = cart.length;
-        const currentCoins = getLootCoins();
-        const newCoins = currentCoins + baseGamesCount;
-        saveLootCoins(newCoins);
+        const user = getActiveUser();
+        if (!user) {
+          openAuthModal();
+          return;
+        }
 
-        // Vaciar carrito tras el checkout simulado
-        saveCartToStorage([]);
-        window._activeLootCoupon = null;
-        renderCart();
-        updateHeaderCartCount();
-
-        alert(
-          `🎉 ¡Pago completado con éxito!\n\n` +
-          `Tus claves digitales de activación han sido enviadas a tu correo.\n` +
-          `🪙 ¡Has ganado +${baseGamesCount} moneda(s) arcade para la Mystery Loot Box!\n` +
-          `(Recuerda: los DLC no generan monedas).\n\n` +
-          `Tu saldo actual es de ${newCoins} moneda(s). ¡Ve al Home a abrir tu Loot Box!`
-        );
+        openCheckoutModal();
       });
     }
 
+    // Métodos públicos del checkout
+    window.NexoShop.openCheckoutModal = openCheckoutModal;
+    window.NexoShop.closeCheckoutModal = closeCheckoutModal;
+    window.NexoShop.openAuthModal = openAuthModal;
+    window.NexoShop.closeAuthModal = closeAuthModal;
+    window.NexoShop.copyKey = function (code, btn) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code);
+      }
+      if (btn) {
+        const originalText = btn.textContent;
+        btn.textContent = "¡Copiado! ✓";
+        btn.style.borderColor = "var(--cart-lime, #d5ff52)";
+        btn.style.color = "var(--cart-lime, #d5ff52)";
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.borderColor = "";
+          btn.style.color = "";
+        }, 2200);
+      }
+    };
+
     window.NexoShop.renderCart = renderCart;
     renderCart();
+    updateCartAuthStatus();
   }
 
   // =========================================================
@@ -1547,9 +2057,9 @@
   // =========================================================
   function getLootCoins() {
     try {
-      const stored = localStorage.getItem("isla_gaming_coins");
+      const stored = localStorage.getItem("vejigames_coins") || localStorage.getItem("isla_gaming_coins");
       if (stored === null) {
-        localStorage.setItem("isla_gaming_coins", "1");
+        localStorage.setItem("vejigames_coins", "1");
         return 1;
       }
       const val = parseInt(stored, 10);
@@ -1561,7 +2071,7 @@
 
   function saveLootCoins(count) {
     try {
-      localStorage.setItem("isla_gaming_coins", Math.max(0, count).toString());
+      localStorage.setItem("vejigames_coins", Math.max(0, count).toString());
     } catch (e) {}
   }
 
@@ -1617,64 +2127,97 @@
   // =========================================================
   // CONTROLADOR DEL MINIJUEGO: MYSTERY LOOT BOX
   // =========================================================
+  // RULETA ARCADE DE LA SUERTE & RECOMPENSAS
+  // =========================================================
   function initLootBox() {
-    const section = document.getElementById("arcade-lootbox");
+    const section = document.getElementById("ruleta") || document.getElementById("arcade-lootbox");
     if (!section) return;
 
     const coinsDisplay = document.getElementById("lootbox-coins");
     const openBtn = document.getElementById("btn-open-lootbox");
     const hintEl = document.getElementById("lootbox-hint");
-    const boxWrap = document.getElementById("lootbox-box-wrap");
-    const reelWrap = document.getElementById("lootbox-reel");
-    const reelDisplay = document.getElementById("lootbox-reel-display");
+    const wheelDisc = document.getElementById("ruleta-wheel-disc");
+    const pointer = document.getElementById("ruleta-pointer");
+    const promptText = document.getElementById("lootbox-prompt");
     const rewardCard = document.getElementById("lootbox-reward");
     const rewardBadge = document.getElementById("reward-type-badge");
     const rewardTitle = document.getElementById("reward-title");
     const rewardDesc = document.getElementById("reward-desc");
+    const rewardCodeBox = document.getElementById("reward-code-box");
     const rewardCodeVal = document.getElementById("reward-code-val");
     const copyBtn = document.getElementById("btn-copy-reward");
     const copyMsg = document.getElementById("copy-msg");
 
-    // 4 Tiers con probabilidades ponderadas (5%, 15%, 25%, 50% cada uno con menor probabilidad)
-    const LOOT_TIERS = [
+    // 8 Sectores en la rueda (45° por sector, Sector 0 centrado a 0° / 12 en punto)
+    const WHEEL_SECTORS = [
       {
+        index: 0,
+        badge: "★ JACKPOT LEGENDARIO · 5% PROB ★",
+        title: "50% DE DESCUENTO (MITAD DE PRECIO)",
+        desc: "¡PREMIO MÁXIMO! ¡Has sacado el Jackpot del 50%! Paga la mitad exacta en tu próxima compra.",
+        code: "ISLA50",
+        isCoin: false
+      },
+      {
+        index: 1,
         badge: "DROP COMÚN · 50% PROB",
         title: "5% DE DESCUENTO",
         desc: "¡Buen tiro! Código válido para un 5% de descuento directo en cualquier compra del carrito.",
         code: "ISLA5",
-        discountPercent: 5
+        isCoin: false
       },
       {
+        index: 2,
         badge: "DROP RARO · 30% PROB",
         title: "15% DE DESCUENTO",
         desc: "¡Gran premio! Ahorra un 15% en el total de tu orden al canjearlo en el carrito.",
         code: "ISLA15",
-        discountPercent: 15
+        isCoin: false
       },
       {
+        index: 3,
+        badge: "DROP EXTRA · TIRO GRATIS",
+        title: "+1 🪙 MONEDA ARCADE",
+        desc: "¡La ruleta te devuelve la suerte! Has ganado +1 moneda para volver a girar.",
+        code: "TIRO-GRATIS",
+        isCoin: true
+      },
+      {
+        index: 4,
         badge: "DROP ÉPICO · 15% PROB",
         title: "25% DE DESCUENTO",
         desc: "¡Tiro de élite! Un cuarto de descuento (25% OFF) para cualquier videojuego de la tienda.",
         code: "ISLA25",
-        discountPercent: 25
+        isCoin: false
       },
       {
-        badge: "★ JACKPOT LEGENDARIO · 5% PROB ★",
-        title: "50% DE DESCUENTO (MITAD DE PRECIO)",
-        desc: "¡PREMIO MÁXIMO! ¡Has conseguido el Jackpot del 50%! Paga la mitad exacta en tu próxima compra.",
-        code: "ISLA50",
-        discountPercent: 50
+        index: 5,
+        badge: "DROP COMÚN · 50% PROB",
+        title: "5% DE DESCUENTO",
+        desc: "¡Buen tiro! Código válido para un 5% de descuento directo en cualquier compra del carrito.",
+        code: "ISLA5",
+        isCoin: false
+      },
+      {
+        index: 6,
+        badge: "DROP RARO · 30% PROB",
+        title: "15% DE DESCUENTO",
+        desc: "¡Gran premio! Ahorra un 15% en el total de tu orden al canjearlo en el carrito.",
+        code: "ISLA15",
+        isCoin: false
+      },
+      {
+        index: 7,
+        badge: "DROP EXTRA · TIRO GRATIS",
+        title: "+1 🪙 MONEDA ARCADE",
+        desc: "¡La ruleta te devuelve la suerte! Has ganado +1 moneda para volver a girar.",
+        code: "TIRO-GRATIS",
+        isCoin: true
       }
     ];
 
-    const REEL_ANIMATION_TEXTS = [
-      "🎲 PROCESANDO DROP...",
-      "🥉 5% DE DESCUENTO (COMÚN)",
-      "🥈 15% DE DESCUENTO (RARO)",
-      "🥇 25% DE DESCUENTO (ÉPICO)",
-      "👑 ¡50% JACKPOT LEGENDARIO!",
-      "✨ CALCULANDO SUERTE ARCADE..."
-    ];
+    let currentRotation = 0;
+    let isSpinning = false;
 
     function updateCoinsUI() {
       const coins = getLootCoins();
@@ -1687,10 +2230,10 @@
 
       if (openBtn) {
         if (coins > 0) {
-          openBtn.disabled = false;
-          openBtn.innerHTML = `<span class="btn-coin-anim">🪙</span> INSERT COIN · ABRIR LOOT BOX`;
+          openBtn.disabled = isSpinning;
+          openBtn.innerHTML = `<span class="btn-coin-anim">🪙</span> INSERT COIN · GIRAR RULETA`;
           if (hintEl) {
-            hintEl.textContent = `Tienes ${coins} moneda(s). Presiona para usar 1 y desbloquear recompensa.`;
+            hintEl.textContent = `Tienes ${coins} moneda(s). Presiona para usar 1 y girar la ruleta.`;
           }
         } else {
           openBtn.disabled = true;
@@ -1703,8 +2246,6 @@
     }
 
     updateCoinsUI();
-
-    let isSpinning = false;
 
     if (openBtn) {
       openBtn.addEventListener("click", () => {
@@ -1720,50 +2261,116 @@
         updateCoinsUI();
         playArcadeAudio("coin");
 
-        // Ocultar caja y premio previo, mostrar ruleta
-        if (boxWrap) boxWrap.style.display = "none";
-        if (rewardCard) rewardCard.style.display = "none";
-        if (reelWrap) reelWrap.style.display = "flex";
-        if (copyMsg) copyMsg.style.display = "none";
+        if (promptText) {
+          promptText.textContent = "🎰 ¡RULETA EN MOVIMIENTO!...";
+        }
+        if (rewardCard) {
+          rewardCard.style.display = "none";
+        }
+        if (copyMsg) {
+          copyMsg.style.display = "none";
+        }
 
-        // Animación de ruleta durante 1.8 segundos
-        let tickCount = 0;
-        const interval = setInterval(() => {
-          if (reelDisplay) {
-            reelDisplay.textContent = REEL_ANIMATION_TEXTS[tickCount % REEL_ANIMATION_TEXTS.length];
+        // Selección ponderada de sector
+        // 5% Jackpot (Sector 0)
+        // 10% Épico 25% (Sector 4)
+        // 20% Raro 15% (Sectores 2 o 6)
+        // 15% Moneda +1 (Sectores 3 o 7)
+        // 50% Común 5% (Sectores 1 o 5)
+        const roll = Math.random() * 100;
+        let chosenSectorIndex = 1;
+
+        if (roll < 5) {
+          chosenSectorIndex = 0; // 50% Jackpot
+        } else if (roll < 15) {
+          chosenSectorIndex = 4; // 25% Épico
+        } else if (roll < 35) {
+          chosenSectorIndex = Math.random() < 0.5 ? 2 : 6; // 15% Raro
+        } else if (roll < 50) {
+          chosenSectorIndex = Math.random() < 0.5 ? 3 : 7; // +1 Moneda
+        } else {
+          chosenSectorIndex = Math.random() < 0.5 ? 1 : 5; // 5% Común
+        }
+
+        const prize = WHEEL_SECTORS[chosenSectorIndex];
+
+        // Cálculo de rotación exacta:
+        // Sector S se alinea con el puntero superior (0°) cuando rotación = (360 - S * 45) mod 360
+        // Le añadimos un jitter seguro (-10° a +10°) para que se detenga de forma orgánica dentro del sector
+        const jitter = (Math.random() - 0.5) * 20;
+        const targetSectorAngle = (360 - chosenSectorIndex * 45 + jitter + 360) % 360;
+
+        const currentMod = currentRotation % 360;
+        let delta = targetSectorAngle - currentMod;
+        if (delta < 0) delta += 360;
+
+        // Dar entre 5 y 6 vueltas completas adicionales
+        const fullSpins = (5 + Math.floor(Math.random() * 2)) * 360;
+        const nextRotation = currentRotation + fullSpins + delta;
+        currentRotation = nextRotation;
+
+        if (wheelDisc) {
+          wheelDisc.style.transform = `rotate(${currentRotation}deg)`;
+        }
+
+        // Simulación de tics del puntero sonoros y visuales
+        let tickTime = 60;
+        let tickTimer = null;
+        const startTime = Date.now();
+        const duration = 4500;
+
+        function runTick() {
+          const elapsed = Date.now() - startTime;
+          if (elapsed >= duration) return;
+
+          if (pointer) {
+            pointer.classList.add("pointer-tick");
+            setTimeout(() => pointer.classList.remove("pointer-tick"), 40);
           }
           playArcadeAudio("tick");
-          tickCount++;
-        }, 120);
 
+          // Reducir la frecuencia del tic conforme la rueda desacelera
+          const progress = elapsed / duration;
+          tickTime = 60 + Math.pow(progress, 2.5) * 400;
+          tickTimer = setTimeout(runTick, tickTime);
+        }
+        runTick();
+
+        // Fin del giro a los 4.5 segundos
         setTimeout(() => {
-          clearInterval(interval);
+          if (tickTimer) clearTimeout(tickTimer);
           isSpinning = false;
 
-          // Seleccionar premio ponderado por probabilidad (50%, 30%, 15%, 5%)
-          const roll = Math.random() * 100;
-          let prize;
-          if (roll < 50) {
-            prize = LOOT_TIERS[0]; // 5% (50% de probabilidad)
-          } else if (roll < 80) {
-            prize = LOOT_TIERS[1]; // 15% (30% de probabilidad)
-          } else if (roll < 95) {
-            prize = LOOT_TIERS[2]; // 25% (15% de probabilidad)
-          } else {
-            prize = LOOT_TIERS[3]; // 50% (5% de probabilidad)
+          // Si ganó moneda, devolvérsela
+          if (prize.isCoin) {
+            const currentCoins = getLootCoins();
+            saveLootCoins(currentCoins + 1);
+            updateCoinsUI();
           }
 
-          if (reelWrap) reelWrap.style.display = "none";
-          if (rewardCard) rewardCard.style.display = "flex";
+          if (promptText) {
+            promptText.textContent = prize.isCoin ? "¡MONEDA DEVUELTA! ¡SIGUE JUGANDO!" : "¡PREMIO OBTENIDO!";
+          }
 
-          if (rewardBadge) rewardBadge.textContent = prize.badge;
-          if (rewardTitle) rewardTitle.textContent = prize.title;
-          if (rewardDesc) rewardDesc.textContent = prize.desc;
-          if (rewardCodeVal) rewardCodeVal.textContent = prize.code;
+          if (rewardCard) {
+            rewardCard.style.display = "flex";
+            if (rewardBadge) rewardBadge.textContent = prize.badge;
+            if (rewardTitle) rewardTitle.textContent = prize.title;
+            if (rewardDesc) rewardDesc.textContent = prize.desc;
+
+            if (rewardCodeBox) {
+              if (prize.isCoin) {
+                rewardCodeBox.style.display = "none";
+              } else {
+                rewardCodeBox.style.display = "flex";
+                if (rewardCodeVal) rewardCodeVal.textContent = prize.code;
+              }
+            }
+          }
 
           playArcadeAudio("victory");
           updateCoinsUI();
-        }, 1800);
+        }, 4600);
       });
     }
 
@@ -1920,6 +2527,322 @@
     }
   }
 
+  // =========================================================
+  // GESTIÓN DE CUENTA Y REGISTRO (account.html)
+  // =========================================================
+  function initAccountPage() {
+    const card = document.querySelector(".account-card");
+    if (!card) return;
+
+    const tabLogin = document.getElementById("tab-login");
+    const tabRegister = document.getElementById("tab-register");
+    const viewLogin = document.getElementById("view-login");
+    const viewRegister = document.getElementById("view-register");
+    const viewProfile = document.getElementById("view-profile");
+    const modeTabs = document.querySelector(".account-mode-tabs");
+
+    const linkGoRegister = document.getElementById("link-go-register");
+    const linkGoLogin = document.getElementById("link-go-login");
+
+    const heroTitle = document.querySelector(".account-hero-title");
+    const heroDesc = document.querySelector(".account-hero-desc");
+
+    const formLogin = document.getElementById("account-login-form");
+    const formRegister = document.getElementById("account-register-form");
+
+    const loginAlert = document.getElementById("login-alert");
+    const registerAlert = document.getElementById("register-alert");
+
+    const btnLogout = document.getElementById("account-btn-logout");
+    const profileName = document.getElementById("profile-name");
+    const profileEmail = document.getElementById("profile-email");
+    const profileAvatar = document.getElementById("profile-avatar");
+    const profileCartCount = document.getElementById("profile-cart-count");
+
+    function getSavedUser() {
+      try {
+        const raw = localStorage.getItem("vejigames_user") || localStorage.getItem("isla_gaming_user");
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveUser(user) {
+      try {
+        localStorage.setItem("vejigames_user", JSON.stringify(user));
+      } catch (e) {}
+      updateHeaderUser();
+    }
+
+    function clearUser() {
+      try {
+        localStorage.removeItem("vejigames_user");
+        localStorage.removeItem("isla_gaming_user");
+      } catch (e) {}
+      updateHeaderUser();
+    }
+
+    function showAlert(el, msg, type = "error") {
+      if (!el) return;
+      el.textContent = msg;
+      el.className = `account-alert is-${type}`;
+      el.hidden = false;
+    }
+
+    function clearAlert(el) {
+      if (!el) return;
+      el.textContent = "";
+      el.hidden = true;
+    }
+
+    function switchMode(mode) {
+      clearAlert(loginAlert);
+      clearAlert(registerAlert);
+
+      const currentUser = getSavedUser();
+      if (mode === "profile" && currentUser) {
+        if (modeTabs) modeTabs.hidden = true;
+        if (viewLogin) viewLogin.hidden = true;
+        if (viewRegister) viewRegister.hidden = true;
+        if (viewProfile) {
+          viewProfile.hidden = false;
+          if (profileName) profileName.textContent = currentUser.name || "Jugador";
+          if (profileEmail) profileEmail.textContent = currentUser.email || "jugador@isla.pr";
+          if (profileAvatar) {
+            const initials = (currentUser.name || "PR")
+              .split(" ")
+              .filter(Boolean)
+              .map((w) => w[0])
+              .join("")
+              .toUpperCase()
+              .slice(0, 2);
+            profileAvatar.textContent = initials || "PR";
+          }
+          if (profileCartCount && typeof getCartFromStorage === "function") {
+            const cart = getCartFromStorage();
+            profileCartCount.textContent = cart.length;
+          }
+        }
+        if (heroTitle) heroTitle.innerHTML = `¡Hola,<br>${currentUser.name || "Jugador"}!`;
+        if (heroDesc) heroDesc.textContent = "Accede a tus juegos, claves descargables y pedidos activos en Puerto Rico.";
+        return;
+      }
+
+      if (modeTabs) modeTabs.hidden = false;
+      if (viewProfile) viewProfile.hidden = true;
+
+      if (mode === "register") {
+        if (tabRegister) {
+          tabRegister.classList.add("is-active");
+          tabRegister.setAttribute("aria-selected", "true");
+        }
+        if (tabLogin) {
+          tabLogin.classList.remove("is-active");
+          tabLogin.setAttribute("aria-selected", "false");
+        }
+        if (viewLogin) viewLogin.hidden = true;
+        if (viewRegister) viewRegister.hidden = false;
+        if (heroTitle) heroTitle.innerHTML = "Empieza tu<br>próxima<br>aventura.";
+        if (heroDesc) heroDesc.textContent = "Crea tu cuenta gratis, guarda tus juegos favoritos y recibe ofertas exclusivas en Puerto Rico.";
+      } else {
+        if (tabLogin) {
+          tabLogin.classList.add("is-active");
+          tabLogin.setAttribute("aria-selected", "true");
+        }
+        if (tabRegister) {
+          tabRegister.classList.remove("is-active");
+          tabRegister.setAttribute("aria-selected", "false");
+        }
+        if (viewRegister) viewRegister.hidden = true;
+        if (viewLogin) viewLogin.hidden = false;
+        if (heroTitle) heroTitle.innerHTML = "Vuelve a tu<br>próxima<br>aventura.";
+        if (heroDesc) heroDesc.textContent = "Accede a tus juegos, revisa tus pedidos y vuelve a descargar tus claves cuando quieras.";
+      }
+    }
+
+    // Botones de mostrar / ocultar contraseña
+    document.querySelectorAll(".account-toggle-pwd").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.dataset.target;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        if (input.type === "password") {
+          input.type = "text";
+          btn.textContent = "Ocultar";
+        } else {
+          input.type = "password";
+          btn.textContent = "Mostrar";
+        }
+      });
+    });
+
+    // Pestañas
+    if (tabLogin) {
+      tabLogin.addEventListener("click", () => {
+        if (history.replaceState) history.replaceState(null, "", "#login");
+        switchMode("login");
+      });
+    }
+    if (tabRegister) {
+      tabRegister.addEventListener("click", () => {
+        if (history.replaceState) history.replaceState(null, "", "#register");
+        switchMode("register");
+      });
+    }
+
+    // Enlaces inferiores de alternar
+    if (linkGoRegister) {
+      linkGoRegister.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (history.replaceState) history.replaceState(null, "", "#register");
+        switchMode("register");
+      });
+    }
+    if (linkGoLogin) {
+      linkGoLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (history.replaceState) history.replaceState(null, "", "#login");
+        switchMode("login");
+      });
+    }
+
+    // Envío del formulario de Registro
+    if (formRegister) {
+      formRegister.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAlert(registerAlert);
+
+        const name = (document.getElementById("register-name")?.value || "").trim();
+        const email = (document.getElementById("register-email")?.value || "").trim().toLowerCase();
+        const password = document.getElementById("register-password")?.value || "";
+        const passwordConfirm = document.getElementById("register-password-confirm")?.value || "";
+        const termsChecked = document.getElementById("register-terms")?.checked;
+
+        if (name.length < 2) {
+          showAlert(registerAlert, "Por favor escribe tu nombre o Gamertag (mínimo 2 caracteres).");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showAlert(registerAlert, "Introduce un correo electrónico válido.");
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert(registerAlert, "La contraseña debe tener al menos 6 caracteres.");
+          return;
+        }
+
+        if (password !== passwordConfirm) {
+          showAlert(registerAlert, "Las contraseñas no coinciden. Verifícalas.");
+          return;
+        }
+
+        if (!termsChecked) {
+          showAlert(registerAlert, "Debes aceptar los términos y condiciones para continuar.");
+          return;
+        }
+
+        const newUser = {
+          name,
+          email,
+          createdAt: new Date().toISOString()
+        };
+        saveUser(newUser);
+
+        showAlert(registerAlert, `¡Cuenta creada con éxito! Bienvenido, ${name}.`, "success");
+
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get("redirect");
+          if (redirect) {
+            window.location.href = redirect;
+          } else {
+            switchMode("profile");
+          }
+        }, 700);
+      });
+    }
+
+    // Envío del formulario de Login
+    if (formLogin) {
+      formLogin.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAlert(loginAlert);
+
+        const email = (document.getElementById("account-email")?.value || "").trim().toLowerCase();
+        const password = document.getElementById("account-password")?.value || "";
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showAlert(loginAlert, "Introduce un correo electrónico válido.");
+          return;
+        }
+
+        if (!password) {
+          showAlert(loginAlert, "Por favor introduce tu contraseña.");
+          return;
+        }
+
+        let user = getSavedUser();
+        if (!user || user.email !== email) {
+          const inferredName = email.split("@")[0];
+          user = {
+            name: inferredName.charAt(0).toUpperCase() + inferredName.slice(1),
+            email,
+            createdAt: new Date().toISOString()
+          };
+          saveUser(user);
+        }
+
+        showAlert(loginAlert, `¡Sesión iniciada con éxito! Bienvenido de nuevo, ${user.name}.`, "success");
+
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get("redirect");
+          if (redirect) {
+            window.location.href = redirect;
+          } else {
+            switchMode("profile");
+          }
+        }, 500);
+      });
+    }
+
+    // Olvidó contraseña (demo feedback)
+    const linkForgot = document.getElementById("account-link-forgot");
+    if (linkForgot) {
+      linkForgot.addEventListener("click", (e) => {
+        e.preventDefault();
+        const email = (document.getElementById("account-email")?.value || "").trim();
+        if (email) {
+          showAlert(loginAlert, `Hemos enviado un enlace de recuperación a ${email}.`, "success");
+        } else {
+          showAlert(loginAlert, "Escribe tu correo arriba y vuelve a hacer clic para recibir el enlace de recuperación.");
+        }
+      });
+    }
+
+    // Botón Cerrar Sesión
+    if (btnLogout) {
+      btnLogout.addEventListener("click", () => {
+        clearUser();
+        switchMode("login");
+      });
+    }
+
+    // Inicializar estado según URL hash o sesión activa
+    const activeUser = getSavedUser();
+    const hash = window.location.hash.toLowerCase();
+    if (activeUser && hash !== "#login" && hash !== "#register" && hash !== "#crear-cuenta") {
+      switchMode("profile");
+    } else if (hash === "#register" || hash === "#crear-cuenta") {
+      switchMode("register");
+    } else {
+      switchMode("login");
+    }
+  }
+
   // API pública en memoria
   window.NexoShop = {
     goToProduct(productId, event) {
@@ -1960,6 +2883,7 @@
       }
     }
   };
+  window.VejiGames = window.NexoShop;
   window.IslaGaming = window.NexoShop;
   window.BorikenShop = window.NexoShop;
 
@@ -1976,6 +2900,8 @@
     initProductPage();
     initCartPage();
     initTermsPage();
+    initAccountPage();
+    updateHeaderUser();
     initScrollReveals();
   }
 
