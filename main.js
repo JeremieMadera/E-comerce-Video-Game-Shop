@@ -8,25 +8,32 @@
 
 (function () {
   // =========================================================
-  // CONTROL DE INICIO Y RECARGA (SIEMPRE EMPEZAR EN INICIO)
+  // CONTROL DE INICIO Y RECARGA (SOLO PARA PÁGINA DE INICIO)
   // =========================================================
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
+  const isHomePage =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/" ||
+    window.location.pathname.endsWith("/");
 
-  function ensureStartAtInicio() {
-    window.scrollTo(0, 0);
-    if (window.location.hash && history.replaceState) {
-      history.replaceState(null, "", window.location.pathname);
+  if (isHomePage) {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
     }
-  }
 
-  ensureStartAtInicio();
-  window.addEventListener("pageshow", ensureStartAtInicio);
-  window.addEventListener("load", ensureStartAtInicio);
-  window.addEventListener("beforeunload", () => {
-    window.scrollTo(0, 0);
-  });
+    function ensureStartAtInicio() {
+      window.scrollTo(0, 0);
+      if (window.location.hash && history.replaceState) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+    }
+
+    ensureStartAtInicio();
+    window.addEventListener("pageshow", ensureStartAtInicio);
+    window.addEventListener("load", ensureStartAtInicio);
+    window.addEventListener("beforeunload", () => {
+      window.scrollTo(0, 0);
+    });
+  }
 
   // =========================================================
   // 1. CARGA MODULAR DE HEADER Y FOOTER
@@ -114,10 +121,9 @@
 
   <p>&copy; 2026 ISLA GAMING · San Juan, Puerto Rico</p>
   <nav aria-label="Enlaces legales">
-    <a href="terms.html">Privacidad</a> ·
-    <a href="terms.html">Términos</a> ·
-    <a href="terms.html">Cookies</a> ·
-    <a href="terms.html">Accesibilidad</a>
+    <a href="terms.html#privacidad">Privacidad</a> ·
+    <a href="terms.html#aceptacion_de_los_terminos">Términos</a> ·
+    <a href="terms.html#cookies">Cookies</a>
   </nav>
 </footer>
 `;
@@ -858,48 +864,29 @@
   }
 
   // =========================================================
-  // ANIMACIÓN EN CASCADA PARA TARJETAS DE OFERTA
+  // CARRUSEL INFINITO CONTINUO ANIMADO (MARQUEE DE OFERTAS)
   // =========================================================
-  function initOffersAnimation() {
-    const offerCards = document.querySelectorAll(".offers-grid .offer-card");
-    if (!offerCards.length) return;
+  function initOffersMarquee() {
+    const track = document.getElementById("offers-marquee-track");
+    const group1 = document.getElementById("offers-marquee-group-1");
+    if (!track || !group1) return;
 
-    if (typeof IntersectionObserver === "undefined") {
-      offerCards.forEach((c) => c.classList.add("is-revealed"));
-      return;
-    }
+    // Asegurar que las tarjetas iniciales sean visibles de inmediato
+    const initialCards = Array.from(group1.querySelectorAll(".offer-card"));
+    initialCards.forEach((c) => c.classList.add("is-revealed"));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-revealed");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.08,
-        rootMargin: "0px 0px -30px 0px"
-      }
-    );
-
-    offerCards.forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        requestAnimationFrame(() => {
-          setTimeout(() => card.classList.add("is-revealed"), 50);
-        });
-      } else {
-        card.classList.remove("is-revealed");
-        observer.observe(card);
-      }
+    // Duplicar las 4 tarjetas dentro del Grupo 1 para tener 8 tarjetas por ciclo
+    initialCards.forEach((card) => {
+      const clone = card.cloneNode(true);
+      clone.classList.add("is-revealed");
+      group1.appendChild(clone);
     });
 
-    // Fallback de seguridad: si tras 1.6s no se han mostrado, revelarlas automáticamente
-    setTimeout(() => {
-      offerCards.forEach((c) => c.classList.add("is-revealed"));
-    }, 1600);
+    // Clonar el Grupo 1 como Grupo 2 para el bucle continuo infinito (0% a -100%)
+    const group2 = group1.cloneNode(true);
+    group2.id = "offers-marquee-group-2";
+    group2.setAttribute("aria-hidden", "true");
+    track.appendChild(group2);
   }
 
   // =========================================================
@@ -909,11 +896,29 @@
     return "$" + val.toFixed(2);
   }
 
+  const SPECIAL_OFFERS = {
+    "bloodborne": { oldPrice: 39.99, discountBadge: "-50% OFF" },
+    "cyberpunk-2077": { oldPrice: 59.99, discountBadge: "-33% OFF" },
+    "hollow-knight": { oldPrice: 24.99, discountBadge: "-40% OFF" },
+    "god-of-war": { oldPrice: 49.99, discountBadge: "-40% OFF" }
+  };
+
   function createGameCardHTML(game) {
+    const offer = SPECIAL_OFFERS[game.id];
+    const badgeHTML = offer
+      ? `<span class="game-card-badge offer-discount-badge">${offer.discountBadge}</span>`
+      : game.badge
+      ? `<span class="game-card-badge">${game.badge}</span>`
+      : "";
+
+    const priceHTML = offer
+      ? `<div class="offer-price-row"><span class="offer-old-price">${formatPrice(offer.oldPrice)}</span><p class="game-card-price">${formatPrice(game.price)}</p></div>`
+      : `<p class="game-card-price">${formatPrice(game.price)}</p>`;
+
     return `
       <article class="game-card" data-id="${game.id}" onclick="window.NexoShop.goToProduct('${game.id}', event)" role="link" tabindex="0" aria-label="Ver detalles de ${game.title}: ${game.subtitle}">
         <div class="game-card-media">
-          ${game.badge ? `<span class="game-card-badge">${game.badge}</span>` : ""}
+          ${badgeHTML}
           <img src="${game.image}" alt="Portada de ${game.title}: ${game.subtitle}" class="game-card-img" loading="lazy" decoding="async" />
         </div>
         <div class="game-card-info">
@@ -923,7 +928,7 @@
             <span class="game-card-genre">${game.platform} · ${game.genreFull || game.genre}</span>
             <span class="game-card-pegi">PEGI ${game.pegi}</span>
           </div>
-          <p class="game-card-price">${formatPrice(game.price)}</p>
+          ${priceHTML}
           <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('${game.id}', false, event)">
             Añadir al carrito &rarr;
           </button>
@@ -944,19 +949,26 @@
     const filtersForm = document.querySelector(".filters-form");
     let activeFilterNovedades = false;
 
-    const OFFER_IDS = ["bloodborne", "cyberpunk-2077", "hollow-knight", "god-of-war"];
-    const totalCatalogGames = PRODUCTS.filter((g) => !OFFER_IDS.includes(g.id)).length;
+    const totalCatalogGames = PRODUCTS.length;
+
+    function normalizeText(str) {
+      return (str || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
 
     function getFilteredProducts() {
       // 1. Filtro Plataforma (PC, PlayStation, Xbox, Nintendo)
       const checkedPlatforms = Array.from(
         document.querySelectorAll('input[name="platform"]:checked')
-      ).map((cb) => cb.value.toLowerCase());
+      ).map((cb) => normalizeText(cb.value));
 
-      // 2. Filtro Género
+      // 2. Filtro Género (Aventura, Acción, RPG, Carreras, Estrategia, etc.)
       const checkedGenres = Array.from(
         document.querySelectorAll('input[name="genre"]:checked')
-      ).map((cb) => cb.value.toLowerCase());
+      ).map((cb) => normalizeText(cb.value));
 
       // 3. Filtro Precio máximo
       const maxPrice = priceSlider ? parseFloat(priceSlider.value) : 100;
@@ -964,24 +976,26 @@
       // 4. Filtro Con DLC
       const dlcOnly = document.querySelector('input[name="has_dlc"]')?.checked;
 
-      return PRODUCTS.filter((game) => {
-        // Excluir productos que se movieron a la sección superior de Ofertas
-        if (OFFER_IDS.includes(game.id)) return false;
+      // 5. Búsqueda por texto (buscador navbar)
+      const searchInput = document.querySelector(".search-box input");
+      const searchQuery = searchInput ? normalizeText(searchInput.value) : "";
 
+      return PRODUCTS.filter((game) => {
         // Plataforma
         if (checkedPlatforms.length > 0) {
-          const gamePlatforms = (game.platforms || [game.platform || ""]).map((p) => p.toLowerCase());
+          const gamePlatforms = (game.platforms || [game.platform || ""]).map((p) => normalizeText(p));
           const matchPlatform = checkedPlatforms.some((cp) =>
             gamePlatforms.some((gp) => gp.includes(cp))
           );
           if (!matchPlatform) return false;
         }
 
-        // Género
+        // Género (con soporte para acentos: acción -> accion)
         if (checkedGenres.length > 0) {
+          const gameGenreNorm = normalizeText(game.genre);
+          const gameGenreFullNorm = normalizeText(game.genreFull);
           const match = checkedGenres.some((g) =>
-            game.genre.toLowerCase().includes(g) ||
-            (game.genreFull && game.genreFull.toLowerCase().includes(g))
+            gameGenreNorm.includes(g) || gameGenreFullNorm.includes(g)
           );
           if (!match) return false;
         }
@@ -991,6 +1005,18 @@
 
         // Con DLC
         if (dlcOnly && !game.hasDlc) return false;
+
+        // Búsqueda por texto libre
+        if (searchQuery) {
+          const matchSearch =
+            normalizeText(game.title).includes(searchQuery) ||
+            normalizeText(game.subtitle).includes(searchQuery) ||
+            normalizeText(game.description).includes(searchQuery) ||
+            normalizeText(game.genre).includes(searchQuery) ||
+            normalizeText(game.genreFull).includes(searchQuery) ||
+            normalizeText(game.platform).includes(searchQuery);
+          if (!matchSearch) return false;
+        }
 
         return true;
       });
@@ -1113,6 +1139,11 @@
 
     if (sortSelect) {
       sortSelect.addEventListener("change", render);
+    }
+
+    const searchInput = document.querySelector(".search-box input");
+    if (searchInput) {
+      searchInput.addEventListener("input", render);
     }
 
     // Navegación accesible por teclado al presionar Enter en una tarjeta
@@ -1771,6 +1802,124 @@
     }
   }
 
+  // =========================================================
+  // GESTIÓN DE TÉRMINOS Y CONDICIONES (terms.html)
+  // Fiel al comportamiento oficial de NexoPlay
+  // =========================================================
+  function initTermsPage() {
+    const sections = Array.from(document.querySelectorAll(".terms-section"));
+    if (!sections.length) return;
+
+    const links = Array.from(document.querySelectorAll("[data-spy]"));
+    const bar = document.querySelector(".terms-progress span");
+    const current = document.querySelector(".terms-current");
+    const content = document.querySelector(".terms-content");
+    const toTop = document.getElementById("terms-back-to-top") || document.querySelector(".back-to-top");
+
+    let lockUntil = 0;
+    function setActive(id, force) {
+      if (!force && Date.now() < lockUntil) return;
+      links.forEach((a) => a.classList.toggle("is-active", a.dataset.spy === id));
+      sections.forEach((s) => s.classList.toggle("is-active", s.id === id));
+      const sec = document.getElementById(id);
+      if (sec && current) {
+        const h2 = sec.querySelector("h2");
+        if (h2) current.textContent = h2.textContent;
+      }
+    }
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) setActive(en.target.id);
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px" }
+      );
+      sections.forEach((s) => io.observe(s));
+    }
+
+    function progress() {
+      if (content && bar) {
+        const r = content.getBoundingClientRect();
+        const total = r.height - window.innerHeight * 0.5;
+        const done = Math.min(Math.max((window.innerHeight * 0.5 - r.top) / total, 0), 1);
+        bar.style.transform = `scaleY(${done})`;
+      }
+      if (toTop) {
+        toTop.classList.toggle("is-visible", window.scrollY > 400);
+      }
+    }
+
+    window.addEventListener("scroll", progress, { passive: true });
+    progress();
+
+    // Destacar la sección al llegar desde un enlace o ancla
+    function flash(explicitId) {
+      const id = explicitId || (window.location.hash ? window.location.hash.slice(1) : "");
+      const sec = id && document.getElementById(id);
+      if (!sec || !sec.classList.contains("terms-section")) return;
+      sec.classList.remove("is-flash");
+      void sec.offsetWidth;
+      sec.classList.add("is-flash");
+      setActive(id, true);
+      lockUntil = Date.now() + 1200;
+    }
+
+    function navigateToSection(id, smooth = true) {
+      if (!id) return;
+      const sec = document.getElementById(id);
+      if (!sec) return;
+      sec.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+      flash(id);
+    }
+
+    window.addEventListener("hashchange", () => {
+      const id = window.location.hash.slice(1);
+      if (id) {
+        navigateToSection(id, true);
+      }
+    });
+
+    // Clic en los enlaces del menú de términos
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const targetId = link.dataset.spy || link.getAttribute("href")?.replace("#", "");
+        if (!targetId) return;
+        const sec = document.getElementById(targetId);
+        if (sec) {
+          e.preventDefault();
+          if (history.pushState) {
+            history.pushState(null, "", `#${targetId}`);
+          } else {
+            window.location.hash = targetId;
+          }
+          navigateToSection(targetId, true);
+        }
+      });
+    });
+
+    // Si la página se carga con un ancla (#cookies, #privacidad, etc.)
+    if (window.location.hash) {
+      const hashId = window.location.hash.slice(1);
+      flash(hashId);
+      setTimeout(() => {
+        navigateToSection(hashId, false);
+      }, 80);
+      setTimeout(() => {
+        navigateToSection(hashId, true);
+      }, 350);
+    }
+
+    // Botón volver arriba
+    if (toTop) {
+      toTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  }
+
   // API pública en memoria
   window.NexoShop = {
     goToProduct(productId, event) {
@@ -1821,11 +1970,12 @@
     initFooter();
     initHeroCarousel();
     initHeroTypewriter();
-    initOffersAnimation();
+    initOffersMarquee();
     initLootBox();
     initCatalog();
     initProductPage();
     initCartPage();
+    initTermsPage();
     initScrollReveals();
   }
 

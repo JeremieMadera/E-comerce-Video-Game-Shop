@@ -6,12 +6,12 @@
     <title>ISLA GAMING - La Tienda #1 de la Isla</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="main.css?v=17" />
-    <link rel="stylesheet" href="Features/NavBar/nav-bar.css?v=17" />
-    <link rel="stylesheet" href="Features/HomePage/home-page.css?v=17" />
-    <link rel="stylesheet" href="Features/LootBox/lootbox.css?v=17" />
-    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=17" />
-    <link rel="stylesheet" href="Features/Footer/footer.css?v=17" />
+    <link rel="stylesheet" href="main.css?v=21" />
+    <link rel="stylesheet" href="Features/NavBar/nav-bar.css?v=21" />
+    <link rel="stylesheet" href="Features/HomePage/home-page.css?v=21" />
+    <link rel="stylesheet" href="Features/LootBox/lootbox.css?v=21" />
+    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=21" />
+    <link rel="stylesheet" href="Features/Footer/footer.css?v=21" />
 
     <!-- Inicialización de scroll instantánea: siempre empezar y recargar en Inicio -->
     <script>
@@ -72,10 +72,10 @@
         </div>
       </section>
 
-      <!-- SECCIÓN OFERTAS: Productos en Oferta (Directamente bajo el Hero) -->
+      <!-- SECCIÓN OFERTAS: Carrusel Infinito de Productos en Oferta -->
       <section id="ofertas" class="offers-section" aria-label="Ofertas destacadas de videojuegos">
         <div class="offers-container">
-          <!-- Cabecera de Ofertas (Estilo Hechos para explorar) -->
+          <!-- Cabecera de Ofertas -->
           <div class="offers-header">
             <div class="offers-header-top">
               <h2 class="offers-title">Ofertas destacadas.</h2>
@@ -86,99 +86,103 @@
             </p>
           </div>
 
-          <!-- Cuadrícula de 4 productos en oferta -->
-          <div class="offers-grid" id="offers-grid">
-            <!-- Producto 1: Bloodborne (-50% OFF) -->
-            <article class="game-card offer-card" data-id="bloodborne" onclick="window.NexoShop.goToProduct('bloodborne', event)" role="link" tabindex="0" aria-label="Ver detalles de BLOODBORNE: Game of the Year Edition">
-              <div class="game-card-media">
-                <span class="game-card-badge offer-discount-badge">-50% OFF</span>
-                <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: Game of the Year Edition" class="game-card-img" loading="lazy" decoding="async" />
-              </div>
-              <div class="game-card-info">
-                <h3 class="game-card-title">BLOODBORNE</h3>
-                <p class="game-card-subtitle">Game of the Year Edition</p>
-                <div class="game-card-meta">
-                  <span class="game-card-genre">PlayStation · Acción / Souls</span>
-                  <span class="game-card-pegi">PEGI 18</span>
-                </div>
-                <div class="offer-price-row">
-                  <span class="offer-old-price">$39.99</span>
-                  <p class="game-card-price">$19.99</p>
-                </div>
-                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('bloodborne', false, event)">
-                  Añadir al carrito &rarr;
-                </button>
-              </div>
-            </article>
+          <!-- Carrusel Infinito Continuo Animado (Marquee fluido sin flechas) -->
+          <div class="offers-marquee-viewport" id="offers-marquee-viewport">
+            <div class="offers-marquee-track" id="offers-marquee-track">
+              <div class="offers-marquee-group" id="offers-marquee-group-1">
+                <!-- Producto 1: Bloodborne (-50% OFF) -->
+                <article class="game-card offer-card" data-id="bloodborne" onclick="window.NexoShop.goToProduct('bloodborne', event)" role="link" tabindex="0" aria-label="Ver detalles de BLOODBORNE: Game of the Year Edition">
+                  <div class="game-card-media">
+                    <span class="game-card-badge offer-discount-badge">-50% OFF</span>
+                    <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: Game of the Year Edition" class="game-card-img" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="game-card-info">
+                    <h3 class="game-card-title">BLOODBORNE</h3>
+                    <p class="game-card-subtitle">Game of the Year Edition</p>
+                    <div class="game-card-meta">
+                      <span class="game-card-genre">PlayStation · Acción / Souls</span>
+                      <span class="game-card-pegi">PEGI 18</span>
+                    </div>
+                    <div class="offer-price-row">
+                      <span class="offer-old-price">$39.99</span>
+                      <p class="game-card-price">$19.99</p>
+                    </div>
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('bloodborne', false, event)">
+                      Añadir al carrito &rarr;
+                    </button>
+                  </div>
+                </article>
 
-            <!-- Producto 2: Cyberpunk 2077 (-33% OFF) -->
-            <article class="game-card offer-card" data-id="cyberpunk-2077" onclick="window.NexoShop.goToProduct('cyberpunk-2077', event)" role="link" tabindex="0" aria-label="Ver detalles de CYBERPUNK 2077: Edición Ultimate">
-              <div class="game-card-media">
-                <span class="game-card-badge offer-discount-badge">-33% OFF</span>
-                <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate" class="game-card-img" loading="lazy" decoding="async" />
-              </div>
-              <div class="game-card-info">
-                <h3 class="game-card-title">CYBERPUNK 2077</h3>
-                <p class="game-card-subtitle">Edición Ultimate</p>
-                <div class="game-card-meta">
-                  <span class="game-card-genre">PC · PS5 · Xbox · Aventura</span>
-                  <span class="game-card-pegi">PEGI 18</span>
-                </div>
-                <div class="offer-price-row">
-                  <span class="offer-old-price">$59.99</span>
-                  <p class="game-card-price">$39.99</p>
-                </div>
-                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('cyberpunk-2077', false, event)">
-                  Añadir al carrito &rarr;
-                </button>
-              </div>
-            </article>
+                <!-- Producto 2: Cyberpunk 2077 (-33% OFF) -->
+                <article class="game-card offer-card" data-id="cyberpunk-2077" onclick="window.NexoShop.goToProduct('cyberpunk-2077', event)" role="link" tabindex="0" aria-label="Ver detalles de CYBERPUNK 2077: Edición Ultimate">
+                  <div class="game-card-media">
+                    <span class="game-card-badge offer-discount-badge">-33% OFF</span>
+                    <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate" class="game-card-img" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="game-card-info">
+                    <h3 class="game-card-title">CYBERPUNK 2077</h3>
+                    <p class="game-card-subtitle">Edición Ultimate</p>
+                    <div class="game-card-meta">
+                      <span class="game-card-genre">PC · PS5 · Xbox · Aventura</span>
+                      <span class="game-card-pegi">PEGI 18</span>
+                    </div>
+                    <div class="offer-price-row">
+                      <span class="offer-old-price">$59.99</span>
+                      <p class="game-card-price">$39.99</p>
+                    </div>
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('cyberpunk-2077', false, event)">
+                      Añadir al carrito &rarr;
+                    </button>
+                  </div>
+                </article>
 
-            <!-- Producto 3: Hollow Knight (-40% OFF) -->
-            <article class="game-card offer-card" data-id="hollow-knight" onclick="window.NexoShop.goToProduct('hollow-knight', event)" role="link" tabindex="0" aria-label="Ver detalles de HOLLOW KNIGHT: Edición Corazón del Vacío">
-              <div class="game-card-media">
-                <span class="game-card-badge offer-discount-badge">-40% OFF</span>
-                <img src="Assets/hollow-knight.jpg" alt="Portada de HOLLOW KNIGHT: Edición Corazón del Vacío" class="game-card-img" loading="lazy" decoding="async" />
-              </div>
-              <div class="game-card-info">
-                <h3 class="game-card-title">HOLLOW KNIGHT</h3>
-                <p class="game-card-subtitle">Edición Corazón del Vacío</p>
-                <div class="game-card-meta">
-                  <span class="game-card-genre">Multiplataforma · Aventura</span>
-                  <span class="game-card-pegi">PEGI 7</span>
-                </div>
-                <div class="offer-price-row">
-                  <span class="offer-old-price">$24.99</span>
-                  <p class="game-card-price">$14.99</p>
-                </div>
-                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('hollow-knight', false, event)">
-                  Añadir al carrito &rarr;
-                </button>
-              </div>
-            </article>
+                <!-- Producto 3: Hollow Knight (-40% OFF) -->
+                <article class="game-card offer-card" data-id="hollow-knight" onclick="window.NexoShop.goToProduct('hollow-knight', event)" role="link" tabindex="0" aria-label="Ver detalles de HOLLOW KNIGHT: Edición Corazón del Vacío">
+                  <div class="game-card-media">
+                    <span class="game-card-badge offer-discount-badge">-40% OFF</span>
+                    <img src="Assets/hollow-knight.jpg" alt="Portada de HOLLOW KNIGHT: Edición Corazón del Vacío" class="game-card-img" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="game-card-info">
+                    <h3 class="game-card-title">HOLLOW KNIGHT</h3>
+                    <p class="game-card-subtitle">Edición Corazón del Vacío</p>
+                    <div class="game-card-meta">
+                      <span class="game-card-genre">Multiplataforma · Aventura</span>
+                      <span class="game-card-pegi">PEGI 7</span>
+                    </div>
+                    <div class="offer-price-row">
+                      <span class="offer-old-price">$24.99</span>
+                      <p class="game-card-price">$14.99</p>
+                    </div>
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('hollow-knight', false, event)">
+                      Añadir al carrito &rarr;
+                    </button>
+                  </div>
+                </article>
 
-            <!-- Producto 4: God of War (-40% OFF) -->
-            <article class="game-card offer-card" data-id="god-of-war" onclick="window.NexoShop.goToProduct('god-of-war', event)" role="link" tabindex="0" aria-label="Ver detalles de GOD OF WAR: Edición PC / PS4">
-              <div class="game-card-media">
-                <span class="game-card-badge offer-discount-badge">-40% OFF</span>
-                <img src="Assets/god-of-war.jpg" alt="Portada de GOD OF WAR: Edición PC / PS4" class="game-card-img" loading="lazy" decoding="async" />
+                <!-- Producto 4: God of War (-40% OFF) -->
+                <article class="game-card offer-card" data-id="god-of-war" onclick="window.NexoShop.goToProduct('god-of-war', event)" role="link" tabindex="0" aria-label="Ver detalles de GOD OF WAR: Edición PC / PS4">
+                  <div class="game-card-media">
+                    <span class="game-card-badge offer-discount-badge">-40% OFF</span>
+                    <img src="Assets/god-of-war.jpg" alt="Portada de GOD OF WAR: Edición PC / PS4" class="game-card-img" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="game-card-info">
+                    <h3 class="game-card-title">GOD OF WAR</h3>
+                    <p class="game-card-subtitle">Edición PC / PS4</p>
+                    <div class="game-card-meta">
+                      <span class="game-card-genre">PC · PlayStation · Acción</span>
+                      <span class="game-card-pegi">PEGI 18</span>
+                    </div>
+                    <div class="offer-price-row">
+                      <span class="offer-old-price">$49.99</span>
+                      <p class="game-card-price">$29.99</p>
+                    </div>
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('god-of-war', false, event)">
+                      Añadir al carrito &rarr;
+                    </button>
+                  </div>
+                </article>
               </div>
-              <div class="game-card-info">
-                <h3 class="game-card-title">GOD OF WAR</h3>
-                <p class="game-card-subtitle">Edición PC / PS4</p>
-                <div class="game-card-meta">
-                  <span class="game-card-genre">PC · PlayStation · Acción</span>
-                  <span class="game-card-pegi">PEGI 18</span>
-                </div>
-                <div class="offer-price-row">
-                  <span class="offer-old-price">$49.99</span>
-                  <p class="game-card-price">$29.99</p>
-                </div>
-                <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('god-of-war', false, event)">
-                  Añadir al carrito &rarr;
-                </button>
-              </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -188,7 +192,7 @@
         <div class="catalog-header">
           <div class="catalog-header-top">
             <h2 class="catalog-title">Hechos para explorar.</h2>
-            <span class="catalog-total-count">15 juegos</span>
+            <span class="catalog-total-count">19 juegos</span>
           </div>
           <p class="catalog-subtitle">
             De viajes tranquilos a desafíos sin pausa. Encuentra tu próxima obsesión.
@@ -242,6 +246,10 @@
                   <span>Acción</span>
                 </label>
                 <label class="filter-checkbox-label">
+                  <input type="checkbox" name="genre" value="rpg" />
+                  <span>RPG / Rol</span>
+                </label>
+                <label class="filter-checkbox-label">
                   <input type="checkbox" name="genre" value="carreras" />
                   <span>Carreras</span>
                 </label>
@@ -281,7 +289,7 @@
           <!-- Columna Principal: Barra de herramientas y Cuadrícula de juegos -->
           <div class="catalog-main-content">
             <div class="catalog-toolbar">
-              <span class="catalog-status-text">Mostrando 15 de 15 juegos</span>
+              <span class="catalog-status-text">Mostrando 19 de 19 juegos</span>
               <div class="catalog-sort-group">
                 <label for="catalogSort" class="catalog-sort-label">Ordenar:</label>
                 <select id="catalogSort" class="catalog-sort-select">
@@ -398,6 +406,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="products-data.js"></script>
-    <script src="main.js?v=17"></script>
+    <script src="main.js?v=21"></script>
   </body>
 </html>
