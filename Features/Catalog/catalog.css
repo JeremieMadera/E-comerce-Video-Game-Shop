@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
 
 /* =========================================================
-   CATÁLOGO - ISLA GAMING (Puerto Rico)
+   CATÁLOGO - VEJIGAMES (Puerto Rico)
    Paleta oficial Figma:
    - #12102A (Noche violeta)
    - #201B3C (Superficie)
@@ -303,9 +303,9 @@
   opacity: 0;
   transform: translateY(44px) scale(0.96);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 180ms ease,
-              box-shadow 180ms ease;
+              transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 200ms ease,
+              box-shadow 200ms ease;
   will-change: opacity, transform;
 }
 
@@ -313,26 +313,62 @@
 .game-card.is-revealed,
 .offer-card.is-revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
-/* Cascada escalonada visible para cada tarjeta */
+/* Cascada escalonada por FILAS (de arriba hacia abajo):
+   Primero aparecen las tarjetas de arriba (Fila 1), luego las de abajo (Fila 2, Fila 3...) */
+/* Fila 1 (Tarjetas superiores 1, 2 y 3) */
 .catalog-grid .game-card:nth-child(1),
-.offers-grid .offer-card:nth-child(1) { transition-delay: 0.05s; }
 .catalog-grid .game-card:nth-child(2),
-.offers-grid .offer-card:nth-child(2) { transition-delay: 0.15s; }
-.catalog-grid .game-card:nth-child(3),
-.offers-grid .offer-card:nth-child(3) { transition-delay: 0.25s; }
-.catalog-grid .game-card:nth-child(4),
-.offers-grid .offer-card:nth-child(4) { transition-delay: 0.35s; }
-.catalog-grid .game-card:nth-child(5) { transition-delay: 0.45s; }
-.catalog-grid .game-card:nth-child(6) { transition-delay: 0.55s; }
+.catalog-grid .game-card:nth-child(3) {
+  transition-delay: 0.08s;
+}
 
+/* Fila 2 (Siguiente fila inferior 4, 5 y 6) */
+.catalog-grid .game-card:nth-child(4),
+.catalog-grid .game-card:nth-child(5),
+.catalog-grid .game-card:nth-child(6) {
+  transition-delay: 0.28s;
+}
+
+/* Fila 3 (Tarjetas 7, 8 y 9) */
+.catalog-grid .game-card:nth-child(7),
+.catalog-grid .game-card:nth-child(8),
+.catalog-grid .game-card:nth-child(9) {
+  transition-delay: 0.48s;
+}
+
+/* Fila 4 (Tarjetas 10, 11 y 12) */
+.catalog-grid .game-card:nth-child(10),
+.catalog-grid .game-card:nth-child(11),
+.catalog-grid .game-card:nth-child(12) {
+  transition-delay: 0.68s;
+}
+
+/* Fila 5 (Tarjetas 13, 14 y 15) */
+.catalog-grid .game-card:nth-child(13),
+.catalog-grid .game-card:nth-child(14),
+.catalog-grid .game-card:nth-child(15) {
+  transition-delay: 0.88s;
+}
+
+/* Ofertas del carrusel superior */
+.offers-grid .offer-card:nth-child(1) { transition-delay: 0.05s; }
+.offers-grid .offer-card:nth-child(2) { transition-delay: 0.15s; }
+.offers-grid .offer-card:nth-child(3) { transition-delay: 0.25s; }
+.offers-grid .offer-card:nth-child(4) { transition-delay: 0.35s; }
+
+/* HOVER CYBER-ARCADE: Resplandor Neón Dual (Lima + Fucsia Arcade) */
 .game-card.is-revealed:hover,
 .offer-card.is-revealed:hover {
+  transition-delay: 0s !important;
   border-color: var(--cat-lime);
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(213, 255, 82, 0.28);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75),
+              0 0 22px rgba(213, 255, 82, 0.35),
+              0 8px 24px rgba(255, 0, 127, 0.22);
+  z-index: 5;
 }
 
 .game-card:hover .game-card-img,
@@ -367,19 +403,15 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.game-card:hover .game-card-img {
-  transform: scale(1.03);
-}
-
-/* Badges sobre la portada */
+/* Badges sobre la portada con resplandor arcade */
 .game-card-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(18, 16, 42, 0.9);
+  background: rgba(18, 16, 42, 0.92);
   border: 2px solid var(--cat-lime);
   color: var(--cat-lime);
   font-size: 0.68rem;
@@ -388,7 +420,15 @@
   border-radius: 2px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  z-index: 2;
+  z-index: 4;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.game-card:hover .game-card-badge,
+.offer-card:hover .game-card-badge {
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(213, 255, 82, 0.6);
+  border-color: #d5ff52;
 }
 
 /* Cuerpo informativo de la tarjeta */
@@ -405,6 +445,16 @@
   color: var(--cat-text-light);
   margin: 0 0 4px 0;
   letter-spacing: 0.02em;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.game-card:hover .game-card-title {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(213, 255, 82, 0.35);
+}
+
+.game-card:hover .btn-add-cart {
+  box-shadow: 0 0 16px rgba(213, 255, 82, 0.45);
 }
 
 .game-card-subtitle {
@@ -501,6 +551,20 @@
   .catalog-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Cascada por filas en 2 columnas: Fila 1 = 1-2, Fila 2 = 3-4, etc. */
+  .catalog-grid .game-card:nth-child(1),
+  .catalog-grid .game-card:nth-child(2) { transition-delay: 0.08s; }
+  .catalog-grid .game-card:nth-child(3),
+  .catalog-grid .game-card:nth-child(4) { transition-delay: 0.28s; }
+  .catalog-grid .game-card:nth-child(5),
+  .catalog-grid .game-card:nth-child(6) { transition-delay: 0.48s; }
+  .catalog-grid .game-card:nth-child(7),
+  .catalog-grid .game-card:nth-child(8) { transition-delay: 0.68s; }
+  .catalog-grid .game-card:nth-child(9),
+  .catalog-grid .game-card:nth-child(10) { transition-delay: 0.88s; }
+  .catalog-grid .game-card:nth-child(11),
+  .catalog-grid .game-card:nth-child(12) { transition-delay: 1.08s; }
 }
 
 /* Botón móvil para colapsar/desplegar filtros (Guía Figma: Móvil 390 px con botón «Filtros») */

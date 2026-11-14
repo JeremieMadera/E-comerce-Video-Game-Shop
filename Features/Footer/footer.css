@@ -157,11 +157,22 @@
     margin: 0;
 }
 
-#footer-container > footer h2 {
+#footer-container > footer h2,
+.footer-brand-title {
     grid-column: 1;
     grid-row: 1;
     font: 20px/1.6 "Press Start 2P", monospace;
     letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo-img {
+    width: 26px;
+    height: 34px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(213, 255, 82, 0.35));
 }
 
 #footer-container > footer > p:nth-of-type(1) {

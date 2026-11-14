@@ -1,5 +1,5 @@
 /**
- * ISLA GAMING - Catálogo de Videojuegos en Memoria (Puerto Rico)
+ * VEJIGAMES - Catálogo de Videojuegos en Memoria (Puerto Rico)
  * Videojuegos reales vinculados con los archivos en Assets/ y Assets/DLC/
  * Plataformas: PC / Windows, PlayStation, Xbox, Nintendo Switch
  */

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 /* ==========================================================================
-   ESTILOS GLOBALES COMPARTIDOS - ISLA GAMING
+   ESTILOS GLOBALES COMPARTIDOS - VEJIGAMES
    Paleta oficial Figma:
    - #12102A (Noche violeta)
    - #201B3C (Superficie)
@@ -251,4 +251,6 @@ section[id^="contacto"] p {
   font-size: 15px;
   line-height: 1.7;
 }
+
+
 

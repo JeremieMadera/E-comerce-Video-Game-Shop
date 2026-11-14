@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ISLA GAMING - Carrito</title>
+  <title>VEJIGAMES - Carrito</title>
+  <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
-  <link rel="stylesheet" href="Features/cart/cart.css" />
+  <link rel="stylesheet" href="Features/cart/cart.css?v=25" />
   <link rel="stylesheet" href="Features/Footer/footer.css" />
 </head>
 
@@ -184,6 +185,9 @@
                   </div>
                 </div>
 
+                  <!-- Estado de sesión para comprar -->
+                  <div id="cart-auth-status" class="cart-auth-status"></div>
+
                 <!-- Botón principal de Checkout -->
                 <button type="button" id="btn-checkout" class="btn-primary-checkout">
                   Continuar al pago &rarr;
@@ -203,9 +207,232 @@
             </aside>
     </main>
 
+    <!-- =========================================================
+         MODAL 1: ACCESO REQUERIDO (INICIAR SESIÓN O CREAR CUENTA)
+         ========================================================= -->
+    <div id="modal-auth-required" class="checkout-modal-overlay" hidden>
+      <div class="checkout-modal-card auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <button type="button" class="btn-modal-close" aria-label="Cerrar modal" onclick="window.NexoShop.closeAuthModal()">&times;</button>
+        <div class="auth-modal-icon" aria-hidden="true">🔒</div>
+        <span class="auth-modal-badge">ACCESO REQUERIDO</span>
+        <h2 id="auth-modal-title" class="auth-modal-title">Inicia sesión para comprar</h2>
+        <p class="auth-modal-desc">
+          Para entregarte tus claves digitales de activación de forma segura, registrar tu recibo y acreditarte tus monedas de Loot Box, necesitas acceder a tu cuenta de VejiGames.
+        </p>
+        <div class="auth-modal-actions">
+          <a href="account.html?redirect=cart.html#login" class="btn-auth-primary">
+            Iniciar sesión &rarr;
+          </a>
+          <a href="account.html?redirect=cart.html#register" class="btn-auth-secondary">
+            Crear cuenta nueva &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL 2: PASARELA DE PAGO CON ATH MÓVIL (PASO 02 Y 03)
+         ========================================================= -->
+    <div id="modal-checkout-gateway" class="checkout-modal-overlay" hidden>
+      <div class="checkout-modal-card gateway-modal-card" role="dialog" aria-modal="true" aria-labelledby="gateway-title">
+        <button type="button" class="btn-modal-close" aria-label="Cerrar pasarela de pago" onclick="window.NexoShop.closeCheckoutModal()">&times;</button>
+
+        <!-- ETAPA 1: SELECCIÓN DE MÉTODO Y PAGO -->
+        <div id="gateway-view-payment" class="gateway-view">
+          <div class="gateway-header">
+            <div class="gateway-brand">
+              <img src="Assets/icons/Vejigante_mask_color.svg" alt="VejiGames Logo" class="gateway-logo-img" />
+              <span id="gateway-title" class="gateway-brand-text">VEJIGAMES PAY</span>
+            </div>
+            <span class="gateway-security-tag">🔒 Pago Cifrado SSL 256-bit</span>
+          </div>
+
+          <div class="gateway-progress-steps">
+            <span class="g-step g-step-done">01 Carrito ✓</span>
+            <span class="g-step-sep">&gt;</span>
+            <span class="g-step g-step-active">02 Pasarela de Pago</span>
+            <span class="g-step-sep">&gt;</span>
+            <span class="g-step">03 Claves Digitales</span>
+          </div>
+
+          <!-- Resumen de cuenta del comprador -->
+          <div class="gateway-buyer-badge">
+            <span class="buyer-label">Comprando como:</span>
+            <strong id="gateway-buyer-name" class="buyer-name">Jugador</strong>
+            <span id="gateway-buyer-email" class="buyer-email">(correo@ejemplo.com)</span>
+          </div>
+
+          <div class="gateway-body">
+            <!-- Columna Métodos de Pago -->
+            <div class="gateway-methods-column">
+              <h3 class="gateway-subtitle">Selecciona tu método de pago</h3>
+
+              <!-- Tabs de Métodos -->
+              <div class="gateway-tabs" role="tablist">
+                <button type="button" class="gateway-tab is-active" id="tab-pay-ath" data-method="ath" role="tab" aria-selected="true">
+                  <span class="tab-ath-logo">ath<span class="ath-mini-orange">móvil</span></span>
+                  <span class="tab-ath-badge">#1 en Puerto Rico</span>
+                </button>
+                <button type="button" class="gateway-tab" id="tab-pay-card" data-method="card" role="tab" aria-selected="false">
+                  <span class="tab-card-icon">💳 Tarjeta</span>
+                  <span class="tab-subtext">Visa / MC</span>
+                </button>
+                <button type="button" class="gateway-tab" id="tab-pay-paypal" data-method="paypal" role="tab" aria-selected="false">
+                  <span class="tab-paypal-icon">🅿️ PayPal</span>
+                </button>
+              </div>
+
+              <!-- PANEL 1: ATH MÓVIL -->
+              <div id="panel-pay-ath" class="gateway-panel is-active">
+                <div class="ath-box">
+                  <div class="ath-banner">
+                    <span class="ath-logo-text">ath<span class="ath-logo-movil">móvil</span></span>
+                    <span class="ath-business-tag">Comercio Verificado · VejiGames</span>
+                  </div>
+                  <p class="ath-instructions">
+                    Ingresa tu número de teléfono registrado en ATH Móvil. Te enviaremos una notificación directa a tu app para autorizar la compra al instante.
+                  </p>
+                  <div class="ath-field-group">
+                    <label for="ath-phone-input" class="gateway-label">Teléfono móvil (Puerto Rico)</label>
+                    <div class="ath-input-wrap">
+                      <span class="ath-phone-prefix">+1</span>
+                      <input type="tel" id="ath-phone-input" class="gateway-input" placeholder="(787) 555-0199" maxlength="14" />
+                    </div>
+                    <span class="ath-hint">Formatos: área (787) o (939) de la Isla</span>
+                  </div>
+                  <button type="button" id="btn-submit-ath" class="btn-pay-ath">
+                    Pagar <span class="btn-pay-amount">$0.00</span> con ATH Móvil &rarr;
+                  </button>
+                </div>
+              </div>
+
+              <!-- PANEL 2: TARJETA CRÉDITO/DÉBITO -->
+              <div id="panel-pay-card" class="gateway-panel" hidden>
+                <div class="card-box">
+                  <div class="gateway-field">
+                    <label for="card-number-input" class="gateway-label">Número de tarjeta</label>
+                    <input type="text" id="card-number-input" class="gateway-input" placeholder="4532 •••• •••• 8892" maxlength="19" />
+                  </div>
+                  <div class="gateway-field">
+                    <label for="card-name-input" class="gateway-label">Nombre en la tarjeta</label>
+                    <input type="text" id="card-name-input" class="gateway-input" placeholder="Nombre Apellido" />
+                  </div>
+                  <div class="gateway-row">
+                    <div class="gateway-field">
+                      <label for="card-exp-input" class="gateway-label">Vencimiento</label>
+                      <input type="text" id="card-exp-input" class="gateway-input" placeholder="MM/AA" maxlength="5" />
+                    </div>
+                    <div class="gateway-field">
+                      <label for="card-cvv-input" class="gateway-label">CVV</label>
+                      <input type="password" id="card-cvv-input" class="gateway-input" placeholder="•••" maxlength="4" />
+                    </div>
+                  </div>
+                  <button type="button" id="btn-submit-card" class="btn-pay-card">
+                    Pagar <span class="btn-pay-amount">$0.00</span> con Tarjeta &rarr;
+                  </button>
+                </div>
+              </div>
+
+              <!-- PANEL 3: PAYPAL -->
+              <div id="panel-pay-paypal" class="gateway-panel" hidden>
+                <div class="paypal-box">
+                  <p class="paypal-text">
+                    Serás conectado con PayPal de manera segura para autorizar tu orden con tu saldo, tarjeta o cuenta bancaria.
+                  </p>
+                  <button type="button" id="btn-submit-paypal" class="btn-pay-paypal">
+                    Pagar <span class="btn-pay-amount">$0.00</span> con PayPal &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna Resumen Pedido en Pasarela -->
+            <div class="gateway-summary-column">
+              <h4 class="gateway-summary-title">Resumen de la orden</h4>
+              <div id="gateway-items-preview" class="gateway-items-preview">
+                <!-- Se inyectan los items del carrito -->
+              </div>
+              <div class="gateway-totals-list">
+                <div class="g-row"><span>Subtotal:</span><span id="g-subtotal">$0.00</span></div>
+                <div class="g-row"><span>IVU (11.5% PR):</span><span id="g-ivu">Incluido</span></div>
+                <div class="g-row"><span>Envío digital:</span><span class="delivery-free">Gratis</span></div>
+                <div class="g-row g-total-row"><span>Total a pagar:</span><span id="g-total" class="g-total-price">$0.00</span></div>
+              </div>
+              <div class="gateway-coins-incentive">
+                <span class="coin-icon">🪙</span>
+                <span id="gateway-coins-text">Ganarás monedas de Mystery Loot Box</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ETAPA 2: PROCESANDO PAGO (ANIMACIÓN ATH MÓVIL / CARGA) -->
+        <div id="gateway-view-processing" class="gateway-view" hidden>
+          <div class="processing-content">
+            <div class="processing-spinner">
+              <div class="spinner-ring"></div>
+              <img src="Assets/icons/Vejigante_mask_color.svg" alt="VejiGames Logo" class="spinner-logo" />
+            </div>
+            <h3 id="processing-title" class="processing-title">Esperando autorización de ATH Móvil...</h3>
+            <p id="processing-desc" class="processing-desc">
+              Revisa tu teléfono móvil. Hemos enviado la solicitud por <strong id="processing-amount-text">$0.00</strong> a tu app de ATH Móvil.
+            </p>
+            <div class="processing-timer-bar">
+              <div class="timer-bar-fill"></div>
+            </div>
+            <button type="button" id="btn-simulate-ath-confirm" class="btn-simulate-auth">
+              ⚡ Autorizar ahora en ATH Móvil (Demo)
+            </button>
+          </div>
+        </div>
+
+        <!-- ETAPA 3: PAGO COMPLETADO Y ENTREGA DE CLAVES -->
+        <div id="gateway-view-success" class="gateway-view" hidden>
+          <div class="success-content">
+            <div class="success-icon-wrap">
+              <span class="success-icon">&#10003;</span>
+            </div>
+            <span class="success-badge">PAGO COMPLETADO</span>
+            <h2 class="success-title">¡Partida Desbloqueada!</h2>
+            <p class="success-order-num">Número de orden: <strong id="success-order-id">#VG-2026-9812</strong></p>
+            <p class="success-email-notice">
+              Hemos enviado tu recibo digital oficial y copias de seguridad a <strong id="success-user-email">usuario@email.com</strong>.
+            </p>
+
+            <!-- Contenedor de Keys digitales generadas -->
+            <div class="success-keys-box">
+              <h4 class="keys-box-title">Tus Claves Digitales de Activación:</h4>
+              <div id="success-keys-list" class="success-keys-list">
+                <!-- Items con botón de copiar clave -->
+              </div>
+            </div>
+
+            <!-- Recompensa de Monedas Loot Box -->
+            <div class="success-coins-awarded">
+              <span class="coins-big-icon">🪙</span>
+              <div class="coins-info">
+                <h4 id="success-coins-title">¡Has ganado monedas arcade!</h4>
+                <p>Ya puedes usarlas en la Ruleta Arcade del Home para abrir Mystery Loot Boxes con descuentos y premios.</p>
+              </div>
+            </div>
+
+            <div class="success-actions">
+              <a href="index.html#ruleta" class="btn-success-primary">
+                Ir a la Ruleta Arcade &rarr;
+              </a>
+              <a href="index.html#catalog" class="btn-success-secondary">
+                Seguir explorando la tienda
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div id="footer-container"></div>
     <script src="products-data.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=25"></script>
   </body>
 
 </html>
