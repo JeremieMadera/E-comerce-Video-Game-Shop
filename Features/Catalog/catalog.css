@@ -693,10 +693,71 @@
   line-height: 1.5;
 }
 
-.offers-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+/* =========================================================
+   CARRUSEL INFINITO CONTINUO ANIMADO (MARQUEE DE OFERTAS)
+   ========================================================= */
+.offers-marquee-viewport {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 12px 0 26px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
+}
+
+.offers-marquee-track {
+  display: flex;
+  width: max-content;
+  user-select: none;
+}
+
+.offers-marquee-group {
+  display: flex;
   gap: 24px;
+  padding-right: 24px;
+  flex-shrink: 0;
+  animation: offersMarqueeLoop 32s linear infinite;
+  will-change: transform;
+}
+
+@keyframes offersMarqueeLoop {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* Pausa suave e interactiva al pasar el ratón */
+.offers-marquee-viewport:hover .offers-marquee-group {
+  animation-play-state: paused;
+}
+
+.offers-marquee-group .offer-card {
+  flex: 0 0 320px;
+  max-width: 350px;
+  opacity: 1 !important;
+  transform: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.offers-marquee-group .offer-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(213, 255, 82, 0.5);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 22px rgba(213, 255, 82, 0.2);
 }
 
 .offer-price-row {
@@ -738,9 +799,13 @@
   .offers-section {
     padding: 36px 32px 24px;
   }
-  .offers-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .offers-marquee-group {
     gap: 18px;
+    padding-right: 18px;
+    animation-duration: 26s;
+  }
+  .offers-marquee-group .offer-card {
+    flex: 0 0 280px;
   }
 }
 
@@ -748,9 +813,13 @@
   .offers-section {
     padding: 28px 20px 20px;
   }
-  .offers-grid {
-    grid-template-columns: 1fr;
+  .offers-marquee-group {
     gap: 14px;
+    padding-right: 14px;
+    animation-duration: 22s;
+  }
+  .offers-marquee-group .offer-card {
+    flex: 0 0 260px;
   }
   .offers-title {
     font-size: 1.4rem;
