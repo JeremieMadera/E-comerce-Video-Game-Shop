@@ -593,10 +593,35 @@
         height: auto;
         min-height: calc(100vh - var(--navbar-height));
         min-height: calc(100dvh - var(--navbar-height));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .home-carousel-backdrop {
+        position: relative;
+        width: 100%;
+        height: clamp(210px, 56vw, 290px);
+        flex-shrink: 0;
+        overflow: hidden;
+        background-color: var(--home-ink);
+        border-bottom: 1px solid rgba(183, 171, 223, 0.2);
+    }
+
+    .carousel-bg-layer {
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .home-carousel-backdrop::after {
+        background: linear-gradient(180deg, transparent 65%, var(--home-ink) 100%);
     }
 
     .home-page-hero-main {
-        padding: 40px 20px 48px;
+        padding: 24px 20px 48px;
+        height: auto;
+        justify-content: flex-start;
     }
 
     .home-page-player-one {
@@ -606,7 +631,7 @@
 
     .home-page-featured-game {
         position: static;
-        margin-top: 28px;
+        margin-top: 24px;
         align-items: flex-start;
         text-align: left;
     }
