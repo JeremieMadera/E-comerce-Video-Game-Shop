@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEJIGAMES - Iniciar sesión / Cuenta</title>
+    <title>VEJIGAMES - Iniciar sesión / Cuenta de Jugador</title>
+    <meta name="description" content="Accede a tu cuenta de jugador en VEJIGAMES para ver tu biblioteca de videojuegos, códigos de activación y pedidos en Puerto Rico." />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#12102A" />
     <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="Features/NavBar/nav-bar.css">
-    <link rel="stylesheet" href="Features/Account/account.css">
-    <link rel="stylesheet" href="Features/Footer/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" href="main.min.css?v=36">
+    <link rel="stylesheet" href="Features/NavBar/nav-bar.min.css?v=23">
+    <link rel="stylesheet" href="Features/Account/account.min.css?v=23">
+    <link rel="stylesheet" href="Features/Footer/footer.min.css?v=23">
 </head>
 
 
@@ -91,7 +97,7 @@
                                     <div class="account-label-row">
                                         <label for="account-password" class="account-label">Contraseña</label>
                                         <button type="button" class="account-toggle-pwd"
-                                            data-target="account-password">Mostrar</button>
+                                            data-target="account-password" aria-label="Mostrar u ocultar contraseña">Mostrar</button>
                                     </div>
                                     <div class="account-input-wrap">
                                         <input type="password" id="account-password" class="account-input"
@@ -149,7 +155,7 @@
                                     <div class="account-label-row">
                                         <label for="register-password" class="account-label">Contraseña</label>
                                         <button type="button" class="account-toggle-pwd"
-                                            data-target="register-password">Mostrar</button>
+                                            data-target="register-password" aria-label="Mostrar u ocultar contraseña">Mostrar</button>
                                     </div>
                                     <div class="account-input-wrap">
                                         <input type="password" id="register-password" class="account-input"
@@ -161,7 +167,7 @@
                                     <div class="account-label-row">
                                         <label for="register-password-confirm" class="account-label">Confirmar contraseña</label>
                                         <button type="button" class="account-toggle-pwd"
-                                            data-target="register-password-confirm">Mostrar</button>
+                                            data-target="register-password-confirm" aria-label="Mostrar u ocultar confirmación de contraseña">Mostrar</button>
                                     </div>
                                     <div class="account-input-wrap">
                                         <input type="password" id="register-password-confirm" class="account-input"
@@ -246,7 +252,9 @@
     </main>
 
     <div id="footer-container"></div>
-    <script src="main.js"></script>
+    <script src="products-data.min.js?v=3" defer></script>
+    <script src="main.min.js?v=37" defer></script>
+    <script src="Features/Account/account.min.js?v=36" defer></script>
 </body>
 
 </html>

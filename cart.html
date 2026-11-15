@@ -4,12 +4,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VEJIGAMES - Carrito</title>
+  <title>VEJIGAMES - Carrito de Compras</title>
+  <meta name="description" content="Revisa tu carrito de compras en VEJIGAMES. Videojuegos digitales para PC, PlayStation, Xbox y Nintendo Switch con entrega inmediata y soporte en Puerto Rico." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#12102A" />
+  <link rel="canonical" href="https://vejigames.com/cart.html" />
   <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
-  <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="Features/NavBar/nav-bar.css" />
-  <link rel="stylesheet" href="Features/cart/cart.css?v=25" />
-  <link rel="stylesheet" href="Features/Footer/footer.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" />
+  <link rel="stylesheet" href="main.min.css?v=36" />
+  <link rel="stylesheet" href="Features/NavBar/nav-bar.min.css?v=23" />
+  <link rel="stylesheet" href="Features/cart/cart.min.css?v=26" />
+  <link rel="stylesheet" href="Features/Footer/footer.min.css?v=23" />
 </head>
 
 
@@ -32,101 +39,25 @@
         <h1 class="cart-title">Tu próxima partida.</h1>
 
         <p id="cart-dynamic-subtitle" class="cart-subtitle">
-          3 artículos · 2 juegos y 1 DLC · Entrega digital
+          0 artículos · Entrega digital
         </p>
 
         <!-- Listado de tarjetas de productos -->
         <div id="cart-items-container" class="cart-items-list">
-          <!-- Artículo 1: Juego base ASTRA con DLC anidado -->
-          <article class="cart-card cart-card-bundle">
-            <!-- Bloque Juego Base -->
-            <div class="cart-item-row cart-item-base">
-              <div class="cart-item-media">
-                <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate"
-                  class="cart-item-thumb" loading="lazy" decoding="async" />
-              </div>
-
-      <div class="cart-item-info">
-        <h2 class="cart-item-title">CYBERPUNK 2077</h2>
-        <p class="cart-item-edition">Edición Ultimate</p>
-        <p class="cart-item-meta">Juego base · PC / Consolas · Cantidad: 1</p>
-        <p class="cart-item-price">$39.99</p>
-      </div>
-
-        <div class="cart-item-actions">
-          <button type="button" class="btn-remove-item" aria-label="Eliminar CYBERPUNK 2077 del carrito">
-            <span class="remove-icon" aria-hidden="true">&#128465;</span>
-            <span class="remove-text">Eliminar</span>
-          </button>
-        </div>
-        </div>
-
-        <!-- Bloque DLC anidado -->
-        <div class="cart-item-row cart-item-dlc">
-          <div class="cart-dlc-tag">
-            <span class="cart-dlc-arrow">&#8627;</span>
-            DLC PARA CYBERPUNK 2077 · REQUIERE EL JUEGO BASE
-          </div>
-
-          <div class="cart-dlc-content">
-            <div class="cart-item-media cart-dlc-media">
-              <div class="cart-dlc-badge" aria-hidden="true">
-                <span>&#9889;</span>
-              </div>
-            </div>
-
-              <div class="cart-item-info">
-                <h3 class="cart-item-title">Phantom Liberty</h3>
-                <p class="cart-item-meta">Expansión digital · Cantidad: 1</p>
-                <p class="cart-item-price">$29.99</p>
-              </div>
-
-              <div class="cart-item-actions">
-                <button type="button" class="btn-remove-item" aria-label="Eliminar Phantom Liberty del carrito">
-                  <span class="remove-icon" aria-hidden="true">&#128465;</span>
-                  <span class="remove-text">Eliminar</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          </article>
-
-          <!-- Artículo 2: Juego BLOODBORNE -->
-          <article class="cart-card">
-            <div class="cart-item-row cart-item-base">
-              <div class="cart-item-media">
-                <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: GOTY"
-                  class="cart-item-thumb" loading="lazy" decoding="async" />
-              </div>
-
-              <div class="cart-item-info">
-                <h2 class="cart-item-title">BLOODBORNE</h2>
-                <p class="cart-item-edition">Game of the Year Edition</p>
-                <p class="cart-item-meta">Juego base · PlayStation · Cantidad: 1</p>
-                <p class="cart-item-price">$19.99</p>
-              </div>
-
-              <div class="cart-item-actions">
-                <button type="button" class="btn-remove-item" aria-label="Eliminar BLOODBORNE del carrito">
-                  <span class="remove-icon" aria-hidden="true">&#128465;</span>
-                  <span class="remove-text">Eliminar</span>
-                </button>
-              </div>
-            </div>
-          </article>
+          <p class="cart-empty-message">Tu carrito está vacío.</p>
         </div>
 
           <!-- Aviso contextual sobre DLCs dependientes -->
-          <div class="cart-notice">
+          <div class="cart-notice" style="display: none;">
             <span class="cart-notice-icon" aria-hidden="true">&#9432;</span>
             <p class="cart-notice-text">
-              Si eliminas ASTRA, también se retirará su DLC. Siempre podrás revisar el cambio antes de continuar.
+              Al retirar un juego base, sus DLCs asociados también se retirarán automáticamente de tu pedido.
             </p>
           </div>
 
             <!-- Enlace para seguir comprando -->
             <div class="cart-navigation-back">
-              <a href="index.html#catalog" class="btn-secondary-explore">
+              <a href="index.html#catalog" class="btn-secondary-explore" aria-label="Seguir explorando el catálogo de videojuegos">
                 Seguir explorando &rarr;
               </a>
             </div>
@@ -138,20 +69,20 @@
 
                 <div class="summary-breakdown">
                   <div class="summary-row">
-                    <span class="row-label">Juegos (2)</span>
-                    <span id="summary-games-price" class="row-value">$64.98</span>
+                    <span class="row-label">Juegos</span>
+                    <span id="summary-games-price" class="row-value">$0.00</span>
                   </div>
 
                   <div class="summary-row">
-                    <span class="row-label">DLC (1)</span>
-                    <span id="summary-dlc-price" class="row-value">$12.99</span>
+                    <span class="row-label">DLC</span>
+                    <span id="summary-dlc-price" class="row-value">$0.00</span>
                   </div>
 
                   <hr class="summary-divider" />
 
                   <div class="summary-row">
                     <span class="row-label">Subtotal</span>
-                    <span id="summary-subtotal" class="row-value">$77.97</span>
+                    <span id="summary-subtotal" class="row-value">$0.00</span>
                   </div>
 
                   <div class="summary-row">
@@ -172,14 +103,14 @@
                       <span class="total-label">Total</span>
                       <span class="total-tax-notice">IVU incluido · Paga seguro con ATH Móvil o tarjeta</span>
                     </div>
-                    <span id="summary-total-price" class="total-value">$77.97</span>
+                    <span id="summary-total-price" class="total-value">$0.00</span>
                   </div>
 
                   <!-- Canje de cupón o Drop de Loot Box -->
                   <div class="cart-coupon-box">
                     <div class="cart-coupon-input-wrap">
                       <input type="text" id="cart-coupon-input" placeholder="Código de Loot Box..." aria-label="Código de cupón o recompensa" />
-                      <button type="button" id="btn-apply-coupon" class="btn-apply-coupon">Canjear</button>
+                      <button type="button" id="btn-apply-coupon" class="btn-apply-coupon" aria-label="Canjear código de cupón">Canjear</button>
                     </div>
                     <div id="coupon-feedback" class="coupon-feedback"></div>
                   </div>
@@ -189,7 +120,7 @@
                   <div id="cart-auth-status" class="cart-auth-status"></div>
 
                 <!-- Botón principal de Checkout -->
-                <button type="button" id="btn-checkout" class="btn-primary-checkout">
+                <button type="button" id="btn-checkout" class="btn-primary-checkout" aria-label="Continuar al proceso de pago">
                   Continuar al pago &rarr;
                 </button>
 
@@ -300,7 +231,7 @@
                     </div>
                     <span class="ath-hint">Formatos: área (787) o (939) de la Isla</span>
                   </div>
-                  <button type="button" id="btn-submit-ath" class="btn-pay-ath">
+                  <button type="button" id="btn-submit-ath" class="btn-pay-ath" aria-label="Pagar con ATH Móvil">
                     Pagar <span class="btn-pay-amount">$0.00</span> con ATH Móvil &rarr;
                   </button>
                 </div>
@@ -327,7 +258,7 @@
                       <input type="password" id="card-cvv-input" class="gateway-input" placeholder="•••" maxlength="4" />
                     </div>
                   </div>
-                  <button type="button" id="btn-submit-card" class="btn-pay-card">
+                  <button type="button" id="btn-submit-card" class="btn-pay-card" aria-label="Pagar con tarjeta de crédito o débito">
                     Pagar <span class="btn-pay-amount">$0.00</span> con Tarjeta &rarr;
                   </button>
                 </div>
@@ -339,7 +270,7 @@
                   <p class="paypal-text">
                     Serás conectado con PayPal de manera segura para autorizar tu orden con tu saldo, tarjeta o cuenta bancaria.
                   </p>
-                  <button type="button" id="btn-submit-paypal" class="btn-pay-paypal">
+                  <button type="button" id="btn-submit-paypal" class="btn-pay-paypal" aria-label="Pagar con PayPal">
                     Pagar <span class="btn-pay-amount">$0.00</span> con PayPal &rarr;
                   </button>
                 </div>
@@ -431,8 +362,9 @@
     </div>
 
     <div id="footer-container"></div>
-    <script src="products-data.js"></script>
-    <script src="main.js?v=25"></script>
+    <script src="products-data.min.js?v=4" defer></script>
+    <script src="main.min.js?v=40" defer></script>
+    <script src="Features/cart/cart.min.js?v=40" defer></script>
   </body>
 
 </html>

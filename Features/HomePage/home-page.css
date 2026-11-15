@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
-
 :root {
     --home-ink: #12102a;
     --home-surface: #201b3c;
@@ -79,6 +77,12 @@
     opacity: 1;
 }
 
+@media (max-width: 768px) {
+    #carousel-bg-1 {
+        background-image: url('../../Assets/hero/gta-6-mobile.jpg') !important;
+    }
+}
+
 /* Contenedor Hero Desktop (100% de la altura de la portada) */
 .home-page-hero-main {
     position: relative;
@@ -150,7 +154,7 @@
     50% { opacity: 0; }
 }
 
-/* Descripción - Aparece suavemente al terminar el tipeo */
+/* Descripción - Visible de inmediato para evitar retrasos en conexiones 4G/3G */
 .home-page-description {
     max-width: 640px;
     margin: 0 0 32px;
@@ -160,9 +164,9 @@
     line-height: 1.65;
     font-weight: 400;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .home-page-description.is-visible {
@@ -170,15 +174,15 @@
     transform: translateY(0);
 }
 
-/* Acciones / Botones tipo consola - Aparecen en cascada */
+/* Acciones / Botones tipo consola - Visibles de inmediato */
 .home-page-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     margin-bottom: 24px;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .home-page-actions.is-visible {
@@ -611,5 +615,17 @@
 
     .ticker-item {
         font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-page-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .home-page-button {
+        width: 100%;
+        min-width: 0;
     }
 }

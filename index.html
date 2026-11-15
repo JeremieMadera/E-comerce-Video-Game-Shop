@@ -4,14 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VEJIGAMES - La Tienda #1 de Videojuegos · Puerto Rico</title>
+    <meta name="description" content="VEJIGAMES es la tienda #1 de videojuegos en Puerto Rico. Compra digital instantánea para PC, PlayStation, Xbox y Nintendo con pagos seguros y ATH Móvil." />
+    <meta name="keywords" content="videojuegos Puerto Rico, comprar videojuegos, PS5, Nintendo Switch, PC, Xbox, ATH Movil, VejiGames" />
+    <meta name="author" content="VEJIGAMES" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#12102A" />
+    <link rel="canonical" href="https://vejigames.com/" />
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VEJIGAMES" />
+    <meta property="og:title" content="VEJIGAMES - La Tienda #1 de Videojuegos · Puerto Rico" />
+    <meta property="og:description" content="Compra digital instantánea de videojuegos para PC, PlayStation, Xbox y Nintendo con entrega inmediata y pago con ATH Móvil en Puerto Rico." />
+    <meta property="og:url" content="https://vejigames.com/" />
+    <meta property="og:image" content="https://vejigames.com/Assets/hero/gta-6.jpg" />
+    <meta property="og:locale" content="es_PR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VEJIGAMES - La Tienda #1 de Videojuegos · Puerto Rico" />
+    <meta name="twitter:description" content="Compra digital instantánea de videojuegos con entrega inmediata y soporte en Puerto Rico." />
+    <meta name="twitter:image" content="https://vejigames.com/Assets/hero/gta-6.jpg" />
+
+    <!-- Datos estructurados Schema.org (JSON-LD) para SEO 100% -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://vejigames.com/#website",
+          "url": "https://vejigames.com/",
+          "name": "VEJIGAMES",
+          "description": "La Tienda #1 de Videojuegos en Puerto Rico",
+          "inLanguage": "es-PR"
+        },
+        {
+          "@type": "Store",
+          "@id": "https://vejigames.com/#store",
+          "name": "VEJIGAMES",
+          "url": "https://vejigames.com/",
+          "logo": "https://vejigames.com/Assets/icons/Vejigante_mask_color.svg",
+          "image": "https://vejigames.com/Assets/hero/gta-6.jpg",
+          "description": "Tienda digital de videojuegos líder en Puerto Rico con entrega instantánea y soporte local.",
+          "currenciesAccepted": "USD",
+          "paymentAccepted": "ATH Móvil, Tarjeta de Crédito, Tarjeta de Débito",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "San Juan",
+            "addressRegion": "PR",
+            "addressCountry": "PR"
+          }
+        }
+      ]
+    }
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
 
-    <link rel="stylesheet" href="main.css?v=34" />
-    <link rel="stylesheet" href="Features/NavBar/nav-bar.css?v=21" />
-    <link rel="stylesheet" href="Features/HomePage/home-page.css?v=21" />
-    <link rel="stylesheet" href="Features/LootBox/lootbox.css?v=21" />
-    <link rel="stylesheet" href="Features/Catalog/catalog.css?v=25" />
-    <link rel="stylesheet" href="Features/Footer/footer.css?v=21" />
+    <!-- Optimizaciones de rendimiento: Resource Hints y Preload LCP y Fuentes Críticas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="Assets/hero/gta-6-mobile.jpg" media="(max-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="Assets/hero/gta-6.jpg" media="(min-width: 769px)" fetchpriority="high" />
+    <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v16/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" /></noscript>
+
+    <!-- CSS Crítico (Above-the-fold) y Diferido (Below-the-fold) -->
+    <link rel="stylesheet" href="critical.min.css?v=40" />
+    <link rel="stylesheet" href="Features/deferred.min.css?v=40" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="Features/deferred.min.css?v=40" /></noscript>
 
     <!-- Inicialización de scroll instantánea: siempre empezar y recargar en Inicio -->
     <script>
@@ -29,7 +94,62 @@
     <!-- Starfield interactivo de fondo (reacciona y brilla con el mouse) -->
     <canvas id="space-starfield" class="space-starfield-canvas" aria-hidden="true"></canvas>
 
-    <div id="header-container"></div>
+    <div id="header-container">
+      <header class="navbar">
+        <div class="navbar-wrapper">
+          <!-- Bloque Superior: Logo, Buscador y Accesos de Usuario -->
+          <div class="navbar-top">
+            <a href="index.html" class="brand-logo" aria-label="Ir a la página principal de VEJIGAMES">
+              <img src="Assets/icons/Vejigante_mask_color.svg" alt="VEJIGAMES Logo" class="brand-logo-img" width="38" height="50" />
+              <span>VEJIGAMES</span>
+            </a>
+
+            <div class="navbar-right">
+              <!-- Input Búsqueda -->
+              <div class="search-box">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="navbar-search-input" placeholder="Busca tu próxima aventura" aria-label="Buscar videojuegos en la tienda" />
+                <span class="cmd-badge" aria-hidden="true">&#8984; K</span>
+              </div>
+
+              <!-- Acciones de Usuario -->
+              <div class="user-menu">
+                <a href="account.html" class="account-btn" aria-label="Mi cuenta de jugador">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <span>Mi cuenta</span>
+                </a>
+
+                <a href="cart.html" class="cart-btn" aria-label="Ver carrito de compras">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                  <span class="cart-count" id="header-cart-badge" aria-label="0 artículos en el carrito">0</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Menú Inferior de Pestañas y Eslogan -->
+          <div class="navbar-bottom">
+            <nav class="nav-links" aria-label="Navegación principal">
+              <a href="index.html#hero-carousel" class="active" id="nav-link-inicio">Inicio</a>
+              <a href="index.html#ofertas" id="nav-link-ofertas">Ofertas</a>
+              <a href="index.html#catalog" id="nav-link-catalog">Catálogo</a>
+              <a href="index.html#ruleta" id="nav-link-ruleta">Ruleta</a>
+            </nav>
+            <p class="navbar-tagline">La tienda #1 de la Isla · Puerto Rico</p>
+          </div>
+        </div>
+      </header>
+    </div>
 
     <main>
       <!-- SECCIÓN HERO: Portada principal con Carrusel de Fondos (100% Pantalla) -->
@@ -46,10 +166,10 @@
             <h1 class="home-page-title" aria-label="Tu próxima aventura empieza aquí.">
               <span id="hero-title-text" data-fulltext="Tu próxima aventura empieza aquí.">Tu próxima aventura empieza aquí.</span><span class="hero-cursor" aria-hidden="true">_</span>
             </h1>
-            <p class="home-page-description" id="hero-game-desc">
+            <p class="home-page-description is-visible" id="hero-game-desc">
               Regresa a Vice City y el estado de Leonida en la experiencia de mundo abierto más esperada.
             </p>
-            <div class="home-page-actions">
+            <div class="home-page-actions is-visible">
               <a href="#catalog" class="home-page-button home-page-button-primary" style="text-decoration: none !important;">
                 Explorar catálogo &rarr;
               </a>
@@ -94,7 +214,7 @@
                 <article class="game-card offer-card" data-id="bloodborne" onclick="window.NexoShop.goToProduct('bloodborne', event)" role="link" tabindex="0" aria-label="Ver detalles de BLOODBORNE: Game of the Year Edition">
                   <div class="game-card-media">
                     <span class="game-card-badge offer-discount-badge">-50% OFF</span>
-                    <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: Game of the Year Edition" class="game-card-img" loading="lazy" decoding="async" />
+                    <img src="Assets/bloodborne.jpg" alt="Portada de BLOODBORNE: Game of the Year Edition" class="game-card-img" decoding="async" width="300" height="255" />
                   </div>
                   <div class="game-card-info">
                     <h3 class="game-card-title">BLOODBORNE</h3>
@@ -107,7 +227,7 @@
                       <span class="offer-old-price">$39.99</span>
                       <p class="game-card-price">$19.99</p>
                     </div>
-                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('bloodborne', false, event)">
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('bloodborne', false, event)" aria-label="Añadir BLOODBORNE al carrito">
                       Añadir al carrito &rarr;
                     </button>
                   </div>
@@ -117,7 +237,7 @@
                 <article class="game-card offer-card" data-id="cyberpunk-2077" onclick="window.NexoShop.goToProduct('cyberpunk-2077', event)" role="link" tabindex="0" aria-label="Ver detalles de CYBERPUNK 2077: Edición Ultimate">
                   <div class="game-card-media">
                     <span class="game-card-badge offer-discount-badge">-33% OFF</span>
-                    <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate" class="game-card-img" loading="lazy" decoding="async" />
+                    <img src="Assets/cyberpunk-2077.jpg" alt="Portada de CYBERPUNK 2077: Edición Ultimate" class="game-card-img" decoding="async" width="300" height="255" />
                   </div>
                   <div class="game-card-info">
                     <h3 class="game-card-title">CYBERPUNK 2077</h3>
@@ -130,7 +250,7 @@
                       <span class="offer-old-price">$59.99</span>
                       <p class="game-card-price">$39.99</p>
                     </div>
-                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('cyberpunk-2077', false, event)">
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('cyberpunk-2077', false, event)" aria-label="Añadir CYBERPUNK 2077 al carrito">
                       Añadir al carrito &rarr;
                     </button>
                   </div>
@@ -140,7 +260,7 @@
                 <article class="game-card offer-card" data-id="hollow-knight" onclick="window.NexoShop.goToProduct('hollow-knight', event)" role="link" tabindex="0" aria-label="Ver detalles de HOLLOW KNIGHT: Edición Corazón del Vacío">
                   <div class="game-card-media">
                     <span class="game-card-badge offer-discount-badge">-40% OFF</span>
-                    <img src="Assets/hollow-knight.jpg" alt="Portada de HOLLOW KNIGHT: Edición Corazón del Vacío" class="game-card-img" loading="lazy" decoding="async" />
+                    <img src="Assets/hollow-knight.jpg" alt="Portada de HOLLOW KNIGHT: Edición Corazón del Vacío" class="game-card-img" decoding="async" width="300" height="255" />
                   </div>
                   <div class="game-card-info">
                     <h3 class="game-card-title">HOLLOW KNIGHT</h3>
@@ -153,7 +273,7 @@
                       <span class="offer-old-price">$24.99</span>
                       <p class="game-card-price">$14.99</p>
                     </div>
-                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('hollow-knight', false, event)">
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('hollow-knight', false, event)" aria-label="Añadir HOLLOW KNIGHT al carrito">
                       Añadir al carrito &rarr;
                     </button>
                   </div>
@@ -163,7 +283,7 @@
                 <article class="game-card offer-card" data-id="god-of-war" onclick="window.NexoShop.goToProduct('god-of-war', event)" role="link" tabindex="0" aria-label="Ver detalles de GOD OF WAR: Edición PC / PS4">
                   <div class="game-card-media">
                     <span class="game-card-badge offer-discount-badge">-40% OFF</span>
-                    <img src="Assets/god-of-war.jpg" alt="Portada de GOD OF WAR: Edición PC / PS4" class="game-card-img" loading="lazy" decoding="async" />
+                    <img src="Assets/god-of-war.jpg" alt="Portada de GOD OF WAR: Edición PC / PS4" class="game-card-img" decoding="async" width="300" height="255" />
                   </div>
                   <div class="game-card-info">
                     <h3 class="game-card-title">GOD OF WAR</h3>
@@ -176,7 +296,7 @@
                       <span class="offer-old-price">$49.99</span>
                       <p class="game-card-price">$29.99</p>
                     </div>
-                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('god-of-war', false, event)">
+                    <button type="button" class="btn-add-cart" onclick="event.stopPropagation(); window.NexoShop.addToCart('god-of-war', false, event)" aria-label="Añadir GOD OF WAR al carrito">
                       Añadir al carrito &rarr;
                     </button>
                   </div>
@@ -281,7 +401,7 @@
               </div>
 
               <div class="filter-actions">
-                <button type="reset" class="btn-clear-filters">Limpiar filtros</button>
+                <button type="reset" class="btn-clear-filters" aria-label="Limpiar y restablecer todos los filtros">Limpiar filtros</button>
               </div>
             </form>
           </aside>
@@ -451,8 +571,8 @@
 
             <!-- Panel de Controles Inferior -->
             <div class="lootbox-controls">
-              <button type="button" class="btn-arcade-spin" id="btn-open-lootbox">
-                <span class="btn-coin-anim">🪙</span> INSERT COIN · GIRAR RULETA
+              <button type="button" class="btn-arcade-spin" id="btn-open-lootbox" aria-label="Girar la ruleta arcade con 1 moneda">
+                <span class="btn-coin-anim" aria-hidden="true">🪙</span> INSERT COIN · GIRAR RULETA
               </button>
               <div class="lootbox-hint" id="lootbox-hint">
                 Presiona para usar 1 moneda y girar la ruleta
@@ -469,10 +589,55 @@
       </section>
     </main>
 
-    <div id="footer-container"></div>
+    <div id="footer-container">
+      <footer>
+        <!-- Marca y redes sociales -->
+        <h2 class="footer-brand-title">
+          <img src="Assets/icons/Vejigante_mask_color.svg" alt="VEJIGAMES Logo" class="footer-logo-img" width="30" height="38" />
+          <span>VEJIGAMES</span>
+        </h2>
+        <p>La tienda #1 de la Isla · San Juan, Puerto Rico.</p>
+        <div class="footer-social-icons" aria-label="Comunidad y redes sociales">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-item" aria-label="Síguenos en Instagram" title="Instagram">
+            <img src="Assets/icons/instagram.png" alt="Instagram" class="social-icon-img" loading="lazy" decoding="async" width="24" height="24" />
+          </a>
+          <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-icon-item" aria-label="Únete a nuestro servidor de Discord" title="Discord">
+            <img src="Assets/icons/discord.png" alt="Discord" class="social-icon-img" loading="lazy" decoding="async" width="24" height="24" />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon-item" aria-label="Visita nuestro canal de YouTube" title="YouTube">
+            <img src="Assets/icons/youtube.png" alt="YouTube" class="social-icon-img" loading="lazy" decoding="async" width="24" height="24" />
+          </a>
+        </div>
 
-    <script src="Assets/vendor/anime.min.js"></script>
-    <script src="products-data.js"></script>
-    <script src="main.js?v=34"></script>
+        <!-- Enlaces de navegación -->
+        <h3>Explora</h3>
+        <nav aria-label="Explora">
+          <a href="index.html#hero-carousel">Inicio</a> ·
+          <a href="index.html#ofertas">Ofertas</a> ·
+          <a href="index.html#catalog">Catálogo</a> ·
+          <a href="index.html#ruleta">Ruleta</a>
+        </nav>
+
+        <!-- Información de contacto -->
+        <h3>Estamos al otro lado</h3>
+        <p><a href="mailto:apoyo@vejigames.com" style="color: inherit; text-decoration: none;">apoyo@vejigames.com</a></p>
+        <p>Lun-Vie 9:00 AM - 6:00 PM AST</p>
+        <p>Soporte local en Puerto Rico · Paga con ATH Móvil</p>
+
+        <hr />
+
+        <!-- Copyright y enlaces legales -->
+        <p>&copy; 2026 VEJIGAMES · San Juan, Puerto Rico</p>
+        <nav aria-label="Enlaces legales">
+          <a href="terms.html#privacidad">Privacidad</a> ·
+          <a href="terms.html#aceptacion_de_los_terminos">Términos</a> ·
+          <a href="terms.html#cookies">Cookies</a>
+        </nav>
+      </footer>
+    </div>
+
+    <script src="Assets/vendor/anime.min.js" defer></script>
+    <script src="products-data.min.js?v=4" defer></script>
+    <script src="main.min.js?v=40" defer></script>
   </body>
 </html>

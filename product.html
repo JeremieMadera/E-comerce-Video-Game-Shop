@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEJIGAMES - Catálogo de Videojuegos</title>
+    <title>VEJIGAMES - Ficha de Videojuego</title>
+    <meta name="description" content="Detalles, ediciones, requisitos y compra digital de videojuegos en VEJIGAMES. Entrega instantánea y pagos seguros con ATH Móvil en Puerto Rico." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#12102A" />
     <link rel="icon" type="image/svg+xml" href="Assets/icons/Vejigante_mask_color.svg" />
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="Features/NavBar/nav-bar.css">
-    <link rel="stylesheet" href="Features/Product/product.css">
-    <link rel="stylesheet" href="Features/Footer/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" />
+    <link rel="stylesheet" href="main.min.css?v=36">
+    <link rel="stylesheet" href="Features/NavBar/nav-bar.min.css?v=23">
+    <link rel="stylesheet" href="Features/Product/product.min.css?v=23">
+    <link rel="stylesheet" href="Features/Footer/footer.min.css?v=23">
 </head>
 
 <body class="product-page-body">
@@ -72,7 +78,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-primary-buy">
+                    <button type="button" class="btn-primary-buy" aria-label="Añadir juego al carrito">
                         Añadir al carrito &rarr;
                     </button>
 
@@ -110,7 +116,7 @@
 
                     <div class="dlc-card-right">
                         <span class="dlc-price">$29.99</span>
-                        <button type="button" class="btn-dlc-add">Agregar</button>
+                        <button type="button" class="btn-dlc-add" aria-label="Agregar contenido descargable Phantom Liberty">Agregar</button>
                     </div>
                 </article>
             </div>
@@ -182,8 +188,9 @@
     </main>
 
     <div id="footer-container"></div>
-    <script src="products-data.js"></script>
-    <script src="main.js"></script>
+    <script src="products-data.min.js?v=3" defer></script>
+    <script src="main.min.js?v=37" defer></script>
+    <script src="Features/Product/product.min.js?v=36" defer></script>
 </body>
 
 </html>
