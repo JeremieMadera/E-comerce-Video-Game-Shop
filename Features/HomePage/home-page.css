@@ -70,17 +70,15 @@
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
-    will-change: opacity, transform;
+    z-index: 0;
+    transition: opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity;
+    pointer-events: none;
 }
 
 .carousel-bg-layer.active {
     opacity: 1;
-}
-
-@media (max-width: 768px) {
-    #carousel-bg-1 {
-        background-image: url('../../Assets/hero/gta-6-mobile.jpg') !important;
-    }
+    z-index: 1;
 }
 
 /* Contenedor Hero Desktop (100% de la altura de la portada) */
@@ -591,8 +589,14 @@
 }
 
 @media (max-width: 900px) {
+    .home-page {
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+        min-height: calc(100dvh - var(--navbar-height));
+    }
+
     .home-page-hero-main {
-        padding: 48px 20px 56px;
+        padding: 40px 20px 48px;
     }
 
     .home-page-player-one {
@@ -602,7 +606,9 @@
 
     .home-page-featured-game {
         position: static;
-        margin-top: 32px;
+        margin-top: 28px;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
