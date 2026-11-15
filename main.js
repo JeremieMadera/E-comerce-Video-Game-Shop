@@ -411,6 +411,7 @@
     {
       id: "gta-6",
       image: "Assets/hero/gta-6.jpg",
+      mobileImage: "Assets/hero/gta-6.jpg",
       shortTitle: "GTA VI",
       shortDesc: "Regresa a Vice City y el estado de Leonida en la experiencia de mundo abierto más esperada.",
       featName: "GRAND THEFT AUTO VI",
@@ -420,6 +421,7 @@
     {
       id: "hollow-knight",
       image: "Assets/hero/hollow-knight.jpg",
+      mobileImage: "Assets/hollow-knight.jpg",
       shortTitle: "Hollow Knight",
       shortDesc: "Explora las ruinas de Hallownest, un reino subterráneo de insectos y héroes.",
       featName: "HOLLOW KNIGHT",
@@ -429,6 +431,7 @@
     {
       id: "cyberpunk-2077",
       image: "Assets/hero/cyberpunk-2077.jpg",
+      mobileImage: "Assets/cyberpunk-2077.jpg",
       shortTitle: "Cyberpunk 2077",
       shortDesc: "Conviértete en leyenda en las peligrosas calles futuristas de Night City.",
       featName: "CYBERPUNK 2077",
@@ -438,6 +441,7 @@
     {
       id: "astro-bot",
       image: "Assets/hero/astro-bot.jpg",
+      mobileImage: "Assets/hero/astro-bot.jpg",
       shortTitle: "Astro Bot",
       shortDesc: "Diversión pura a través de más de 50 mundos mágicos en una aventura galáctica.",
       featName: "ASTRO BOT",
@@ -447,6 +451,7 @@
     {
       id: "god-of-war-ragnarok",
       image: "Assets/hero/god-of-war-ragnarok.jpg",
+      mobileImage: "Assets/god-of-war-ragnarok.jpg",
       shortTitle: "God of War",
       shortDesc: "Kratos y Atreus deben desafiar el destino nórdico ante la llegada del Ragnarök.",
       featName: "GOD OF WAR RAGNARÖK",
@@ -456,6 +461,7 @@
     {
       id: "mario-kart-8-deluxe",
       image: "Assets/hero/mario-kart-world.jpg",
+      mobileImage: "Assets/hero/mario-kart-world.jpg",
       shortTitle: "Mario Kart 8",
       shortDesc: "Compite a toda velocidad desafiando la gravedad en 48 circuitos vertiginosos.",
       featName: "MARIO KART 8 DELUXE",
@@ -484,11 +490,16 @@
     let inactiveLayer = bg2;
     let timer = null;
 
+    function getSlideImage(slide) {
+      const isMobile = window.innerWidth <= 900;
+      return (isMobile && slide.mobileImage) ? slide.mobileImage : slide.image;
+    }
+
     // Inicializar capas de fondo sin estilos inline conflictivos
     if (bg1) {
       bg1.style.opacity = "";
       bg1.style.zIndex = "";
-      bg1.style.backgroundImage = `url("${CAROUSEL_GAMES[0].image}")`;
+      bg1.style.backgroundImage = `url("${getSlideImage(CAROUSEL_GAMES[0])}")`;
       bg1.classList.add("active");
     }
     if (bg2) {
@@ -508,7 +519,7 @@
 
       // 1. Asignar imagen a la capa inactiva antes de mostrarla y alternar clases activas
       if (inactiveLayer) {
-        inactiveLayer.style.backgroundImage = `url("${nextSlide.image}")`;
+        inactiveLayer.style.backgroundImage = `url("${getSlideImage(nextSlide)}")`;
         inactiveLayer.classList.add("active");
       }
       if (activeLayer) {
@@ -561,6 +572,13 @@
     if (prevBtn) {
       prevBtn.addEventListener("click", handlePrev);
     }
+
+    // Reajustar imagen si el usuario gira el teléfono o cambia el tamaño de ventana
+    window.addEventListener("resize", () => {
+      if (activeLayer) {
+        activeLayer.style.backgroundImage = `url("${getSlideImage(CAROUSEL_GAMES[currentIndex])}")`;
+      }
+    });
 
     // Soporte táctil / deslizamiento para teléfonos móviles
     let touchStartX = 0;

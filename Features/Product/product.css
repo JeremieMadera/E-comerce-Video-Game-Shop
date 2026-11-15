@@ -111,7 +111,19 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
+  object-position: center top;
   display: block;
+}
+
+.product-cover-img[src*="zelda"] {
+  object-fit: contain;
+  background-color: var(--prod-surface);
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.product-cover-img[src*="gta-6"] {
+  object-position: center 18%;
 }
 
 .product-cover-caption {

@@ -590,25 +590,111 @@
 
 @media (max-width: 900px) {
     .home-page {
+        position: relative;
         height: auto;
         min-height: calc(100vh - var(--navbar-height));
         min-height: calc(100dvh - var(--navbar-height));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .home-carousel-backdrop {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .carousel-bg-layer {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center 25%;
+        background-repeat: no-repeat;
+    }
+
+    .home-carousel-backdrop::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+        background: linear-gradient(
+            180deg,
+            rgba(18, 16, 42, 0.25) 0%,
+            rgba(18, 16, 42, 0.55) 35%,
+            rgba(18, 16, 42, 0.88) 65%,
+            var(--home-ink) 100%
+        );
     }
 
     .home-page-hero-main {
-        padding: 40px 20px 48px;
+        position: relative;
+        z-index: 10;
+        padding: 44px 20px 48px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .home-page-title {
+        font-size: clamp(20px, 5.2vw, 28px);
+        line-height: 1.4;
+        min-height: auto;
+        margin-bottom: 16px;
+    }
+
+    .home-page-description {
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+        max-width: 100%;
     }
 
     .home-page-player-one {
         position: static;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
 
     .home-page-featured-game {
         position: static;
-        margin-top: 28px;
+        margin-top: 24px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px 18px;
+        background: rgba(32, 27, 60, 0.82);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(183, 171, 223, 0.25);
+        border-radius: 4px;
         align-items: flex-start;
         text-align: left;
+    }
+
+    .home-page-featured-name {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .home-page-featured-tagline {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .home-page-featured-price {
+        font-size: 16px;
+    }
+
+    .carousel-nav-arrows {
+        margin-top: 12px;
+        align-self: flex-end;
     }
 }
 
