@@ -260,7 +260,7 @@ const PRODUCTS = [
   {
     id: "zelda-ocarina-of-time",
     title: "THE LEGEND OF ZELDA",
-    subtitle: "Ocarina of Time",
+    subtitle: "Ocarina of Time Remake",
     genre: "Aventura",
     genreFull: "Aventura épica y exploración",
     platforms: ["nintendo"],
@@ -270,9 +270,9 @@ const PRODUCTS = [
     badge: "OBRA MAESTRA",
     hasDlc: false,
     rating: "5,0 / 5",
-    edition: "EDICIÓN LEGENDARIA",
+    edition: "EDICIÓN REMAKE",
     image: "Assets/zelda-ocarina-of-time.jpg",
-    description: "El legendario juego que revolucionó la historia de los videojuegos. Acompaña al joven Link en un viaje a través del tiempo por el reino de Hyrule, desafía mazmorras icónicas, aprende melodías mágicas con la Ocarina del Tiempo y salva a la Princesa Zelda.",
+    description: "La aclamada reconstrucción total del clásico atemporal para Nintendo Switch. Acompaña a Link en un viaje a través del tiempo por el reino de Hyrule con apartado gráfico y sonoro totalmente renovados, orquestación sinfónica y la magia de la Ocarina del Tiempo.",
     compatibility: "Idiomas: español, inglés y japonés · Compatible con mandos Joy-Con y Mando Pro",
     dlcs: [],
     requirements: {
@@ -765,17 +765,18 @@ const PRODUCTS = [
 const ALL_PRODUCTS = PRODUCTS;
 
 // Carrito en memoria (respaldado automáticamente en localStorage)
-const CART_STORAGE_KEY = "nexo_play_cart";
+const CART_STORAGE_KEY = "vejigames_cart";
 
 function getCartFromStorage() {
   try {
+    // Limpieza de datos dummy obsoletos si existían
+    if (localStorage.getItem("nexo_play_cart")) {
+      localStorage.removeItem("nexo_play_cart");
+    }
     const raw = localStorage.getItem(CART_STORAGE_KEY);
     if (!raw) {
-      // Estado inicial por defecto con títulos reales
-      return [
-        { productId: "cyberpunk-2077", hasDlc: true },
-        { productId: "bloodborne", hasDlc: true }
-      ];
+      // Carrito en 0 por primera vez
+      return [];
     }
     return JSON.parse(raw);
   } catch (e) {

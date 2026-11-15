@@ -1,0 +1,331 @@
+/**
+ * VEJIGAMES - Gestión de Cuenta y Registro (account.html)
+ * Formulario de autenticación, registro, perfil de usuario y control de sesión.
+ */
+
+(function () {
+  function initAccountPage() {
+    const card = document.querySelector(".account-card");
+    if (!card) return;
+
+    const tabLogin = document.getElementById("tab-login");
+    const tabRegister = document.getElementById("tab-register");
+    const viewLogin = document.getElementById("view-login");
+    const viewRegister = document.getElementById("view-register");
+    const viewProfile = document.getElementById("view-profile");
+    const modeTabs = document.querySelector(".account-mode-tabs");
+
+    const linkGoRegister = document.getElementById("link-go-register");
+    const linkGoLogin = document.getElementById("link-go-login");
+
+    const heroTitle = document.querySelector(".account-hero-title");
+    const heroDesc = document.querySelector(".account-hero-desc");
+
+    const formLogin = document.getElementById("account-login-form");
+    const formRegister = document.getElementById("account-register-form");
+
+    const loginAlert = document.getElementById("login-alert");
+    const registerAlert = document.getElementById("register-alert");
+
+    const btnLogout = document.getElementById("account-btn-logout");
+    const profileName = document.getElementById("profile-name");
+    const profileEmail = document.getElementById("profile-email");
+    const profileAvatar = document.getElementById("profile-avatar");
+    const profileCartCount = document.getElementById("profile-cart-count");
+
+    function getSavedUser() {
+      try {
+        const raw = localStorage.getItem("vejigames_user") || localStorage.getItem("isla_gaming_user");
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveUser(user) {
+      try {
+        localStorage.setItem("vejigames_user", JSON.stringify(user));
+      } catch (e) {}
+      if (window.VejiGames && typeof window.VejiGames.updateHeaderUser === "function") {
+        window.VejiGames.updateHeaderUser();
+      }
+    }
+
+    function clearUser() {
+      try {
+        localStorage.removeItem("vejigames_user");
+        localStorage.removeItem("isla_gaming_user");
+      } catch (e) {}
+      if (window.VejiGames && typeof window.VejiGames.updateHeaderUser === "function") {
+        window.VejiGames.updateHeaderUser();
+      }
+    }
+
+    function showAlert(el, msg, type = "error") {
+      if (!el) return;
+      el.textContent = msg;
+      el.className = `account-alert is-${type}`;
+      el.hidden = false;
+    }
+
+    function clearAlert(el) {
+      if (!el) return;
+      el.textContent = "";
+      el.hidden = true;
+    }
+
+    function switchMode(mode) {
+      clearAlert(loginAlert);
+      clearAlert(registerAlert);
+
+      const currentUser = getSavedUser();
+      if (mode === "profile" && currentUser) {
+        if (modeTabs) modeTabs.hidden = true;
+        if (viewLogin) viewLogin.hidden = true;
+        if (viewRegister) viewRegister.hidden = true;
+        if (viewProfile) {
+          viewProfile.hidden = false;
+          if (profileName) profileName.textContent = currentUser.name || "Jugador";
+          if (profileEmail) profileEmail.textContent = currentUser.email || "jugador@isla.pr";
+          if (profileAvatar) {
+            const initials = (currentUser.name || "PR")
+              .split(" ")
+              .filter(Boolean)
+              .map((w) => w[0])
+              .join("")
+              .toUpperCase()
+              .slice(0, 2);
+            profileAvatar.textContent = initials || "PR";
+          }
+          if (profileCartCount && typeof getCartFromStorage === "function") {
+            const cart = getCartFromStorage();
+            profileCartCount.textContent = cart.length;
+          }
+        }
+        if (heroTitle) heroTitle.innerHTML = `¡Hola,<br>${currentUser.name || "Jugador"}!`;
+        if (heroDesc) heroDesc.textContent = "Accede a tus juegos, claves descargables y pedidos activos en Puerto Rico.";
+        return;
+      }
+
+      if (modeTabs) modeTabs.hidden = false;
+      if (viewProfile) viewProfile.hidden = true;
+
+      if (mode === "register") {
+        if (tabRegister) {
+          tabRegister.classList.add("is-active");
+          tabRegister.setAttribute("aria-selected", "true");
+        }
+        if (tabLogin) {
+          tabLogin.classList.remove("is-active");
+          tabLogin.setAttribute("aria-selected", "false");
+        }
+        if (viewLogin) viewLogin.hidden = true;
+        if (viewRegister) viewRegister.hidden = false;
+        if (heroTitle) heroTitle.innerHTML = "Empieza tu<br>próxima<br>aventura.";
+        if (heroDesc) heroDesc.textContent = "Crea tu cuenta gratis, guarda tus juegos favoritos y recibe ofertas exclusivas en Puerto Rico.";
+      } else {
+        if (tabLogin) {
+          tabLogin.classList.add("is-active");
+          tabLogin.setAttribute("aria-selected", "true");
+        }
+        if (tabRegister) {
+          tabRegister.classList.remove("is-active");
+          tabRegister.setAttribute("aria-selected", "false");
+        }
+        if (viewRegister) viewRegister.hidden = true;
+        if (viewLogin) viewLogin.hidden = false;
+        if (heroTitle) heroTitle.innerHTML = "Vuelve a tu<br>próxima<br>aventura.";
+        if (heroDesc) heroDesc.textContent = "Accede a tus juegos, revisa tus pedidos y vuelve a descargar tus claves cuando quieras.";
+      }
+    }
+
+    // Botones de mostrar / ocultar contraseña
+    document.querySelectorAll(".account-toggle-pwd").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.dataset.target;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        if (input.type === "password") {
+          input.type = "text";
+          btn.textContent = "Ocultar";
+        } else {
+          input.type = "password";
+          btn.textContent = "Mostrar";
+        }
+      });
+    });
+
+    // Pestañas
+    if (tabLogin) {
+      tabLogin.addEventListener("click", () => {
+        if (history.replaceState) history.replaceState(null, "", "#login");
+        switchMode("login");
+      });
+    }
+    if (tabRegister) {
+      tabRegister.addEventListener("click", () => {
+        if (history.replaceState) history.replaceState(null, "", "#register");
+        switchMode("register");
+      });
+    }
+
+    // Enlaces inferiores de alternar
+    if (linkGoRegister) {
+      linkGoRegister.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (history.replaceState) history.replaceState(null, "", "#register");
+        switchMode("register");
+      });
+    }
+    if (linkGoLogin) {
+      linkGoLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (history.replaceState) history.replaceState(null, "", "#login");
+        switchMode("login");
+      });
+    }
+
+    // Envío del formulario de Registro
+    if (formRegister) {
+      formRegister.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAlert(registerAlert);
+
+        const name = (document.getElementById("register-name")?.value || "").trim();
+        const email = (document.getElementById("register-email")?.value || "").trim().toLowerCase();
+        const password = document.getElementById("register-password")?.value || "";
+        const passwordConfirm = document.getElementById("register-password-confirm")?.value || "";
+        const termsChecked = document.getElementById("register-terms")?.checked;
+
+        if (name.length < 2) {
+          showAlert(registerAlert, "Por favor escribe tu nombre o Gamertag (mínimo 2 caracteres).");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showAlert(registerAlert, "Introduce un correo electrónico válido.");
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert(registerAlert, "La contraseña debe tener al menos 6 caracteres.");
+          return;
+        }
+
+        if (password !== passwordConfirm) {
+          showAlert(registerAlert, "Las contraseñas no coinciden. Verifícalas.");
+          return;
+        }
+
+        if (!termsChecked) {
+          showAlert(registerAlert, "Debes aceptar los términos y condiciones para continuar.");
+          return;
+        }
+
+        const newUser = {
+          name,
+          email,
+          createdAt: new Date().toISOString()
+        };
+        saveUser(newUser);
+
+        showAlert(registerAlert, `¡Cuenta creada con éxito! Bienvenido, ${name}.`, "success");
+
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get("redirect");
+          if (redirect) {
+            window.location.href = redirect;
+          } else {
+            switchMode("profile");
+          }
+        }, 700);
+      });
+    }
+
+    // Envío del formulario de Login
+    if (formLogin) {
+      formLogin.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAlert(loginAlert);
+
+        const email = (document.getElementById("account-email")?.value || "").trim().toLowerCase();
+        const password = document.getElementById("account-password")?.value || "";
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showAlert(loginAlert, "Introduce un correo electrónico válido.");
+          return;
+        }
+
+        if (!password) {
+          showAlert(loginAlert, "Por favor introduce tu contraseña.");
+          return;
+        }
+
+        let user = getSavedUser();
+        if (!user || user.email !== email) {
+          const inferredName = email.split("@")[0];
+          user = {
+            name: inferredName.charAt(0).toUpperCase() + inferredName.slice(1),
+            email,
+            createdAt: new Date().toISOString()
+          };
+          saveUser(user);
+        }
+
+        showAlert(loginAlert, `¡Sesión iniciada con éxito! Bienvenido de nuevo, ${user.name}.`, "success");
+
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get("redirect");
+          if (redirect) {
+            window.location.href = redirect;
+          } else {
+            switchMode("profile");
+          }
+        }, 500);
+      });
+    }
+
+    // Olvidó contraseña (demo feedback)
+    const linkForgot = document.getElementById("account-link-forgot");
+    if (linkForgot) {
+      linkForgot.addEventListener("click", (e) => {
+        e.preventDefault();
+        const email = (document.getElementById("account-email")?.value || "").trim();
+        if (email) {
+          showAlert(loginAlert, `Hemos enviado un enlace de recuperación a ${email}.`, "success");
+        } else {
+          showAlert(loginAlert, "Escribe tu correo arriba y vuelve a hacer clic para recibir el enlace de recuperación.");
+        }
+      });
+    }
+
+    // Botón Cerrar Sesión
+    if (btnLogout) {
+      btnLogout.addEventListener("click", () => {
+        clearUser();
+        switchMode("login");
+      });
+    }
+
+    // Inicializar estado según URL hash o sesión activa
+    const activeUser = getSavedUser();
+    const hash = window.location.hash.toLowerCase();
+    if (activeUser && hash !== "#login" && hash !== "#register" && hash !== "#crear-cuenta") {
+      switchMode("profile");
+    } else if (hash === "#register" || hash === "#crear-cuenta") {
+      switchMode("register");
+    } else {
+      switchMode("login");
+    }
+  }
+
+  window.initAccountPage = initAccountPage;
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAccountPage);
+  } else {
+    initAccountPage();
+  }
+})();

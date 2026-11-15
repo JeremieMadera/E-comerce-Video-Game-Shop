@@ -169,10 +169,11 @@
 }
 
 .footer-logo-img {
-    width: 26px;
-    height: 34px;
+    width: 38px;
+    height: 50px;
     object-fit: contain;
-    filter: drop-shadow(0 0 6px rgba(213, 255, 82, 0.35));
+    filter: drop-shadow(0 0 8px rgba(213, 255, 82, 0.4));
+    flex-shrink: 0;
 }
 
 #footer-container > footer > p:nth-of-type(1) {
@@ -234,9 +235,12 @@
 }
 
 #footer-container > footer h3 {
-    font-size: 14px;
-    font-weight: 700;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    font-weight: 400;
     line-height: 1.6;
+    letter-spacing: 0.04em;
+    color: #f4f4ee;
 }
 
 #footer-container > footer > h3:nth-of-type(1) {
@@ -245,11 +249,13 @@
     padding-left: 64px;
 }
 
-#footer-container > footer > nav[aria-label="Explora"] {
+#footer-container > footer > nav[aria-label="Explora"],
+#footer-container > footer > nav[aria-label="Enlaces de navegación del pie de página"] {
     grid-column: 2;
     grid-row: 2 / span 2;
     padding: 8px 0 0 64px;
     color: #b7abdf;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 13px;
     line-height: 1.8;
 }
@@ -325,9 +331,21 @@
 }
 
 #footer-container > footer > nav[aria-label="Explora"] a,
+#footer-container > footer > nav[aria-label="Enlaces de navegación del pie de página"] a,
 #footer-container > footer > nav[aria-label="Enlaces legales"] a {
     color: #b7abdf;
     text-decoration: none;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    transition: color 180ms ease, transform 180ms ease;
+    display: inline-block;
+}
+
+#footer-container > footer > nav[aria-label="Explora"] a:hover,
+#footer-container > footer > nav[aria-label="Enlaces de navegación del pie de página"] a:hover,
+#footer-container > footer > nav[aria-label="Enlaces legales"] a:hover {
+    color: #d5ff52;
+    transform: translateY(-1px);
 }
 
 #footer-container a:hover {
@@ -392,6 +410,7 @@
     #footer-container > footer > nav[aria-label="Redes sociales"],
     #footer-container > footer > h3:nth-of-type(1),
     #footer-container > footer > nav[aria-label="Explora"],
+    #footer-container > footer > nav[aria-label="Enlaces de navegación del pie de página"],
     #footer-container > footer > h3:nth-of-type(2),
     #footer-container > footer > p:nth-of-type(2),
     #footer-container > footer > p:nth-of-type(3),
