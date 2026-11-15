@@ -139,7 +139,19 @@ body.cart-page-body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
+}
+
+.cart-item-thumb[src*="zelda"] {
+  object-fit: contain;
+  background-color: #12102a;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.cart-item-thumb[src*="gta-6"] {
+  object-position: center 18%;
 }
 
 /* Información del juego */

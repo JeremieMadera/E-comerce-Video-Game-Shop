@@ -387,11 +387,11 @@
   }
 }
 
-/* Contenedor de Carátula */
+/* Contenedor de Carátula (Proporción vertical 3:4 óptima para carátulas de videojuegos) */
 .game-card-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3.4;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   background-color: #12102a;
 }
@@ -400,8 +400,28 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Casos particulares para encuadre perfecto sin recortes */
+.game-card[data-id="zelda-ocarina-of-time"] .game-card-img,
+.game-card-img[src*="zelda"] {
+  object-fit: contain;
+  background-color: #12102a;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.game-card[data-id="gta-6"] .game-card-img,
+.game-card-img[src*="gta-6"] {
+  object-position: center 18%;
+}
+
+.game-card[data-id="mario-kart-world"] .game-card-img,
+.game-card-img[src*="mario-kart"] {
+  object-position: center top;
 }
 
 /* Badges sobre la portada con resplandor arcade */
@@ -882,9 +902,15 @@
     animation-duration: 22s;
   }
   .offers-marquee-group .offer-card {
-    flex: 0 0 260px;
+    flex: 0 0 240px;
   }
   .offers-title {
     font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .offers-marquee-group .offer-card {
+    flex: 0 0 210px;
   }
 }
