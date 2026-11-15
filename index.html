@@ -66,17 +66,16 @@
     <!-- Optimizaciones de rendimiento: Resource Hints y Preload LCP y Fuentes Críticas -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="Assets/hero/gta-6-mobile.jpg" media="(max-width: 768px)" fetchpriority="high" />
-    <link rel="preload" as="image" href="Assets/hero/gta-6.jpg" media="(min-width: 769px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="Assets/hero/gta-6.jpg" fetchpriority="high" />
     <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v16/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" /></noscript>
 
     <!-- CSS Crítico (Above-the-fold) y Diferido (Below-the-fold) -->
-    <link rel="stylesheet" href="critical.min.css?v=40" />
-    <link rel="stylesheet" href="Features/deferred.min.css?v=40" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="Features/deferred.min.css?v=40" /></noscript>
+    <link rel="stylesheet" href="critical.min.css?v=42" />
+    <link rel="stylesheet" href="Features/deferred.min.css?v=42" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="Features/deferred.min.css?v=42" /></noscript>
 
     <!-- Inicialización de scroll instantánea: siempre empezar y recargar en Inicio -->
     <script>
@@ -156,8 +155,8 @@
       <section class="home-page" id="hero-carousel" aria-label="Juegos Destacados">
         <!-- Capas de fondo animadas -->
         <div class="home-carousel-backdrop" id="carousel-backdrop">
-          <div class="carousel-bg-layer" id="carousel-bg-1" style="background-image: url('Assets/hero/gta-6.jpg'); opacity: 1; z-index: 1;"></div>
-          <div class="carousel-bg-layer" id="carousel-bg-2" style="opacity: 0; z-index: 0;"></div>
+          <div class="carousel-bg-layer active" id="carousel-bg-1" style="background-image: url('Assets/hero/gta-6.jpg');"></div>
+          <div class="carousel-bg-layer" id="carousel-bg-2"></div>
         </div>
 
         <div class="home-page-hero-main">
@@ -638,6 +637,6 @@
 
     <script src="Assets/vendor/anime.min.js" defer></script>
     <script src="products-data.min.js?v=4" defer></script>
-    <script src="main.min.js?v=40" defer></script>
+    <script src="main.min.js?v=42" defer></script>
   </body>
 </html>

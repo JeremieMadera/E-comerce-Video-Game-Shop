@@ -480,129 +480,68 @@
     const featuredCard = document.getElementById("carousel-featured-card");
 
     let currentIndex = 0;
-    let activeLayerIndex = 1; // 1 = bg1 visible, 2 = bg2 visible
-    let isAnimating = false;
+    let activeLayer = bg1;
+    let inactiveLayer = bg2;
     let timer = null;
-    let safetyTimeout = null;
 
-    // Inicializar capas de fondo de forma explícita
+    // Inicializar capas de fondo sin estilos inline conflictivos
     if (bg1) {
+      bg1.style.opacity = "";
+      bg1.style.zIndex = "";
       bg1.style.backgroundImage = `url("${CAROUSEL_GAMES[0].image}")`;
-      bg1.style.opacity = "1";
-      bg1.style.zIndex = "1";
+      bg1.classList.add("active");
     }
     if (bg2) {
-      bg2.style.opacity = "0";
-      bg2.style.zIndex = "0";
+      bg2.style.opacity = "";
+      bg2.style.zIndex = "";
+      bg2.classList.remove("active");
     }
 
-    // Iniciar temporizador del carrusel (la animación de entrada se gestiona por CSS en la GPU)
-    function playHeroEntrance() {
-      startTimer();
-    }
-
-    function finalizeLayers(activeLayer, inactiveLayer) {
-      if (typeof anime !== "undefined") {
-        anime.remove(activeLayer);
-        anime.remove(inactiveLayer);
-      }
-      if (activeLayer) {
-        activeLayer.style.opacity = "1";
-        activeLayer.style.zIndex = "1";
-      }
-      if (inactiveLayer) {
-        inactiveLayer.style.opacity = "0";
-        inactiveLayer.style.zIndex = "0";
-      }
-      isAnimating = false;
-      if (safetyTimeout) {
-        clearTimeout(safetyTimeout);
-        safetyTimeout = null;
-      }
-    }
-
-    // Cambiar diapositiva con transición suave y segura
+    // Cambiar diapositiva con aceleración por hardware (GPU)
     function goToSlide(targetIndex) {
       const total = CAROUSEL_GAMES.length;
       const newIndex = ((targetIndex % total) + total) % total;
       if (newIndex === currentIndex) return;
 
-      const currentLayer = activeLayerIndex === 1 ? bg1 : bg2;
-      const nextLayer = activeLayerIndex === 1 ? bg2 : bg1;
-
-      // Si había una animación en curso, finalizarla de inmediato para no atascar
-      if (isAnimating) {
-        finalizeLayers(currentLayer, nextLayer);
-      }
-
       currentIndex = newIndex;
       const nextSlide = CAROUSEL_GAMES[newIndex];
 
-      // 1. Preparar la capa entrante con la nueva imagen
-      if (nextLayer) {
-        nextLayer.style.backgroundImage = `url("${nextSlide.image}")`;
-        nextLayer.style.opacity = "0";
-        nextLayer.style.zIndex = "2";
+      // 1. Asignar imagen a la capa inactiva antes de mostrarla y alternar clases activas
+      if (inactiveLayer) {
+        inactiveLayer.style.backgroundImage = `url("${nextSlide.image}")`;
+        inactiveLayer.classList.add("active");
       }
-      if (currentLayer) {
-        currentLayer.style.zIndex = "1";
-      }
-
-      // 2. Actualizar el breve texto descriptivo del juego y la tarjeta destacada
-      if (gameDescEl && nextSlide.shortDesc) {
-        gameDescEl.textContent = nextSlide.shortDesc;
-      }
-      if (featName) featName.textContent = nextSlide.featName;
-      if (featTagline) featTagline.textContent = nextSlide.featTagline;
-      if (featPrice) featPrice.textContent = nextSlide.featPrice;
-      if (featuredLink) {
-        featuredLink.textContent = `Ver ${nextSlide.shortTitle || nextSlide.featName} →`;
-        featuredLink.href = `product.html?id=${nextSlide.id}`;
+      if (activeLayer) {
+        activeLayer.classList.remove("active");
       }
 
-      isAnimating = true;
+      // Intercambiar referencias de capas
+      const temp = activeLayer;
+      activeLayer = inactiveLayer;
+      inactiveLayer = temp;
 
-      // 3. Transición cruzada fluida con anime.js
-      if (typeof anime !== "undefined" && nextLayer && currentLayer) {
-        anime({
-          targets: nextLayer,
-          opacity: [0, 1],
-          duration: 600,
-          easing: "easeOutQuad",
-          complete: function () {
-            activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
-            finalizeLayers(nextLayer, currentLayer);
-          }
+      // 2. Transición suave de los textos de la tarjeta
+      const textEls = [gameDescEl, featName, featTagline, featPrice, featuredLink].filter(Boolean);
+      textEls.forEach((el) => {
+        el.style.transition = "opacity 0.25s ease";
+        el.style.opacity = "0.35";
+      });
+
+      setTimeout(() => {
+        if (gameDescEl && nextSlide.shortDesc) {
+          gameDescEl.textContent = nextSlide.shortDesc;
+        }
+        if (featName) featName.textContent = nextSlide.featName;
+        if (featTagline) featTagline.textContent = nextSlide.featTagline;
+        if (featPrice) featPrice.textContent = nextSlide.featPrice;
+        if (featuredLink) {
+          featuredLink.textContent = `Ver ${nextSlide.shortTitle || nextSlide.featName} →`;
+          featuredLink.href = `product.html?id=${nextSlide.id}`;
+        }
+        textEls.forEach((el) => {
+          el.style.opacity = "1";
         });
-
-        anime({
-          targets: currentLayer,
-          opacity: [1, 0],
-          duration: 600,
-          easing: "easeOutQuad"
-        });
-
-        anime({
-          targets: ["#hero-game-desc", "#carousel-feat-name", "#carousel-feat-tagline", "#carousel-feat-price"],
-          opacity: [0.4, 1],
-          duration: 250,
-          easing: "easeOutQuad"
-        });
-
-        // Seguro contra congelamiento por callbacks no ejecutados
-        safetyTimeout = setTimeout(() => {
-          if (isAnimating) {
-            activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
-            finalizeLayers(nextLayer, currentLayer);
-          }
-        }, 750);
-      } else {
-        // Fallback directo sin dependencias
-        if (nextLayer) nextLayer.style.opacity = "1";
-        if (currentLayer) currentLayer.style.opacity = "0";
-        activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
-        finalizeLayers(nextLayer, currentLayer);
-      }
+      }, 180);
     }
 
     function handleNext() {
@@ -615,16 +554,34 @@
       goToSlide(currentIndex - 1);
     }
 
-    // Flechas de navegación abajo a la derecha
+    // Flechas de navegación
     if (nextBtn) {
       nextBtn.addEventListener("click", handleNext);
     }
-
     if (prevBtn) {
       prevBtn.addEventListener("click", handlePrev);
     }
 
-    // Temporizador automático continuo cada 4 segundos
+    // Soporte táctil / deslizamiento para teléfonos móviles
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carouselEl.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselEl.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 45) {
+        if (diff < 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+    }, { passive: true });
+
+    // Temporizador automático continuo cada 5 segundos
     function stopTimer() {
       if (timer) {
         clearInterval(timer);
@@ -636,7 +593,7 @@
       stopTimer();
       timer = setInterval(() => {
         goToSlide(currentIndex + 1);
-      }, 5000); // 5 segundos para disfrutar de cada juego
+      }, 5000);
     }
 
     function restartTimer() {
@@ -644,14 +601,13 @@
       startTimer();
     }
 
-    // Pausar auto-avance únicamente si el usuario sitúa el ratón encima de la tarjeta/botones
+    // Pausar si el ratón está encima de la tarjeta destacada
     if (featuredCard) {
       featuredCard.addEventListener("mouseenter", stopTimer);
       featuredCard.addEventListener("mouseleave", startTimer);
     }
 
-    // Iniciar animación y rotación del Hero
-    playHeroEntrance();
+    startTimer();
   }
 
   // =========================================================
